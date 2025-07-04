@@ -116,6 +116,7 @@ export default function Home() {
                 fontWeight: 700,
                 color: "secondary.main",
                 mb: 1,
+                marginLeft: 7,
                 letterSpacing: 1,
               }}
             >
@@ -123,11 +124,11 @@ export default function Home() {
             </Typography>
             <Typography
               variant="h5"
-              sx={{ color: "text.primary", fontWeight: 400, mb: 2 }}
+              sx={{ color: "text.primary", marginLeft: 7,fontWeight: 400, mb: 2 }}
             >
               Bilgisayar Mühendisi & Backend Developer
             </Typography>
-            <Typography variant="body1" sx={{ color: "text.secondary", mb: 3 }}>
+            <Typography variant="body1" sx={{ color: "text.secondary",marginLeft: 7, mb: 3 }}>
             Java + Spring Boot tarafında backend geliştiriyorum. Temiz kod, iyi mimari ve performans odaklı sistemler ilgi alanım. Hobi olarak da modern web uygulamaları tasarlayıp frontend dünyasında kendimi geliştiriyorum.
             </Typography>
             <Box>
@@ -135,7 +136,7 @@ export default function Home() {
                 color="inherit"
                 href="https://github.com/muhammetfisek"
                 target="_blank"
-                sx={{ color: "text.primary" }}
+                sx={{ color: "text.primary",marginLeft: 7 }}
               >
                 <GitHubIcon fontSize="large" />
               </IconButton>
@@ -172,13 +173,13 @@ export default function Home() {
               justifyContent: "center",
               alignItems: "center",
               minWidth: 300,
-              mt: { xs: 4, md: 0,},
+              mt: { xs: 4, md: 0 },
             }}
           >
             <Avatar
               alt="Muhammet Fişek"
               src={ppPhoto}
-              sx={{ width: 300, height: 300, border: "4px solid", borderColor: "secondary.main" }}
+              sx={{ width: 300, height: 300, border: "4px solid",marginLeft: 19, borderColor: "secondary.main" }}
             />
           </Box>
         </Box>
@@ -187,12 +188,12 @@ export default function Home() {
       <Fade in={show} timeout={1200}>
         <Box sx={{ display: "flex", justifyContent: "center", mt: 2 }}>
           <IconButton
-            sx={{ bgcolor: "primary.main",bottom: 40, color: "#fff", p: 2, "&:hover": { bgcolor: "secondary.main" } }}
+            sx={{ bgcolor: "primary.main",bottom: 30, color: "#fff", p: 2, "&:hover": { bgcolor: "secondary.main" } }}
             onClick={() => {
               window.scrollTo({ top: window.innerHeight, behavior: "smooth" });
             }}
           >
-            <ArrowDownwardIcon fontSize="large" />
+            <ArrowDownwardIcon fontSize="medium" />
           </IconButton>
         </Box>
       </Fade>
