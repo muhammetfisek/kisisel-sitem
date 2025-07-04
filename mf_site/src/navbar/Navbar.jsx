@@ -14,31 +14,40 @@ import ListItemText from "@mui/material/ListItemText";
 import Divider from "@mui/material/Divider";
 import useMediaQuery from '@mui/material/useMediaQuery';
 import { useTheme } from '@mui/material/styles';
+import { useNavigate } from 'react-router-dom';
 
 const menuItems = [
-  "Ana Sayfa",
-  "Hakkımda",
-  "Yeteneklerim",
-  "Deneyim",
-  "Projeler",
-  "İletişim",
+  { label: "Ana Sayfa", path: "/" },
+  { label: "Hakkımda", path: "/hakkimda" },
+  { label: "Yeteneklerim", path: "/yeteneklerim" },
+  { label: "Deneyim", path: "/deneyim" },
+  { label: "Projeler", path: "/projeler" },
+  { label: "İletişim", path: "/iletisim" },
 ];
 
-export default function Navbar({ darkMode, setDarkMode }) {
+export default function Navbar({ darkMode, setDarkMode, onScrollTo }) {
   const [drawerOpen, setDrawerOpen] = React.useState(false);
   const theme = useTheme();
   const isMobile = useMediaQuery(theme.breakpoints.down('md'));
+  const navigate = typeof window !== 'undefined' ? (path) => window.location.hash = path : () => {};
 
   const handleMenuClick = (item) => {
-    if (item === "Ana Sayfa") {
-      window.location.reload();
+    if (item.label === "Ana Sayfa") {
+      if (typeof window !== 'undefined' && window.scrollY < 100) {
+        window.location.reload();
+      } else {
+        window.scrollTo({ top: 0, behavior: "smooth" });
+      }
+    } else if (item.label === "Hakkımda" && onScrollTo) {
+      onScrollTo("hakkimda");
+    } else {
+      // Diğer menüler için ileride ekleme yapılabilir
     }
-    // Diğer menüler için ileride ekleme yapılabilir
     setDrawerOpen(false); // Drawer açıksa kapat
   };
 
   return (
-    <AppBar position="static" sx={{ bgcolor: "background.paper" }}>
+    <AppBar position="fixed" sx={{ bgcolor: "background.paper" }}>
       <Toolbar sx={{ justifyContent: "center", position: "relative", minHeight: 64, px: { xs: 1, sm: 2 } }}>
         {/* Sol: Dark Mode */}
         <Box sx={{ position: "absolute", left: 8, display: "flex", alignItems: "center", height: 1 }}>
@@ -74,10 +83,10 @@ export default function Navbar({ darkMode, setDarkMode }) {
               <Divider />
               <List>
                 {menuItems.map((item) => (
-                  <ListItem key={item} disablePadding>
+                  <ListItem key={item.label} disablePadding>
                     <ListItemButton onClick={() => handleMenuClick(item)}>
                       <ListItemText
-                        primary={item}
+                        primary={item.label}
                         primaryTypographyProps={{
                           sx: {
                             color: "text.primary",
@@ -122,7 +131,7 @@ export default function Navbar({ darkMode, setDarkMode }) {
           <Box sx={{ display: "flex", gap: 2, justifyContent: "center", flex: 1 }}>
             {menuItems.map((item) => (
               <Button
-                key={item}
+                key={item.label}
                 sx={{
                   color: "text.primary",
                   fontWeight: 500,
@@ -141,7 +150,7 @@ export default function Navbar({ darkMode, setDarkMode }) {
                 }}
                 onClick={() => handleMenuClick(item)}
               >
-                {item}
+                {item.label}
               </Button>
             ))}
           </Box>

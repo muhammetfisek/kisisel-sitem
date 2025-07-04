@@ -1,12 +1,15 @@
-import React from "react";
+import React, { useRef } from "react";
 import Box from "@mui/material/Box";
 import { ThemeProvider, createTheme } from "@mui/material/styles";
 import CssBaseline from "@mui/material/CssBaseline";
 import Navbar from "./navbar/Navbar";
 import Home from "./home/Home";
+import Hakkimda from "./hakkimda/Hakkimda";
 
 export default function App() {
   const [darkMode, setDarkMode] = React.useState(true);
+  const anasayfaRef = useRef(null);
+  const hakkimdaRef = useRef(null);
 
   const theme = React.useMemo(
     () =>
@@ -28,12 +31,23 @@ export default function App() {
     [darkMode]
   );
 
+  const handleScrollTo = (section) => {
+    if (section === "hakkimda" && hakkimdaRef.current) {
+      hakkimdaRef.current.scrollIntoView({ behavior: "smooth" });
+    } else if (section === "anasayfa" && anasayfaRef.current) {
+      anasayfaRef.current.scrollIntoView({ behavior: "smooth" });
+    }
+  };
+
   return (
     <ThemeProvider theme={theme}>
       <CssBaseline />
-      <Box sx={{ minHeight: "100vh", bgcolor: "background.default", width: "100vw", minWidth: "100vw" }}>
-        <Navbar darkMode={darkMode} setDarkMode={setDarkMode} />
+      <Box sx={{ minHeight: "100vh", bgcolor: "background.default", width: "100vw", minWidth: "100vw", pt: '64px' }}>
+        <Navbar darkMode={darkMode} setDarkMode={setDarkMode} onScrollTo={handleScrollTo} />
+        <div ref={anasayfaRef} />
         <Home />
+        <div ref={hakkimdaRef} />
+        <Hakkimda />
       </Box>
     </ThemeProvider>
   );
