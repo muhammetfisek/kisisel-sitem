@@ -25,7 +25,20 @@ const menuItems = [
   { label: "İletişim", path: "/iletisim" },
 ];
 
-export default function Navbar({ darkMode, setDarkMode, onScrollTo }) {
+// Türkçe karakterleri normalize eden fonksiyon
+function normalizeId(str) {
+  return str
+    .toLowerCase()
+    .replace(/ı/g, 'i')
+    .replace(/ğ/g, 'g')
+    .replace(/ü/g, 'u')
+    .replace(/ş/g, 's')
+    .replace(/ö/g, 'o')
+    .replace(/ç/g, 'c')
+    .replace(/\s+/g, '');
+}
+
+export default function Navbar({ darkMode, setDarkMode, onScrollTo, activeMenu }) {
   const [drawerOpen, setDrawerOpen] = React.useState(false);
   const theme = useTheme();
   const isMobile = useMediaQuery(theme.breakpoints.down('md'));
@@ -49,7 +62,7 @@ export default function Navbar({ darkMode, setDarkMode, onScrollTo }) {
   };
 
   return (
-    <AppBar position="fixed" sx={{ bgcolor: "background.paper" }}>
+    <AppBar position="fixed" sx={{ bgcolor: "background.paper", zIndex: (theme) => theme.zIndex.drawer + 2 }}>
       <Toolbar sx={{ justifyContent: "center", position: "relative", minHeight: 64, px: { xs: 1, sm: 2 } }}>
         {/* Sol: Dark Mode */}
         <Box sx={{ position: "absolute", left: 8, display: "flex", alignItems: "center", height: 1 }}>
@@ -131,30 +144,37 @@ export default function Navbar({ darkMode, setDarkMode, onScrollTo }) {
           </>
         ) : (
           <Box sx={{ display: "flex", gap: 2, justifyContent: "center", flex: 1 }}>
-            {menuItems.map((item) => (
-              <Button
-                key={item.label}
-                sx={{
-                  color: "text.primary",
-                  fontWeight: 500,
-                  fontSize: 18,
-                  transition: "all 0.2s",
-                  borderRadius: 3,
-                  px: 2,
-                  textTransform: "none",
-                  '&:hover': {
-                    bgcolor: 'transparent',
-                    color: 'text.primary',
-                    boxShadow: 3,
-                    border: '2px solid',
-                    borderColor: 'secondary.main',
-                  },
-                }}
-                onClick={() => handleMenuClick(item)}
-              >
-                {item.label}
-              </Button>
-            ))}
+            {menuItems.map((item) => {
+              const itemId = normalizeId(item.label);
+              const normalizedActive = normalizeId(activeMenu || "");
+              return (
+                <Button
+                  key={item.label}
+                  sx={{
+                    color: normalizedActive === itemId ? "secondary.main" : "text.primary",
+                    fontWeight: 500,
+                    fontSize: 18,
+                    borderRadius: 3,
+                    px: 2,
+                    textTransform: "none",
+                    border: normalizedActive === itemId ? '2px solid' : 'none',
+                    borderColor: normalizedActive === itemId ? 'secondary.main' : 'transparent',
+                    boxShadow: normalizedActive === itemId ? 3 : 'none',
+                    transition: "all 0.2s",
+                    '&:hover': {
+                      bgcolor: 'transparent',
+                      color: 'text.primary',
+                      boxShadow: 3,
+                      border: '2px solid',
+                      borderColor: 'secondary.main',
+                    },
+                  }}
+                  onClick={() => handleMenuClick(item)}
+                >
+                  {item.label}
+                </Button>
+              );
+            })}
           </Box>
         )}
         {/* Sağ: Bayraklar (mobilde de görünür) */}

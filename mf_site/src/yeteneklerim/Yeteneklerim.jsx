@@ -17,7 +17,7 @@ const skills = [
     color: "#2196f3",
     items: [
       { name: "Java - Spring Framework ", level: 80 },
-      { name: "Android(Java)", level: 70 },
+      { name: "Mobil - Android(Java)", level: 70 },
       { name: "C#", level: 70 },
       { name: "C", level: 75 },
       { name: "JavaScript", level: 78 },

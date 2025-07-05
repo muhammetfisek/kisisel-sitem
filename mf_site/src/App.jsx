@@ -1,4 +1,4 @@
-import React, { useRef } from "react";
+import React, { useRef, useState, useEffect } from "react";
 import Box from "@mui/material/Box";
 import { ThemeProvider, createTheme } from "@mui/material/styles";
 import CssBaseline from "@mui/material/CssBaseline";
@@ -12,6 +12,7 @@ export default function App() {
   const anasayfaRef = useRef(null);
   const hakkimdaRef = useRef(null);
   const yeteneklerimRef = useRef(null);
+  const [activeSection, setActiveSection] = useState("anasayfa");
 
   const theme = React.useMemo(
     () =>
@@ -43,11 +44,40 @@ export default function App() {
     }
   };
 
+  useEffect(() => {
+    const handleScroll = () => {
+      const scrollY = window.scrollY;
+      const offset = 100; // Navbar yüksekliği kadar offset
+      const sections = [
+        { id: "anasayfa", ref: anasayfaRef },
+        { id: "hakkimda", ref: hakkimdaRef },
+        { id: "yeteneklerim", ref: yeteneklerimRef },
+      ];
+      for (let i = sections.length - 1; i >= 0; i--) {
+        const section = sections[i];
+        if (section.ref.current) {
+          const top = section.ref.current.offsetTop;
+          if (scrollY + offset >= top) {
+            setActiveSection(section.id);
+            break;
+          }
+        }
+      }
+    };
+    window.addEventListener("scroll", handleScroll);
+    return () => window.removeEventListener("scroll", handleScroll);
+  }, []);
+
   return (
     <ThemeProvider theme={theme}>
       <CssBaseline />
       <Box sx={{ minHeight: "100vh", bgcolor: "background.default", width: "100vw", minWidth: "100vw", pt: '64px' }}>
-        <Navbar darkMode={darkMode} setDarkMode={setDarkMode} onScrollTo={handleScrollTo} />
+        <Navbar
+          darkMode={darkMode}
+          setDarkMode={setDarkMode}
+          onScrollTo={handleScrollTo}
+          activeMenu={activeSection}
+        />
         <div ref={anasayfaRef} />
         <Home />
         <div ref={hakkimdaRef} />
