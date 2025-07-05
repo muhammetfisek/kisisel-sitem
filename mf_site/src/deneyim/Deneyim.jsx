@@ -7,22 +7,25 @@ import WorkIcon from '@mui/icons-material/Work';
 import SchoolIcon from '@mui/icons-material/School';
 import LocationOnIcon from '@mui/icons-material/LocationOn';
 import CalendarMonthIcon from '@mui/icons-material/CalendarMonth';
+import { useTheme } from '@mui/material/styles';
 
 const deneyimler = [
-  {
-    title: "iOS Developer",
-    company: "Serbest Çalışma",
-    date: "Eylül 2024 - Devam Ediyor",
-    location: "Bursa, Türkiye - Uzaktan",
-    description: "SwiftUI kullanarak mobil uygulamalar geliştiriyorum. Kullanıcı dostu arayüzler tasarlayıp, modern iOS geliştirme pratiklerini kullanarak performanslı uygulamalar yaratıyorum.",
-  },
-  {
-    title: "Stajyer Yazılım Geliştirici",
-    company: "BELSİS Yazılım",
-    date: "Temmuz 2024 - Ağustos 2024",
-    location: "Bursa, Türkiye - Ofisten",
-    description: "Staj sürecinde Odoo kullanarak modül geliştirme konusunda deneyim kazandım. Ekip çalışması ve yazılım geliştirme süreçleri hakkında bilgi edindim.",
-  },
+    {
+        title: "Backend Developer",
+        company: "Serbest Çalışma",
+        date: " Şubat 2025 - Devam Ediyor",
+        location: "İstanbul, Türkiye - Uzaktan",
+        description: "Kendi geliştirmiş olduğum uygulamamın backend kısmını yazıyorum",
+      },
+    {
+        title: "Stajyer Yazılım Geliştirici",
+        company: "Staj Okulu , Exedra Bilişim Çözümleri",
+        date: "Temmuz 2024 - Ağustos 2024",
+        location: "İstnabul-Üsküdar, Türkiye - Ofisten",
+        description: "Staj okulu sürecinde sektörün önde gelen firmalarından uzmanların gerçekleştirdiği seminer ve sunumlar sayesinde yazılım geliştirme süreçleri, kariyer planlaması ve güncel teknolojiler hakkında değerli bilgiler edindim.",
+      },
+  
+  
 ];
 
 const egitimler = [
@@ -31,13 +34,13 @@ const egitimler = [
     degree: "Bilgisayar Mühendisliği",
     date: "Eylül 2021 - Haziran 2025",
     location: "Erzincan, Türkiye",
-    description: "Lisans eğitimimi bilgisayar mühendisliği alanında tamamladım. Eğitimim sırasında programlama, veri yapıları, algoritma analizi, mobil uygulama geliştirme ve yazılım mühendisliği konularında bilgi ve beceriler edindim.",
+    description: "Lisans eğitimimi bilgisayar mühendisliği alanında tamamladım. Eğitimim sırasında programlama, veri yapıları, mobil uygulama geliştirme ve yazılım mühendisliği gibi çeşitli  konularda bilgiler edindim.",
   },
   {
-    title: "Ali Karasu Anadolu Lisesi",
+    title: "Kurtköy Anadolu Lisesi",
     degree: "Lise Eğitimi",
-    date: "Eylül 2017 - Haziran 2021",
-    location: "Bursa, Türkiye",
+    date: "Eylül 2016 - Haziran 2020",
+    location: "İstanbul-Pendik, Türkiye",
     description: "Lise eğitimimi tamamlayarak yükseköğrenime hazırlandım. Bu süreçte temel bilimler ve yabancı dil alanlarında kendimi geliştirdim.",
   },
 ];
@@ -97,8 +100,14 @@ function TimelineList({ items, icon, color }) {
 }
 
 export default function Deneyim() {
+  const theme = useTheme();
+  const isDark = theme.palette.mode === 'dark';
+  const cardBg = isDark
+    ? 'rgba(30, 41, 59, 0.85)'
+    : 'rgba(255, 255, 255, 0.85)';
+
   return (
-    <Box sx={{ width: '100%', minHeight: '90vh', bgcolor: 'background.default', px: { xs: 1, md: 6 }, py: 6 }}>
+    <Box sx={{ width: '100%', minHeight: '90vh', bgcolor: 'background.default', px: { xs: 1, md: 6 }, py: 6, mt: { xs: 3, md: 6 } }}>
       <Typography
         variant="h3"
         sx={{
@@ -137,24 +146,30 @@ export default function Deneyim() {
       <Typography variant="h6" sx={{ color: 'text.secondary', textAlign: 'center', mb: 5 }}>
         Profesyonel deneyimlerim ve akademik geçmişim
       </Typography>
-      <Grid container spacing={4} justifyContent="center" alignItems="flex-start" sx={{
+      <Grid container spacing={4} justifyContent="center" alignItems="stretch" sx={{
         flexWrap: 'nowrap',
         overflowX: { xs: 'auto', md: 'visible' },
         maxWidth: '100vw',
         minHeight: 700,
         gap: 4,
       }}>
-        <Grid item xs={12} sm={6} md={6} lg={5} sx={{ minWidth: 600, maxWidth: 600, flex: 1, display: 'flex' }}>
+        <Grid item xs={12} sm={6} md={6} lg={5} sx={{ minWidth: 600, maxWidth: 600, flex: 1, display: 'flex', alignItems: 'stretch' }}>
           <Paper elevation={12} sx={{
             p: { xs: 2, md: 4 },
             borderRadius: 6,
-            minHeight: 600,
-            bgcolor: 'background.paper',
+            minHeight: 700,
             height: '100%',
+            background: cardBg,
+            backdropFilter: 'blur(8px)',
             display: 'flex',
             flexDirection: 'column',
             boxShadow: '0 8px 32px 0 rgba(0,198,251,0.10)',
             border: '2px solid #1a233a',
+            transition: 'border-color 0.4s, box-shadow 0.4s',
+            '&:hover': {
+              borderColor: '#2196f3',
+              boxShadow: '0 0 24px 2px #2196f355, 0 0 0 2px #2196f333',
+            },
           }}>
             <Box sx={{ display: 'flex', alignItems: 'center', mb: 4, gap: 2 }}>
               <Box sx={{
@@ -188,7 +203,7 @@ export default function Deneyim() {
                 boxShadow: '0 0 16px 2px #2196f333',
               }} />
               {deneyimler.map((item, idx) => (
-                <Box key={item.title} sx={{ position: 'relative', mb: 7, minHeight: 120 }}>
+                <Box key={item.title} sx={{ position: 'relative', mb: 7, minHeight: 120, mt: idx === 1 ? 12 : 0 }}>
                   {/* Nokta ve başlık hizası */}
                   <Box sx={{ display: 'flex', alignItems: 'center', ml: 0 }}>
                     <Box sx={{
@@ -237,17 +252,23 @@ export default function Deneyim() {
             </Box>
           </Paper>
         </Grid>
-        <Grid item xs={12} sm={6} md={6} lg={5} sx={{ minWidth: 600, maxWidth: 600, flex: 1, display: 'flex' }}>
+        <Grid item xs={12} sm={6} md={6} lg={5} sx={{ minWidth: 600, maxWidth: 600, flex: 1, display: 'flex', alignItems: 'stretch' }}>
           <Paper elevation={12} sx={{
             p: { xs: 2, md: 4 },
             borderRadius: 6,
-            minHeight: 600,
-            bgcolor: 'background.paper',
+            minHeight: 700,
             height: '100%',
+            background: cardBg,
+            backdropFilter: 'blur(8px)',
             display: 'flex',
             flexDirection: 'column',
             boxShadow: '0 8px 32px 0 rgba(67,160,71,0.10)',
             border: '2px solid #1a233a',
+            transition: 'border-color 0.4s, box-shadow 0.4s',
+            '&:hover': {
+              borderColor: '#43a047',
+              boxShadow: '0 0 24px 2px #43a04755, 0 0 0 2px #43a04733',
+            },
           }}>
             <Box sx={{ display: 'flex', alignItems: 'center', mb: 4, gap: 2 }}>
               <Box sx={{
@@ -281,7 +302,7 @@ export default function Deneyim() {
                 boxShadow: '0 0 16px 2px #43a04733',
               }} />
               {egitimler.map((item, idx) => (
-                <Box key={item.title} sx={{ position: 'relative', mb: 7, minHeight: 120 }}>
+                <Box key={item.title} sx={{ position: 'relative', mb: 7, minHeight: 120, mt: idx === 1 ? 7 : 0 }}>
                   {/* Nokta ve başlık hizası */}
                   <Box sx={{ display: 'flex', alignItems: 'center', ml: 0 }}>
                     <Box sx={{

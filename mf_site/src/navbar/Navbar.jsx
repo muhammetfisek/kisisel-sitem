@@ -55,6 +55,8 @@ export default function Navbar({ darkMode, setDarkMode, onScrollTo, activeMenu }
       onScrollTo("hakkimda");
     } else if (item.label === "Yeteneklerim" && onScrollTo) {
       onScrollTo("yeteneklerim");
+    } else if (item.label === "Deneyim" && onScrollTo) {
+      onScrollTo("deneyim");
     } else {
       // Diğer menüler için ileride ekleme yapılabilir
     }

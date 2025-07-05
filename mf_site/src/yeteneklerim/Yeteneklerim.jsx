@@ -63,7 +63,7 @@ const skills = [
 
 export default function Yeteneklerim() {
   return (
-    <Box sx={{ width: '100%', minHeight: '90vh', bgcolor: 'background.default', px: { xs: 1, md: 6 } }}>
+    <Box sx={{ width: '100%', minHeight: '90vh', bgcolor: 'background.default', px: { xs: 1, md: 6 }, mt: { xs: 3, md: 10 } }}>
       <Box sx={{ height: '10px' }} />
       <Typography
         variant="h3"
