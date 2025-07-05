@@ -11,7 +11,7 @@ import hakkimdaPhoto from '../fotolar/hakkimda_pp.jpeg';
 export default function Hakkimda() {
   const theme = useTheme();
   return (
-    <Box sx={{ width: '100%', minHeight: '90vh', bgcolor: 'background.default', py: { xs: 4, md: 8 }, px: { xs: 1, md: 6 } }}>
+    <Box sx={{ width: '100%', minHeight: '90vh', bgcolor: 'background.default', py: { xs: 4, md: 12 }, px: { xs: 1, md: 6 } }}>
       <Typography
         variant="h3"
         sx={{
@@ -73,7 +73,7 @@ export default function Hakkimda() {
             flexDirection: 'column',
             alignItems: 'center',
             minWidth: 280,
-            maxWidth: 350,
+            maxWidth: 380,
             mx: 'auto',
             border: '2px solid transparent',
             transition: 'border-color 0.4s, box-shadow 0.4s, transform 0.3s',

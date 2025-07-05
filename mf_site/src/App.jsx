@@ -5,11 +5,13 @@ import CssBaseline from "@mui/material/CssBaseline";
 import Navbar from "./navbar/Navbar";
 import Home from "./home/Home";
 import Hakkimda from "./hakkimda/Hakkimda";
+import Yeteneklerim from "./yeteneklerim/Yeteneklerim";
 
 export default function App() {
   const [darkMode, setDarkMode] = React.useState(true);
   const anasayfaRef = useRef(null);
   const hakkimdaRef = useRef(null);
+  const yeteneklerimRef = useRef(null);
 
   const theme = React.useMemo(
     () =>
@@ -36,6 +38,8 @@ export default function App() {
       hakkimdaRef.current.scrollIntoView({ behavior: "smooth" });
     } else if (section === "anasayfa" && anasayfaRef.current) {
       anasayfaRef.current.scrollIntoView({ behavior: "smooth" });
+    } else if (section === "yeteneklerim" && yeteneklerimRef.current) {
+      yeteneklerimRef.current.scrollIntoView({ behavior: "smooth" });
     }
   };
 
@@ -48,6 +52,8 @@ export default function App() {
         <Home />
         <div ref={hakkimdaRef} />
         <Hakkimda />
+        <div ref={yeteneklerimRef} />
+        <Yeteneklerim />
       </Box>
     </ThemeProvider>
   );
