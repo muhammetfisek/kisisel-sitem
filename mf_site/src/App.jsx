@@ -47,7 +47,7 @@ export default function App() {
   useEffect(() => {
     const handleScroll = () => {
       const scrollY = window.scrollY;
-      const offset = 100; // Navbar yüksekliği kadar offset
+      const offset = 130; // Navbar yüksekliği kadar offset
       const sections = [
         { id: "anasayfa", ref: anasayfaRef },
         { id: "hakkimda", ref: hakkimdaRef },
@@ -78,12 +78,15 @@ export default function App() {
           onScrollTo={handleScrollTo}
           activeMenu={activeSection}
         />
-        <div ref={anasayfaRef} />
-        <Home />
-        <div ref={hakkimdaRef} />
-        <Hakkimda />
-        <div ref={yeteneklerimRef} />
-        <Yeteneklerim />
+        <div ref={anasayfaRef}>
+          <Home />
+        </div>
+        <div ref={hakkimdaRef}>
+          <Hakkimda />
+        </div>
+        <div ref={yeteneklerimRef}>
+          <Yeteneklerim />
+        </div>
       </Box>
     </ThemeProvider>
   );

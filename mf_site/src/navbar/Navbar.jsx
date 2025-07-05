@@ -160,6 +160,11 @@ export default function Navbar({ darkMode, setDarkMode, onScrollTo, activeMenu }
                     border: normalizedActive === itemId ? '2px solid' : 'none',
                     borderColor: normalizedActive === itemId ? 'secondary.main' : 'transparent',
                     boxShadow: normalizedActive === itemId ? 3 : 'none',
+                    outline: 'none',
+                    '&:focus': {
+                      outline: 'none',
+                      boxShadow: 'none',
+                    },
                     transition: "all 0.2s",
                     '&:hover': {
                       bgcolor: 'transparent',
