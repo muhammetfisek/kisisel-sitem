@@ -69,16 +69,28 @@ export default function App() {
   useEffect(() => {
     const handleScroll = () => {
       if (!initialScrollDone.current) return;
+      
       const scrollY = window.scrollY;
-      const offset = 130; // Navbar yüksekliği için offset
+      const offset = 130;
+      
+      // Anasayfa için özel kontrol - scroll pozisyonu çok üstteyse
+      if (scrollY < 50) {
+        setActiveSection("anasayfa");
+        if (window.location.hash) {
+          history.replaceState(null, null, window.location.pathname + window.location.search);
+        }
+        return;
+      }
+      
+      // Diğer bölümler için kontrol
       const sections = [
-        { id: "anasayfa", ref: anasayfaRef },
         { id: "hakkimda", ref: hakkimdaRef },
         { id: "yeteneklerim", ref: yeteneklerimRef },
         { id: "deneyim", ref: deneyimRef },
       ];
 
       let currentActive = "anasayfa";
+      
       for (let i = sections.length - 1; i >= 0; i--) {
         const section = sections[i];
         if (section.ref.current) {
@@ -91,19 +103,18 @@ export default function App() {
         }
       }
 
-      // Sadece aktif bölüm değiştiyse veya hash ile uyuşmuyorsa güncelle
       if (activeSection !== currentActive) {
-          setActiveSection(currentActive);
+        setActiveSection(currentActive);
       }
 
       if (currentActive === "anasayfa") {
-          if (window.location.hash) {
-              history.replaceState(null, null, window.location.pathname + window.location.search);
-          }
+        if (window.location.hash) {
+          history.replaceState(null, null, window.location.pathname + window.location.search);
+        }
       } else {
-          if (window.location.hash !== `#${currentActive}`) {
-              window.location.hash = `#${currentActive}`;
-          }
+        if (window.location.hash !== `#${currentActive}`) {
+          window.location.hash = `#${currentActive}`;
+        }
       }
     };
 
