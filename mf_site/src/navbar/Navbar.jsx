@@ -4,6 +4,7 @@ import Toolbar from "@mui/material/Toolbar";
 import IconButton from "@mui/material/IconButton";
 import Button from "@mui/material/Button";
 import Box from "@mui/material/Box";
+import Tooltip from "@mui/material/Tooltip";
 import Brightness2Icon from "@mui/icons-material/Brightness2";
 import MenuIcon from "@mui/icons-material/Menu";
 import Drawer from "@mui/material/Drawer";
@@ -68,14 +69,20 @@ export default function Navbar({ darkMode, setDarkMode, onScrollTo, activeMenu }
       <Toolbar sx={{ justifyContent: "center", position: "relative", minHeight: 64, px: { xs: 1, sm: 2 } }}>
         {/* Sol: Dark Mode */}
         <Box sx={{ position: "absolute", left: 8, display: "flex", alignItems: "center", height: 1 }}>
-          <IconButton
-            onClick={() => setDarkMode((prev) => !prev)}
-            color="inherit"
-            aria-label="dark mode toggle"
-            size="large"
+          <Tooltip 
+            title="Dark modda kullanmanız tavsiye edilir" 
+            placement="bottom"
+            arrow
           >
-            <Brightness2Icon sx={{ color: darkMode ? '#fff' : '#222' }} />
-          </IconButton>
+            <IconButton
+              onClick={() => setDarkMode((prev) => !prev)}
+              color="inherit"
+              aria-label="dark mode toggle"
+              size="large"
+            >
+              <Brightness2Icon sx={{ color: darkMode ? '#fff' : '#222' }} />
+            </IconButton>
+          </Tooltip>
         </Box>
         {/* Orta: Menü veya Hamburger */}
         {isMobile ? (
