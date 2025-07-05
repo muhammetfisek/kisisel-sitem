@@ -37,14 +37,27 @@ export default function App() {
   const handleScrollTo = (section) => {
     if (section === "hakkimda" && hakkimdaRef.current) {
       hakkimdaRef.current.scrollIntoView({ behavior: "smooth" });
+      window.location.hash = "#hakkimda";
     } else if (section === "anasayfa" && anasayfaRef.current) {
       anasayfaRef.current.scrollIntoView({ behavior: "smooth" });
+      history.replaceState(null, null, window.location.pathname + window.location.search);
     } else if (section === "yeteneklerim" && yeteneklerimRef.current) {
       yeteneklerimRef.current.scrollIntoView({ behavior: "smooth" });
+      window.location.hash = "#yeteneklerim";
     }
   };
 
   useEffect(() => {
+    // Sayfa yüklendiğinde hash varsa ilgili bölüme scroll yap
+    const handleInitialLoad = () => {
+      const hash = window.location.hash.replace('#', '');
+      if (hash) {
+        setTimeout(() => {
+          handleScrollTo(hash);
+        }, 100);
+      }
+    };
+    handleInitialLoad();
     const handleScroll = () => {
       const scrollY = window.scrollY;
       const offset = 130; // Navbar yüksekliği kadar offset
@@ -59,6 +72,16 @@ export default function App() {
           const top = section.ref.current.offsetTop;
           if (scrollY + offset >= top) {
             setActiveSection(section.id);
+            // Hash güncellemesi: ana sayfa ise hash'i sil, diğerlerinde hash'i ayarla
+            if (section.id === "anasayfa") {
+              if (window.location.hash) {
+                history.replaceState(null, null, window.location.pathname + window.location.search);
+              }
+            } else {
+              if (window.location.hash !== `#${section.id}`) {
+                window.location.hash = `#${section.id}`;
+              }
+            }
             break;
           }
         }
