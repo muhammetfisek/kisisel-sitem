@@ -6,12 +6,14 @@ import Navbar from "./navbar/Navbar";
 import Home from "./home/Home";
 import Hakkimda from "./hakkimda/Hakkimda";
 import Yeteneklerim from "./yeteneklerim/Yeteneklerim";
+import Deneyim from "./deneyim/Deneyim";
 
 export default function App() {
   const [darkMode, setDarkMode] = React.useState(true);
   const anasayfaRef = useRef(null);
   const hakkimdaRef = useRef(null);
   const yeteneklerimRef = useRef(null);
+  const deneyimRef = useRef(null);
   const [activeSection, setActiveSection] = useState("anasayfa");
   const [contentLoaded, setContentLoaded] = useState(false); // Yeni state: İçerik yüklendi mi?
   const initialScrollDone = useRef(false);
@@ -49,6 +51,9 @@ export default function App() {
     } else if (section === "yeteneklerim") {
       targetRef = yeteneklerimRef;
       targetHash = "#yeteneklerim";
+    } else if (section === "deneyim") {
+      targetRef = deneyimRef;
+      targetHash = "#deneyim";
     }
 
     if (targetRef && targetRef.current) {
@@ -70,6 +75,7 @@ export default function App() {
         { id: "anasayfa", ref: anasayfaRef },
         { id: "hakkimda", ref: hakkimdaRef },
         { id: "yeteneklerim", ref: yeteneklerimRef },
+        { id: "deneyim", ref: deneyimRef },
       ];
 
       let currentActive = "anasayfa";
@@ -116,7 +122,7 @@ export default function App() {
       setContentLoaded(true); // İçerik yüklendi, artık gösterebiliriz
       initialScrollDone.current = true;
       window.addEventListener("scroll", handleScroll);
-    }, 100); // 100ms'lik bir gecikme genellikle yeterli olur. Eğer hala yanıp sönüyorsa artırılabilir.
+    },1); // 100ms'lik bir gecikme genellikle yeterli olur. Eğer hala yanıp sönüyorsa artırılabilir.
 
 
     return () => window.removeEventListener("scroll", handleScroll);
@@ -136,7 +142,7 @@ export default function App() {
         {/* contentLoaded true ise tüm bölümleri normal şekilde render et */}
         <Box sx={{
           opacity: contentLoaded ? 1 : 0, // İçerik yüklendiğinde görünür yap
-          transition: 'opacity 0.3s ease-in-out', // Yumuşak geçiş efekti
+          transition: 'opacity 0.001s ease-in-out', // Yumuşak geçiş efekti
           minHeight: 'calc(100vh - 64px)', // Navbar'ın kapladığı alanı düş
           display: 'flex', // Tüm bölümleri Flexbox ile dikeyde hizala
           flexDirection: 'column',
@@ -149,6 +155,9 @@ export default function App() {
           </div>
           <div ref={yeteneklerimRef} style={{ display: activeSection === "yeteneklerim" || contentLoaded ? 'block' : 'none' }}>
             <Yeteneklerim />
+          </div>
+          <div ref={deneyimRef} style={{ display: activeSection === "deneyim" || contentLoaded ? 'block' : 'none' }}>
+            <Deneyim />
           </div>
         </Box>
       </Box>
