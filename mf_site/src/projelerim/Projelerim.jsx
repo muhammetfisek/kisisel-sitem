@@ -26,7 +26,7 @@ const projeler = [
   {
     baslik: "Yapay Zekâ Tabanlı Kuaför Asistanı ve İşletme Yönetimi Uygulaması",
     aciklama:
-      "Bu uygulama, kuaförler ve güzellik salonları için randevu yönetim uygulamasıdır. Backend kısmı Spring Boot ile yazılmıştır. Yapay zeka ise Python-Flask ile geliştirilmiştir. Yapay zekaya fotoğrafınızı yükleyerek saç kesimi ve bakım önerileri alabilirsiniz .",
+      "Bu uygulama, kuaförler ve güzellik salonları için randevu yönetim uygulamasıdır. Backend kısmı Spring Boot ile yazılmıştır. Yapay zeka ise Python-Flask ile geliştirilmiştir. Yapay zekaya fotoğrafınızı yükleyerek saç kesimi ve bakım önerileri alabilxy .",
     etiketler: [
       { ad: "Python-Flask", renk: "linear-gradient(90deg,#3ea6ff,#00e6d6)" },
       { ad: "Spring Boot", renk: "linear-gradient(90deg,#3ea6ff,#00e6d6)" },
@@ -153,6 +153,7 @@ export default function Projelerim() {
                 },
               }}
             >
+              {/* Üst görsel alanı */}
               <Box sx={{ width: '100%', height: 250, display: 'flex', alignItems: 'center', justifyContent: 'center', bgcolor: 'linear-gradient(120deg,#e0eafc,#cfdef3 80%)', borderBottom: '1px solid #232b39', position: 'relative' }}>
                 {proje.fotolar.length > 1 ? (
                   <Swiper
@@ -207,7 +208,9 @@ export default function Projelerim() {
                   />
                 )}
               </Box>
+              {/* Alt içerik alanı */}
               <Box sx={{ flex: 1, display: 'flex', flexDirection: 'column', justifyContent: 'flex-start', alignItems: 'flex-start', px: 3, pt: 2, pb: 2, bgcolor: '#232b39', position: 'relative' }}>
+                {/* Üst alan: başlık ve açıklama */}
                 <Box sx={{ width: '100%' }}>
                   <Typography variant="h6" sx={{ fontWeight: 700, color: '#fff', mb: 1, textAlign: 'left', fontSize: '1.1rem' }}>
                     {proje.baslik}
@@ -216,6 +219,7 @@ export default function Projelerim() {
                     {proje.aciklama}
                   </Typography>
                 </Box>
+                {/* Alt alan: etiketler ve ikonlar */}
                 {proje.baslik === "Yapay Zekâ Tabanlı Kuaför Asistanı ve İşletme Yönetimi Uygulaması" ? (
                   <>
                     <Box sx={{ position: 'absolute', left: 11, bottom: 50, pl: '2px', pb: 0, mt: 0, zIndex: 5 }}>
@@ -319,6 +323,7 @@ export default function Projelerim() {
           </Grid>
         ))}
       </Grid>
+      {/* Modal */}
       <Modal
         open={openModal}
         onClose={handleCloseModal}
