@@ -1,0 +1,250 @@
+import React from "react";
+import Box from "@mui/material/Box";
+import Typography from "@mui/material/Typography";
+import Grid from "@mui/material/Grid";
+import Paper from "@mui/material/Paper";
+import GitHubIcon from "@mui/icons-material/GitHub";
+import SettingsIcon from "@mui/icons-material/Settings";
+import pp from "../fotolar/pp.jpeg";
+import hakkimda_pp from "../fotolar/hakkimda_pp.jpeg";
+import site_icon from "../fotolar/site_icon.jpeg";
+import { Swiper, SwiperSlide } from 'swiper/react';
+import { Navigation, Pagination, Autoplay } from 'swiper/modules';
+import 'swiper/css';
+import 'swiper/css/navigation';
+import 'swiper/css/pagination';
+import pp2 from "../fotolar/pp.jpeg";
+import pp3 from "../fotolar/site_icon.jpeg";
+import { useTheme } from '@mui/material/styles';
+
+const projeler = [
+  {
+    baslik: "Online Kuaför Randevu Alma Uygulaması",
+    aciklama:
+      "Yapay Zekâ Tabanlı Kuaför Asistanı ve İşletme Yönetimi Uygulaması",
+    etiketler: [
+      { ad: "SwiftUI", renk: "linear-gradient(90deg,#3ea6ff,#00e6d6)" },
+      { ad: "Spring Boot", renk: "linear-gradient(90deg,#ffb347,#ffcc33)" },
+      { ad: "Şu anda Geliştiriliyor", renk: "linear-gradient(90deg,#ff9800,#ffb347)" },
+    ],
+    fotolar: [site_icon],
+    github: "#",
+  },
+  {
+    baslik: "Görüntü İşleme ve Kümeleme Uygulaması",
+    aciklama:
+      "C# Windows Forms ile geliştirilmiş kapsamlı görüntü işleme uygulaması.",
+    etiketler: [
+      { ad: "C#", renk: "linear-gradient(90deg,#1976d2,#00e6d6)" },
+      { ad: "Windows Forms", renk: "linear-gradient(90deg,#43e97b,#38f9d7)" },
+    ],
+    fotolar: [hakkimda_pp],
+    github: "#",
+  },
+  {
+    baslik: "Işık Yoğunluğu Ölçer",
+    aciklama:
+      "BH1750 ışık yoğunluğu sensörünü ESP8266 NodeMCU kartı ve Arduino IDE kullanarak ışık şiddetini ölçme uygulaması.",
+    etiketler: [
+      { ad: "SwiftUI", renk: "linear-gradient(90deg,#3ea6ff,#00e6d6)" },
+      { ad: "C++", renk: "linear-gradient(90deg,#2196f3,#19e6d6)" },
+      { ad: "Arduino", renk: "linear-gradient(90deg,#00c853,#00e6d6)" },
+      { ad: "ESP8266", renk: "linear-gradient(90deg,#00bcd4,#4caf50)" },
+    ],
+    fotolar: [pp, pp2, pp3],
+    github: "#",
+  },
+];
+
+export default function Projelerim() {
+  const theme = useTheme();
+  const isDark = theme.palette.mode === 'dark';
+  const cardBg = isDark ? 'rgba(35, 43, 57, 0.97)' : 'rgba(255,255,255,0.97)';
+  const borderColor = isDark ? '#232b39' : '#e0e0e0';
+  const hoverBorder = '#19e6d6';
+  const hoverShadow = isDark
+    ? '0 0 24px 2px #19e6d655, 0 0 0 4px #19e6d633'
+    : '0 0 24px 2px #19e6d655, 0 0 0 2px #19e6d633';
+
+  return (
+    <Box sx={{ width: '100%', minHeight: '90vh', bgcolor: 'background.default', px: { xs: 1, md: 6 }, py: 8 }}>
+      <Typography
+        variant="h3"
+        sx={{
+          fontWeight: 900,
+          textAlign: "center",
+          letterSpacing: 2,
+          mb: 1,
+          background: "linear-gradient(270deg, #00c6fb, #1de9b6, #00c6fb)",
+          backgroundSize: "200% 200%",
+          backgroundClip: "text",
+          WebkitBackgroundClip: "text",
+          color: "transparent",
+          WebkitTextFillColor: "transparent",
+          animation: "waveGradient 4s ease-in-out infinite",
+          textShadow: "0 4px 24px rgba(0,198,251,0.25)",
+          '@keyframes waveGradient': {
+            '0%': { backgroundPosition: '0% 50%' },
+            '50%': { backgroundPosition: '100% 50%' },
+            '100%': { backgroundPosition: '0% 50%' },
+          },
+        }}
+      >
+        PROJELERİM
+        <Box
+          sx={{
+            width: 180,
+            height: 6,
+            bgcolor: "secondary.main",
+            borderRadius: 3,
+            mx: "auto",
+            mt: 1,
+            boxShadow: "0 2px 12px 0 rgba(29,233,182,0.3)",
+          }}
+        />
+      </Typography>
+      <Typography variant="h6" sx={{ color: 'text.secondary', textAlign: 'center', mb: 5 }}>
+        Üzerinde çalışmış olduğum bazı projeler
+      </Typography>
+      <Grid container spacing={4} justifyContent="center" alignItems="stretch">
+        {projeler.map((proje, idx) => (
+          <Grid item xs={12} sm={6} md={4} key={proje.baslik} sx={{ display: 'flex', flex: 1, minWidth: 0, maxWidth: '100%', height: '100%' }}>
+            <Paper
+              elevation={10}
+              sx={{
+                borderRadius: 5,
+                overflow: 'hidden',
+                minHeight: 440,
+                height: 500,
+                width: '100%',
+                display: 'flex',
+                flexDirection: 'column',
+                justifyContent: 'flex-start',
+                alignItems: 'stretch',
+                bgcolor: cardBg,
+                boxShadow: '0 8px 32px 0 rgba(25,230,214,0.10)',
+                position: 'relative',
+                border: `2px solid ${borderColor}`,
+                transition: 'border-color 0.4s, box-shadow 0.4s, transform 0.3s',
+                '&:hover': {
+                  borderColor: hoverBorder,
+                  boxShadow: hoverShadow,
+                  transform: 'scale(1.04)',
+                },
+              }}
+            >
+              {/* Üst görsel alanı */}
+              <Box sx={{ width: '100%', height: 250, display: 'flex', alignItems: 'center', justifyContent: 'center', bgcolor: 'linear-gradient(120deg,#e0eafc,#cfdef3 80%)', borderBottom: '1px solid #232b39', position: 'relative' }}>
+                {proje.fotolar.length > 1 ? (
+                  <Swiper
+                    modules={[Navigation, Pagination, Autoplay]}
+                    navigation
+                    pagination={{ clickable: true }}
+                    autoplay={{ delay: 3000, disableOnInteraction: false }}
+                    loop
+                    style={{ width: '100%', height: '100%' }}
+                  >
+                    {proje.fotolar.map((foto, idx) => (
+                      <SwiperSlide key={idx}>
+                        <Box
+                          component="img"
+                          src={foto}
+                          alt={proje.baslik + " görsel " + (idx + 1)}
+                          sx={{
+                            width: 180,
+                            height: 250,
+                            objectFit: 'contain',
+                            borderRadius: 3,
+                            background: 'transparent',
+                            boxShadow: '0 2px 8px 0 rgba(0,0,0,0.10)',
+                            mx: 'auto',
+                            display: 'block',
+                          }}
+                        />
+                      </SwiperSlide>
+                    ))}
+                  </Swiper>
+                ) : (
+                  <Box
+                    component="img"
+                    src={proje.fotolar[0]}
+                    alt={proje.baslik}
+                    sx={{
+                      width: 180,
+                      height: 250,
+                      objectFit: 'contain',
+                      borderRadius: 3,
+                      background: 'transparent',
+                      boxShadow: '0 2px 8px 0 rgba(0,0,0,0.10)',
+                    }}
+                  />
+                )}
+              </Box>
+              {/* Alt içerik alanı */}
+              <Box sx={{ flex: 1, display: 'flex', flexDirection: 'column', justifyContent: 'flex-start', alignItems: 'flex-start', px: 3, pt: 2, pb: 2, bgcolor: '#232b39' }}>
+                <Typography variant="h5" sx={{ fontWeight: 700, color: '#fff', mb: 1, textAlign: 'left' }}>
+                  {proje.baslik}
+                </Typography>
+                <Typography variant="body1" sx={{ color: '#b0bec5', mb: 2, textAlign: 'left', fontSize: 17 }}>
+                  {proje.aciklama}
+                </Typography>
+                <Box sx={{ display: 'flex', flexWrap: 'wrap', gap: 1, mb: 2, justifyContent: 'flex-start' }}>
+                  {proje.etiketler.map((etiket, i) => (
+                    proje.baslik === "Online Kuaför Randevu Alma Uygulaması" && etiket.ad === "Şu anda Geliştiriliyor" ? (
+                      <Box
+                        key={i}
+                        sx={{
+                          background: '#ffa726',
+                          color: '#fff',
+                          fontSize: 15,
+                          fontWeight: 600,
+                          borderRadius: 999,
+                          px: 2,
+                          py: 0.5,
+                          mr: 0.5,
+                          boxShadow: '0 2px 8px 0 rgba(0,0,0,0.10)',
+                          letterSpacing: 0.5,
+                          display: 'flex',
+                          alignItems: 'center',
+                          gap: 0.7,
+                        }}
+                      >
+                        <SettingsIcon sx={{ fontSize: 20, color: '#fff', mr: 0.7, animation: 'spin 1.2s linear infinite', '@keyframes spin': { '0%': { transform: 'rotate(0deg)' }, '100%': { transform: 'rotate(360deg)' } } }} />
+                        {etiket.ad}
+                      </Box>
+                    ) : (
+                      <Box
+                        key={i}
+                        sx={{
+                          background: etiket.renk,
+                          color: '#fff',
+                          fontSize: 15,
+                          fontWeight: 600,
+                          borderRadius: 999,
+                          px: 2,
+                          py: 0.5,
+                          mr: 0.5,
+                          boxShadow: '0 2px 8px 0 rgba(0,0,0,0.10)',
+                          letterSpacing: 0.5,
+                        }}
+                      >
+                        {etiket.ad}
+                      </Box>
+                    )
+                  ))}
+                </Box>
+                {proje.baslik !== "Online Kuaför Randevu Alma Uygulaması" && (
+                  <Box sx={{ position: 'absolute', left: 0, bottom: 0, pl: 2, pb: 1 }}>
+                    <a href={proje.github} target="_blank" rel="noopener noreferrer" style={{ color: '#fff', opacity: 0.7 }}>
+                      <GitHubIcon fontSize="large" />
+                    </a>
+                  </Box>
+                )}
+              </Box>
+            </Paper>
+          </Grid>
+        ))}
+      </Grid>
+    </Box>
+  );
+} 

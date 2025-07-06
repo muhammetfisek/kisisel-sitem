@@ -7,6 +7,7 @@ import Home from "./home/Home";
 import Hakkimda from "./hakkimda/Hakkimda";
 import Yeteneklerim from "./yeteneklerim/Yeteneklerim";
 import Deneyim from "./deneyim/Deneyim";
+import Projelerim from "./projelerim/Projelerim";
 
 export default function App() {
   const [darkMode, setDarkMode] = React.useState(true);
@@ -14,6 +15,7 @@ export default function App() {
   const hakkimdaRef = useRef(null);
   const yeteneklerimRef = useRef(null);
   const deneyimRef = useRef(null);
+  const projelerimRef = useRef(null);
   const [activeSection, setActiveSection] = useState("anasayfa");
   const [contentLoaded, setContentLoaded] = useState(false); // Yeni state: İçerik yüklendi mi?
   const initialScrollDone = useRef(false);
@@ -54,6 +56,9 @@ export default function App() {
     } else if (section === "deneyim") {
       targetRef = deneyimRef;
       targetHash = "#deneyim";
+    } else if (section === "projelerim") {
+      targetRef = projelerimRef;
+      targetHash = "#projelerim";
     }
 
     if (targetRef && targetRef.current) {
@@ -87,6 +92,7 @@ export default function App() {
         { id: "hakkimda", ref: hakkimdaRef },
         { id: "yeteneklerim", ref: yeteneklerimRef },
         { id: "deneyim", ref: deneyimRef },
+        { id: "projelerim", ref: projelerimRef },
       ];
 
       let currentActive = "anasayfa";
@@ -169,6 +175,9 @@ export default function App() {
           </div>
           <div ref={deneyimRef} style={{ display: activeSection === "deneyim" || contentLoaded ? 'block' : 'none' }}>
             <Deneyim />
+          </div>
+          <div ref={projelerimRef} style={{ display: activeSection === "projelerim" || contentLoaded ? 'block' : 'none' }}>
+            <Projelerim />
           </div>
         </Box>
       </Box>

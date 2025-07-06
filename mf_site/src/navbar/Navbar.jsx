@@ -22,7 +22,7 @@ const menuItems = [
   { label: "Hakkımda", path: "/hakkimda" },
   { label: "Yeteneklerim", path: "/yeteneklerim" },
   { label: "Deneyim", path: "/deneyim" },
-  { label: "Projeler", path: "/projeler" },
+  { label: "Projelerim", path: "/projelerim" },
   { label: "İletişim", path: "/iletisim" },
 ];
 
@@ -58,6 +58,8 @@ export default function Navbar({ darkMode, setDarkMode, onScrollTo, activeMenu }
       onScrollTo("yeteneklerim");
     } else if (item.label === "Deneyim" && onScrollTo) {
       onScrollTo("deneyim");
+    } else if (item.label === "Projelerim" && onScrollTo) {
+      onScrollTo("projelerim");
     } else {
       // Diğer menüler için ileride ekleme yapılabilir
     }
