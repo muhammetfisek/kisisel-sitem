@@ -23,6 +23,7 @@ import IconButton from '@mui/material/IconButton';
 import CloseIcon from '@mui/icons-material/Close';
 
 const projeler = [
+  // 1. KUTU
   {
     baslik: "Yapay Zekâ Tabanlı Kuaför Asistanı ve İşletme Yönetimi Uygulaması",
     aciklama:
@@ -34,6 +35,7 @@ const projeler = [
     fotolar: [berber1, berber2, berber3],
     github: "#",
   },
+  // 2. KUTU
   {
     baslik: "Görüntü İşleme ve Kümeleme Uygulaması",
     aciklama:
@@ -45,6 +47,7 @@ const projeler = [
     fotolar: [hakkimda_pp, site_icon, pp],
     github: "#",
   },
+  // 3. KUTU
   {
     baslik: "Işık Yoğunluğu Ölçer",
     aciklama:
@@ -58,6 +61,7 @@ const projeler = [
     fotolar: [pp, hakkimda_pp, site_icon],
     github: "#",
   },
+  // 4. KUTU
   {
     baslik: "Yapay Zekâ Tabanlı Kuaför Asistanı ve İşletme Yönetimi Uygulaması",
     aciklama:
@@ -69,6 +73,7 @@ const projeler = [
     fotolar: [berber1, berber2, berber3],
     github: "#",
   },
+  // 5. KUTU
   {
     baslik: "Görüntü İşleme ve Kümeleme Uygulaması",
     aciklama:
@@ -80,6 +85,7 @@ const projeler = [
     fotolar: [hakkimda_pp, site_icon, pp],
     github: "#",
   },
+  // 6. KUTU
   {
     baslik: "Işık Yoğunluğu Ölçer",
     aciklama:
@@ -122,7 +128,9 @@ export default function Projelerim() {
   };
 
   return (
+      // Sayfanın ana kutusu
     <Box sx={{ width: '100%', minHeight: '90vh', bgcolor: 'background.default', px: { xs: 1, md: 6 }, py: 8 }}>
+    {/* Başlık ve alt başlık */}
       <Typography
         variant="h3"
         sx={{
@@ -161,10 +169,13 @@ export default function Projelerim() {
       <Typography variant="h6" sx={{ color: 'text.secondary', textAlign: 'center', mb: 5 }}>
         Üzerinde çalışmış olduğum bazı projeler
       </Typography>
+            {/* Proje kartlarını 3+3 şeklinde iki satırda gösteren Grid yapısı */}
       <Box sx={{ maxWidth: 1200, mx: 'auto' }}>
+          {/* İlk 3 kutu */}
         <Grid container spacing={4} justifyContent="center" alignItems="flex-start">
           {projeler.slice(0, 3).map((proje, idx) => (
             <Grid item xs={12} sm={6} md={4} key={proje.baslik + 'ilk' + idx} sx={{ display: 'flex', flex: 1, minWidth: 0, maxWidth: '100%', height: '100%' }}>
+                   {/* Proje kartı */}
               <Paper
                 elevation={10}
                 sx={{
@@ -189,7 +200,7 @@ export default function Projelerim() {
                   },
                 }}
               >
-                {/* Üst görsel alanı */}
+                               {/* Üst görsel alanı, Swiper ile çoklu görsel desteği */}
                 <Box sx={{ width: '100%', height: 250, display: 'flex', alignItems: 'center', justifyContent: 'center', bgcolor: 'linear-gradient(120deg,#e0eafc,#cfdef3 80%)', borderBottom: '1px solid #232b39', position: 'relative' }}>
                   {proje.fotolar.length > 1 ? (
                     <Swiper
@@ -244,7 +255,7 @@ export default function Projelerim() {
                     />
                   )}
                 </Box>
-                {/* Alt içerik alanı */}
+                                {/* Alt içerik alanı: başlık, açıklama, etiketler ve ikonlar */}
                 <Box sx={{ flex: 1, display: 'flex', flexDirection: 'column', justifyContent: 'flex-start', alignItems: 'flex-start', px: 3, pt: 2, pb: 2, bgcolor: '#232b39', position: 'relative' }}>
                   {/* Üst alan: başlık ve açıklama */}
                   <Box sx={{ width: '100%' }}>
@@ -258,6 +269,7 @@ export default function Projelerim() {
                   {/* Alt alan: etiketler ve ikonlar */}
                   {proje.baslik === "Yapay Zekâ Tabanlı Kuaför Asistanı ve İşletme Yönetimi Uygulaması" ? (
                     <>
+                      {/* Etiketler */}
                       <Box sx={{ position: 'absolute', left: 11, bottom: 50, pl: '2px', pb: 0, mt: 0, zIndex: 5 }}>
                         <Box className="proje-etiketler" sx={{ display: 'flex', flexWrap: 'wrap', gap: 1, mb: 0, justifyContent: 'flex-start' }}>
                           {proje.etiketler.map((etiket, i) => (
@@ -281,6 +293,7 @@ export default function Projelerim() {
                           ))}
                         </Box>
                       </Box>
+                      {/* Geliştiriliyor etiketi */}
                       <Box sx={{ position: 'absolute', left: 0, bottom: 2, pl: 2, pb: 1, mt: 0 }}>
                         <Box
                           sx={{
@@ -305,6 +318,7 @@ export default function Projelerim() {
                     </>
                   ) : (
                     <>
+                       {/* Etiketler */}
                       <Box sx={{ position: 'absolute', left: 11, bottom: 55, pl: '2px', pb: 0, mt: 0, zIndex: 5 }}>
                         <Box className="proje-etiketler" sx={{ display: 'flex', flexWrap: 'wrap', gap: 1, mb: 0, justifyContent: 'flex-start' }}>
                           {proje.etiketler.map((etiket, i) => (
@@ -328,6 +342,7 @@ export default function Projelerim() {
                           ))}
                         </Box>
                       </Box>
+                        {/* GitHub ikonu */}
                       <Box sx={{ position: 'absolute', left: 0, bottom: 0, pl: 0, pb: 0, mt: 0, zIndex: 1 }}>
                         <a href={proje.github} target="_blank" rel="noopener noreferrer" style={{ textDecoration: 'none' }}>
                           <Box
@@ -359,9 +374,11 @@ export default function Projelerim() {
             </Grid>
           ))}
         </Grid>
-        <Grid container spacing={4} justifyContent="center" alignItems="flex-start" sx={{ mt: 0 }}>
+        {/* İkinci satır: 4-5-6. kutular */}
+        <Grid container spacing={4} justifyContent="center" alignItems="flex-start" sx={{ mt: '59px' }}>
           {projeler.slice(3, 6).map((proje, idx) => (
             <Grid item xs={12} sm={6} md={4} key={proje.baslik + 'son' + idx} sx={{ display: 'flex', flex: 1, minWidth: 0, maxWidth: '100%', height: '100%' }}>
+                 {/* Proje kartı */}
               <Paper
                 elevation={10}
                 sx={{
@@ -386,7 +403,7 @@ export default function Projelerim() {
                   },
                 }}
               >
-                {/* Üst görsel alanı */}
+                               {/* Üst görsel alanı, Swiper ile çoklu görsel desteği */}
                 <Box sx={{ width: '100%', height: 250, display: 'flex', alignItems: 'center', justifyContent: 'center', bgcolor: 'linear-gradient(120deg,#e0eafc,#cfdef3 80%)', borderBottom: '1px solid #232b39', position: 'relative' }}>
                   {proje.fotolar.length > 1 ? (
                     <Swiper
@@ -441,7 +458,7 @@ export default function Projelerim() {
                     />
                   )}
                 </Box>
-                {/* Alt içerik alanı */}
+                               {/* Alt içerik alanı: başlık, açıklama, etiketler ve ikonlar */}
                 <Box sx={{ flex: 1, display: 'flex', flexDirection: 'column', justifyContent: 'flex-start', alignItems: 'flex-start', px: 3, pt: 2, pb: 2, bgcolor: '#232b39', position: 'relative' }}>
                   {/* Üst alan: başlık ve açıklama */}
                   <Box sx={{ width: '100%' }}>
@@ -455,6 +472,7 @@ export default function Projelerim() {
                   {/* Alt alan: etiketler ve ikonlar */}
                   {proje.baslik === "Yapay Zekâ Tabanlı Kuaför Asistanı ve İşletme Yönetimi Uygulaması" ? (
                     <>
+                    {/* Etiketler */}
                       <Box sx={{ position: 'absolute', left: 11, bottom: 50, pl: '2px', pb: 0, mt: 0, zIndex: 5 }}>
                         <Box className="proje-etiketler" sx={{ display: 'flex', flexWrap: 'wrap', gap: 1, mb: 0, justifyContent: 'flex-start' }}>
                           {proje.etiketler.map((etiket, i) => (
@@ -478,6 +496,7 @@ export default function Projelerim() {
                           ))}
                         </Box>
                       </Box>
+                            {/* Geliştiriliyor etiketi */}
                       <Box sx={{ position: 'absolute', left: 0, bottom: 2, pl: 2, pb: 1, mt: 0 }}>
                         <Box
                           sx={{
@@ -502,6 +521,7 @@ export default function Projelerim() {
                     </>
                   ) : (
                     <>
+                        {/* Etiketler */}
                       <Box sx={{ position: 'absolute', left: 11, bottom: 55, pl: '2px', pb: 0, mt: 0, zIndex: 5 }}>
                         <Box className="proje-etiketler" sx={{ display: 'flex', flexWrap: 'wrap', gap: 1, mb: 0, justifyContent: 'flex-start' }}>
                           {proje.etiketler.map((etiket, i) => (
@@ -525,6 +545,7 @@ export default function Projelerim() {
                           ))}
                         </Box>
                       </Box>
+                       {/* GitHub ikonu */}
                       <Box sx={{ position: 'absolute', left: 0, bottom: 0, pl: 0, pb: 0, mt: 0, zIndex: 1 }}>
                         <a href={proje.github} target="_blank" rel="noopener noreferrer" style={{ textDecoration: 'none' }}>
                           <Box
@@ -557,7 +578,7 @@ export default function Projelerim() {
           ))}
         </Grid>
       </Box>
-      {/* Modal */}
+           {/* Modal: Büyük görseli göstermek için */}
       <Modal
         open={openModal}
         onClose={handleCloseModal}
@@ -586,12 +607,15 @@ export default function Projelerim() {
           justifyContent: 'center',
           backdropFilter: 'blur(8px)',
         }}>
+        {/* Modalı kapatma butonu */}
           <IconButton
             onClick={handleCloseModal}
             sx={{ position: 'absolute', top: 8, right: 8, zIndex: 10, bgcolor: 'rgba(0,0,0,0.5)', color: '#fff', '&:hover': { bgcolor: 'rgba(0,0,0,0.7)' } }}
           >
             <CloseIcon />
           </IconButton>
+
+          {/* Swiper ile büyük görsel gösterimi */}
           <Swiper
             modules={[Navigation, Pagination, Autoplay]}
             navigation
