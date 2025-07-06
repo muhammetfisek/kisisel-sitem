@@ -99,6 +99,44 @@ const projeler = [
     fotolar: [pp, hakkimda_pp, site_icon],
     github: "#",
   },
+  // 7. KUTU
+  {
+    baslik: "Yapay Zekâ Tabanlı Kuaför Asistanı ve İşletme Yönetimi Uygulaması",
+    aciklama:
+      "Bu uygulama, kuaförler ve güzellik salonları için randevu yönetim uygulamasıdır. Backend kısmı Spring Boot ile yazılmıştır. Yapay zeka ise Python-Flask ile geliştirilmiştir. Yapay zekaya fotoğrafınızı yükleyerek saç kesimi ve bakım önerileri alabilxy .",
+    etiketler: [
+      { ad: "Python-Flask", renk: "linear-gradient(90deg,#3ea6ff,#00e6d6)" },
+      { ad: "Spring Boot", renk: "linear-gradient(90deg,#3ea6ff,#00e6d6)" },
+    ],
+    fotolar: [berber1, berber2, berber3],
+    github: "#",
+  },
+  // 8. KUTU
+  {
+    baslik: "Görüntü İşleme ve Kümeleme Uygulaması",
+    aciklama:
+      "C# Windows Forms ile geliştirilmiş kapsamlı görüntü işleme uygulaması.",
+    etiketler: [
+      { ad: "C#", renk: "linear-gradient(90deg,#1976d2,#00e6d6)" },
+      { ad: "Windows Forms", renk: "linear-gradient(90deg,#43e97b,#38f9d7)" },
+    ],
+    fotolar: [hakkimda_pp, site_icon, pp],
+    github: "#",
+  },
+  // 9. KUTU
+  {
+    baslik: "Işık Yoğunluğu Ölçer",
+    aciklama:
+      "BH1750 ışık yoğunluğu sensörünü ESP8266 NodeMCU kartı ve Arduino IDE kullanarak ışık şiddetini ölçme uygulaması.",
+    etiketler: [
+      { ad: "SwiftUI", renk: "linear-gradient(90deg,#3ea6ff,#00e6d6)" },
+      { ad: "C++", renk: "linear-gradient(90deg,#2196f3,#19e6d6)" },
+      { ad: "Arduino", renk: "linear-gradient(90deg,#00c853,#00e6d6)" },
+      { ad: "ESP8266", renk: "linear-gradient(90deg,#00bcd4,#4caf50)" },
+    ],
+    fotolar: [pp, hakkimda_pp, site_icon],
+    github: "#",
+  },
   // 10. KUTU
   {
     baslik: "Yapay Zekâ Tabanlı Kuaför Asistanı ve İşletme Yönetimi Uygulaması",
@@ -1021,6 +1059,8 @@ export default function Projelerim() {
             </Grid>
           ))}
         </Grid>
+
+
       </Box>
            {/* Modal: Büyük görseli göstermek için */}
       <Modal
