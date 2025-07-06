@@ -16,8 +16,7 @@ import { Navigation, Pagination, Autoplay } from 'swiper/modules';
 import 'swiper/css';
 import 'swiper/css/navigation';
 import 'swiper/css/pagination';
-import pp2 from "../fotolar/pp.jpeg";
-import pp3 from "../fotolar/site_icon.jpeg";
+
 import { useTheme } from '@mui/material/styles';
 import Modal from '@mui/material/Modal';
 import IconButton from '@mui/material/IconButton';
@@ -25,13 +24,12 @@ import CloseIcon from '@mui/icons-material/Close';
 
 const projeler = [
   {
-    baslik: "Online Kuaför Randevu Alma Uygulaması",
+    baslik: "Yapay Zekâ Tabanlı Kuaför Asistanı ve İşletme Yönetimi Uygulaması",
     aciklama:
-      "Yapay Zekâ Tabanlı Kuaför Asistanı ve İşletme Yönetimi Uygulaması",
+      "Bu uygulama, kuaförler ve güzellik salonları için randevu yönetim uygulamasıdır. Backend kısmı Spring Boot ile yazılmıştır. Yapay zeka ise Python-Flask ile geliştirilmiştir. Yapay zekaya fotoğrafınızı yükleyerek saç kesimi ve bakım önerileri alabilirsiniz .",
     etiketler: [
-      { ad: "SwiftUI", renk: "linear-gradient(90deg,#3ea6ff,#00e6d6)" },
-      { ad: "Spring Boot", renk: "linear-gradient(90deg,#ffb347,#ffcc33)" },
-      { ad: "Şu anda Geliştiriliyor", renk: "linear-gradient(90deg,#ff9800,#ffb347)" },
+      { ad: "Python-Flask", renk: "linear-gradient(90deg,#3ea6ff,#00e6d6)" },
+      { ad: "Spring Boot", renk: "linear-gradient(90deg,#3ea6ff,#00e6d6)" },
     ],
     fotolar: [berber1, berber2, berber3],
     github: "#",
@@ -71,6 +69,7 @@ export default function Projelerim() {
   const hoverShadow = isDark
     ? '0 0 24px 2px #19e6d655, 0 0 0 4px #19e6d633'
     : '0 0 24px 2px #19e6d655, 0 0 0 2px #19e6d633';
+  const githubIconColor = isDark ? '#fff' : '#232b39';
 
   const [openModal, setOpenModal] = React.useState(false);
   const [modalImgIndex, setModalImgIndex] = React.useState(0);
@@ -135,8 +134,8 @@ export default function Projelerim() {
               sx={{
                 borderRadius: 5,
                 overflow: 'hidden',
-                minHeight: 440,
-                height: 500,
+                minHeight: 560,
+                height: 560,
                 width: '100%',
                 display: 'flex',
                 flexDirection: 'column',
@@ -154,7 +153,6 @@ export default function Projelerim() {
                 },
               }}
             >
-              {/* Üst görsel alanı */}
               <Box sx={{ width: '100%', height: 250, display: 'flex', alignItems: 'center', justifyContent: 'center', bgcolor: 'linear-gradient(120deg,#e0eafc,#cfdef3 80%)', borderBottom: '1px solid #232b39', position: 'relative' }}>
                 {proje.fotolar.length > 1 ? (
                   <Swiper
@@ -209,28 +207,50 @@ export default function Projelerim() {
                   />
                 )}
               </Box>
-              {/* Alt içerik alanı */}
-              <Box sx={{ flex: 1, display: 'flex', flexDirection: 'column', justifyContent: 'flex-start', alignItems: 'flex-start', px: 3, pt: 2, pb: 2, bgcolor: '#232b39' }}>
-                <Typography variant="h5" sx={{ fontWeight: 700, color: '#fff', mb: 1, textAlign: 'left' }}>
-                  {proje.baslik}
-                </Typography>
-                <Typography variant="body1" sx={{ color: '#b0bec5', mb: 2, textAlign: 'left', fontSize: 17 }}>
-                  {proje.aciklama}
-                </Typography>
-                <Box sx={{ display: 'flex', flexWrap: 'wrap', gap: 1, mb: 2, justifyContent: 'flex-start' }}>
-                  {proje.etiketler.map((etiket, i) => (
-                    proje.baslik === "Online Kuaför Randevu Alma Uygulaması" && etiket.ad === "Şu anda Geliştiriliyor" ? (
+              <Box sx={{ flex: 1, display: 'flex', flexDirection: 'column', justifyContent: 'flex-start', alignItems: 'flex-start', px: 3, pt: 2, pb: 2, bgcolor: '#232b39', position: 'relative' }}>
+                <Box sx={{ width: '100%' }}>
+                  <Typography variant="h6" sx={{ fontWeight: 700, color: '#fff', mb: 1, textAlign: 'left', fontSize: '1.1rem' }}>
+                    {proje.baslik}
+                  </Typography>
+                  <Typography variant="body1" sx={{ color: '#b0bec5', mb: 2, textAlign: 'left', fontSize: '0.95rem' }}>
+                    {proje.aciklama}
+                  </Typography>
+                </Box>
+                {proje.baslik === "Yapay Zekâ Tabanlı Kuaför Asistanı ve İşletme Yönetimi Uygulaması" ? (
+                  <>
+                    <Box sx={{ position: 'absolute', left: 11, bottom: 50, pl: '2px', pb: 0, mt: 0, zIndex: 5 }}>
+                      <Box className="proje-etiketler" sx={{ display: 'flex', flexWrap: 'wrap', gap: 1, mb: 0, justifyContent: 'flex-start' }}>
+                        {proje.etiketler.map((etiket, i) => (
+                          <Box
+                            key={i}
+                            sx={{
+                              background: etiket.renk,
+                              color: '#fff',
+                              fontSize: 13,
+                              fontWeight: 600,
+                              borderRadius: 999,
+                              px: 2,
+                              py: 0.5,
+                              mr: 0.5,
+                              boxShadow: '0 2px 8px 0 rgba(0,0,0,0.10)',
+                              letterSpacing: 0.5,
+                            }}
+                          >
+                            {etiket.ad}
+                          </Box>
+                        ))}
+                      </Box>
+                    </Box>
+                    <Box sx={{ position: 'absolute', left: 0, bottom: 2, pl: 2, pb: 1, mt: 0 }}>
                       <Box
-                        key={i}
                         sx={{
-                          background: '#ffa726',
+                          background: 'linear-gradient(90deg,#ff9800,#ffb347)',
                           color: '#fff',
-                          fontSize: 15,
+                          fontSize: 13,
                           fontWeight: 600,
                           borderRadius: 999,
                           px: 2,
                           py: 0.5,
-                          mr: 0.5,
                           boxShadow: '0 2px 8px 0 rgba(0,0,0,0.10)',
                           letterSpacing: 0.5,
                           display: 'flex',
@@ -238,43 +258,67 @@ export default function Projelerim() {
                           gap: 0.7,
                         }}
                       >
-                        <SettingsIcon sx={{ fontSize: 20, color: '#fff', mr: 0.7, animation: 'spin 1.2s linear infinite', '@keyframes spin': { '0%': { transform: 'rotate(0deg)' }, '100%': { transform: 'rotate(360deg)' } } }} />
-                        {etiket.ad}
+                        <SettingsIcon sx={{ fontSize: 16, color: '#fff', mr: 0.7, animation: 'spin 1.2s linear infinite', '@keyframes spin': { '0%': { transform: 'rotate(0deg)' }, '100%': { transform: 'rotate(360deg)' } } }} />
+                        Şu anda Geliştiriliyor Takipte Kalın
                       </Box>
-                    ) : (
-                      <Box
-                        key={i}
-                        sx={{
-                          background: etiket.renk,
-                          color: '#fff',
-                          fontSize: 15,
-                          fontWeight: 600,
-                          borderRadius: 999,
-                          px: 2,
-                          py: 0.5,
-                          mr: 0.5,
-                          boxShadow: '0 2px 8px 0 rgba(0,0,0,0.10)',
-                          letterSpacing: 0.5,
-                        }}
-                      >
-                        {etiket.ad}
+                    </Box>
+                  </>
+                ) : (
+                  <>
+                    <Box sx={{ position: 'absolute', left: 11, bottom: 55, pl: '2px', pb: 0, mt: 0, zIndex: 5 }}>
+                      <Box className="proje-etiketler" sx={{ display: 'flex', flexWrap: 'wrap', gap: 1, mb: 0, justifyContent: 'flex-start' }}>
+                        {proje.etiketler.map((etiket, i) => (
+                          <Box
+                            key={i}
+                            sx={{
+                              background: etiket.renk,
+                              color: '#fff',
+                              fontSize: 13,
+                              fontWeight: 600,
+                              borderRadius: 999,
+                              px: 2,
+                              py: 0.5,
+                              mr: 0.5,
+                              boxShadow: '0 2px 8px 0 rgba(0,0,0,0.10)',
+                              letterSpacing: 0.5,
+                            }}
+                          >
+                            {etiket.ad}
+                          </Box>
+                        ))}
                       </Box>
-                    )
-                  ))}
-                </Box>
-                {proje.baslik !== "Online Kuaför Randevu Alma Uygulaması" && (
-                  <Box sx={{ position: 'absolute', left: 0, bottom: 0, pl: 2, pb: 1 }}>
-                    <a href={proje.github} target="_blank" rel="noopener noreferrer" style={{ color: '#fff', opacity: 0.7 }}>
-                      <GitHubIcon fontSize="large" />
-                    </a>
-                  </Box>
+                    </Box>
+                    <Box sx={{ position: 'absolute', left: 0, bottom: 0, pl: 0, pb: 0, mt: 0, zIndex: 1 }}>
+                      <a href={proje.github} target="_blank" rel="noopener noreferrer" style={{ textDecoration: 'none' }}>
+                        <Box
+                          sx={{
+                            background: cardBg,
+                            color: githubIconColor,
+                            fontSize: 13,
+                            fontWeight: 600,
+                            borderRadius: 999,
+                            px: 2,
+                            py: 0.5,
+                            boxShadow: '0 2px 8px 0 rgba(0,0,0,0.10)',
+                            letterSpacing: 0.5,
+                            display: 'flex',
+                            alignItems: 'center',
+                            gap: 0.7,
+                            transition: 'background 0.2s',
+                            '&:hover': { background: isDark ? 'linear-gradient(90deg,#3ea6ff,#00e6d6)' : 'linear-gradient(90deg,#232b39,#00e6d6)' },
+                          }}
+                        >
+                          <GitHubIcon sx={{ fontSize: 30, color: githubIconColor, mr: 0.9 }} />
+                        </Box>
+                      </a>
+                    </Box>
+                  </>
                 )}
               </Box>
             </Paper>
           </Grid>
         ))}
       </Grid>
-      {/* Modal */}
       <Modal
         open={openModal}
         onClose={handleCloseModal}
