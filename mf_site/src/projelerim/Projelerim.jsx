@@ -8,6 +8,9 @@ import SettingsIcon from "@mui/icons-material/Settings";
 import pp from "../fotolar/pp.jpeg";
 import hakkimda_pp from "../fotolar/hakkimda_pp.jpeg";
 import site_icon from "../fotolar/site_icon.jpeg";
+import berber1 from "../fotolar/berber1.jpeg";
+import berber2 from "../fotolar/berber2.jpeg";
+import berber3 from "../fotolar/berber3.jpeg";
 import { Swiper, SwiperSlide } from 'swiper/react';
 import { Navigation, Pagination, Autoplay } from 'swiper/modules';
 import 'swiper/css';
@@ -16,6 +19,9 @@ import 'swiper/css/pagination';
 import pp2 from "../fotolar/pp.jpeg";
 import pp3 from "../fotolar/site_icon.jpeg";
 import { useTheme } from '@mui/material/styles';
+import Modal from '@mui/material/Modal';
+import IconButton from '@mui/material/IconButton';
+import CloseIcon from '@mui/icons-material/Close';
 
 const projeler = [
   {
@@ -27,7 +33,7 @@ const projeler = [
       { ad: "Spring Boot", renk: "linear-gradient(90deg,#ffb347,#ffcc33)" },
       { ad: "Şu anda Geliştiriliyor", renk: "linear-gradient(90deg,#ff9800,#ffb347)" },
     ],
-    fotolar: [site_icon],
+    fotolar: [berber1, berber2, berber3],
     github: "#",
   },
   {
@@ -38,7 +44,7 @@ const projeler = [
       { ad: "C#", renk: "linear-gradient(90deg,#1976d2,#00e6d6)" },
       { ad: "Windows Forms", renk: "linear-gradient(90deg,#43e97b,#38f9d7)" },
     ],
-    fotolar: [hakkimda_pp],
+    fotolar: [hakkimda_pp, site_icon, pp],
     github: "#",
   },
   {
@@ -51,7 +57,7 @@ const projeler = [
       { ad: "Arduino", renk: "linear-gradient(90deg,#00c853,#00e6d6)" },
       { ad: "ESP8266", renk: "linear-gradient(90deg,#00bcd4,#4caf50)" },
     ],
-    fotolar: [pp, pp2, pp3],
+    fotolar: [pp, hakkimda_pp, site_icon],
     github: "#",
   },
 ];
@@ -65,6 +71,21 @@ export default function Projelerim() {
   const hoverShadow = isDark
     ? '0 0 24px 2px #19e6d655, 0 0 0 4px #19e6d633'
     : '0 0 24px 2px #19e6d655, 0 0 0 2px #19e6d633';
+
+  const [openModal, setOpenModal] = React.useState(false);
+  const [modalImgIndex, setModalImgIndex] = React.useState(0);
+  const [modalImgList, setModalImgList] = React.useState([]);
+
+  const handleOpenModal = (img, imgList) => {
+    setModalImgList(imgList);
+    setModalImgIndex(imgList.indexOf(img));
+    setOpenModal(true);
+  };
+  const handleCloseModal = () => {
+    setOpenModal(false);
+    setModalImgList([]);
+    setModalImgIndex(0);
+  };
 
   return (
     <Box sx={{ width: '100%', minHeight: '90vh', bgcolor: 'background.default', px: { xs: 1, md: 6 }, py: 8 }}>
@@ -159,7 +180,10 @@ export default function Projelerim() {
                             boxShadow: '0 2px 8px 0 rgba(0,0,0,0.10)',
                             mx: 'auto',
                             display: 'block',
+                            cursor: 'pointer',
+                            transition: 'box-shadow 0.2s',
                           }}
+                          onClick={() => handleOpenModal(foto, proje.fotolar)}
                         />
                       </SwiperSlide>
                     ))}
@@ -176,7 +200,12 @@ export default function Projelerim() {
                       borderRadius: 3,
                       background: 'transparent',
                       boxShadow: '0 2px 8px 0 rgba(0,0,0,0.10)',
+                      mx: 'auto',
+                      display: 'block',
+                      cursor: 'pointer',
+                      transition: 'box-shadow 0.2s',
                     }}
+                    onClick={() => handleOpenModal(proje.fotolar[0], proje.fotolar)}
                   />
                 )}
               </Box>
@@ -245,6 +274,71 @@ export default function Projelerim() {
           </Grid>
         ))}
       </Grid>
+      {/* Modal */}
+      <Modal
+        open={openModal}
+        onClose={handleCloseModal}
+        sx={{
+          display: 'flex',
+          alignItems: 'center',
+          justifyContent: 'center',
+          zIndex: 2000,
+          backgroundColor: 'rgba(30,40,60,0.7)',
+          backdropFilter: 'blur(6px)',
+        }}
+      >
+        <Box sx={{
+          position: 'relative',
+          outline: 'none',
+          bgcolor: '#232b39',
+          color: '#fff',
+          borderRadius: 4,
+          p: 2,
+          maxWidth: 700,
+          width: '90vw',
+          maxHeight: '80vh',
+          boxShadow: '0 8px 32px 0 rgba(0,0,0,0.25)',
+          display: 'flex',
+          alignItems: 'center',
+          justifyContent: 'center',
+          backdropFilter: 'blur(8px)',
+        }}>
+          <IconButton
+            onClick={handleCloseModal}
+            sx={{ position: 'absolute', top: 8, right: 8, zIndex: 10, bgcolor: 'rgba(0,0,0,0.5)', color: '#fff', '&:hover': { bgcolor: 'rgba(0,0,0,0.7)' } }}
+          >
+            <CloseIcon />
+          </IconButton>
+          <Swiper
+            modules={[Navigation, Pagination, Autoplay]}
+            navigation
+            pagination={{ clickable: true }}
+            keyboard={{ enabled: true }}
+            autoplay={{ delay: 3000, disableOnInteraction: false }}
+            loop
+            initialSlide={modalImgIndex}
+            style={{ width: '100%', height: '100%' }}
+          >
+            {modalImgList.map((img, idx) => (
+              <SwiperSlide key={idx}>
+                <Box
+                  component="img"
+                  src={img}
+                  alt={`Büyük görsel ${idx + 1}`}
+                  sx={{
+                    width: '100%',
+                    height: '60vh',
+                    objectFit: 'contain',
+                    borderRadius: 6,
+                    display: 'block',
+                    mx: 'auto',
+                  }}
+                />
+              </SwiperSlide>
+            ))}
+          </Swiper>
+        </Box>
+      </Modal>
     </Box>
   );
 } 
