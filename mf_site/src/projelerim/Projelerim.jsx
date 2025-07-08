@@ -11,6 +11,15 @@ import site_icon from "../fotolar/site_icon.jpeg";
 import berber1 from "../fotolar/berber1.jpeg";
 import berber2 from "../fotolar/berber2.jpeg";
 import berber3 from "../fotolar/berber3.jpeg";
+import goruntuisleme1 from "../fotolar/goruntuisleme1.jpeg";
+import goruntuisleme2 from "../fotolar/goruntuisleme2.jpeg";
+import goruntuisleme3 from "../fotolar/goruntuisleme3.jpeg";
+import spor1 from "../fotolar/spor1.jpeg";
+import spor2 from "../fotolar/spor2.jpeg";
+import spor3 from "../fotolar/spor3.jpeg";
+import staj1 from "../fotolar/staj1.jpeg";
+import staj2 from "../fotolar/staj2.jpeg";
+import staj3 from "../fotolar/staj3.jpeg";
 import { Swiper, SwiperSlide } from 'swiper/react';
 import { Navigation, Pagination, Autoplay } from 'swiper/modules';
 import 'swiper/css';
@@ -27,7 +36,7 @@ const projeler = [
   {
     baslik: "Yapay Zekâ Tabanlı Kuaför Asistanı ve İşletme Yönetimi Uygulaması",
     aciklama:
-      "Bu uygulama, kuaförler ve güzellik salonları için randevu yönetim uygulamasıdır. Backend kısmı Spring Boot ile yazılmıştır. Yapay zeka ise Python-Flask ile geliştirilmiştir. Yapay zekaya fotoğrafınızı yükleyerek saç kesimi ve bakım önerileri alabilxy .",
+      "Bu uygulama, kuaförler ve güzellik salonları için randevu yönetim uygulamasıdır. Backend kısmı Spring Boot ile yazılmıştır. Yapay zeka ise Python-Flask ile geliştirilmiştir. Yapay zekaya fotoğrafınızı yükleyerek saç kesimi ve bakım önerileri alabiliyoruz .",
     etiketler: [
       { ad: "Python-Flask", renk: "linear-gradient(90deg,#3ea6ff,#00e6d6)" },
       { ad: "Spring Boot", renk: "linear-gradient(90deg,#3ea6ff,#00e6d6)" },
@@ -39,38 +48,39 @@ const projeler = [
   {
     baslik: "Görüntü İşleme ve Kümeleme Uygulaması",
     aciklama:
-      "C# Windows Forms ile geliştirilmiş kapsamlı görüntü işleme uygulaması.",
+      "C# Windows Forms kullanarak geliştirdiğim kapsamlı bir uygulamadır. K-Means (yoğunluk, RGB, Mahalanobis) ve Sobel kenar bulma gibi gelişmiş görüntü işleme algoritmalarını içerir. Detaylı piksel ve histogram analiz yetenekleri de sunmaktadır.",
     etiketler: [
       { ad: "C#", renk: "linear-gradient(90deg,#1976d2,#00e6d6)" },
       { ad: "Windows Forms", renk: "linear-gradient(90deg,#43e97b,#38f9d7)" },
     ],
-    fotolar: [hakkimda_pp, site_icon, pp],
+    fotolar: [goruntuisleme1, goruntuisleme2, goruntuisleme3],
     github: "#",
   },
   // 3. KUTU
   {
-    baslik: "Işık Yoğunluğu Ölçer",
+    baslik: "Spor Kompleksi Uygulaması",
     aciklama:
-      "BH1750 ışık yoğunluğu sensörünü ESP8266 NodeMCU kartı ve Arduino IDE kullanarak ışık şiddetini ölçme uygulaması.",
+      "Mobil uygulama Java ve SQLite kullanılarak geliştirilmiştir. Kullanıcılar uygulamaya kayıt olarak ve giriş yaparak günlük egzersiz rutinlerini oluşturabilirler. Amacımız, uygulayacağımız egzersizleri göstererek kullanıcıların günlük yaşamlarında sağlıklı bir yaşam tarzı sürdürmelerine yardimci olmaktır.",
     etiketler: [
-      { ad: "SwiftUI", renk: "linear-gradient(90deg,#3ea6ff,#00e6d6)" },
-      { ad: "C++", renk: "linear-gradient(90deg,#2196f3,#19e6d6)" },
-      { ad: "Arduino", renk: "linear-gradient(90deg,#00c853,#00e6d6)" },
-      { ad: "ESP8266", renk: "linear-gradient(90deg,#00bcd4,#4caf50)" },
+      { ad: "Android-Java", renk: "linear-gradient(90deg,#3ea6ff,#00e6d6)" },
+    
+      { ad: "SQLite", renk: "linear-gradient(90deg,#00bcd4,#4caf50)" },
     ],
-    fotolar: [pp, hakkimda_pp, site_icon],
+    fotolar: [spor1,spor2,spor3],
     github: "#",
   },
   // 4. KUTU
   {
-    baslik: "Yapay Zekâ Tabanlı Kuaför Asistanı ve İşletme Yönetimi Uygulaması",
+    baslik: "Staj Projesi: Kullanıcı Platformu",
     aciklama:
-      "Bu uygulama, kuaförler ve güzellik salonları için randevu yönetim uygulamasıdır. Backend kısmı Spring Boot ile yazılmıştır. Yapay zeka ise Python-Flask ile geliştirilmiştir. Yapay zekaya fotoğrafınızı yükleyerek saç kesimi ve bakım önerileri alabilxy .",
+      "Bu uygulama kullanıcı odaklı bir sosyal etkileşim platformudur. Uygulama, güvenli kayıt/giriş, kullanıcı listeleme, detaylı profil görüntüleme ve düzenleme gibi fonksiyonellikler sağlayarak, kullanıcıların dijital ortamda birbirleriyle bağlantı kurmasını ve bilgi paylaşmasını kolaylaştırır.",
     etiketler: [
-      { ad: "Python-Flask", renk: "linear-gradient(90deg,#3ea6ff,#00e6d6)" },
+      { ad: "React JS ", renk: "linear-gradient(90deg,#3ea6ff,#00e6d6)" },
       { ad: "Spring Boot", renk: "linear-gradient(90deg,#3ea6ff,#00e6d6)" },
+      { ad: "H2 Database", renk: "linear-gradient(90deg,#00bcd4,#4caf50)" },
+
     ],
-    fotolar: [berber1, berber2, berber3],
+    fotolar: [staj1,staj2,staj3],
     github: "#",
   },
   // 5. KUTU
@@ -192,6 +202,18 @@ export default function Projelerim() {
   const [modalImgIndex, setModalImgIndex] = React.useState(0);
   const [modalImgList, setModalImgList] = React.useState([]);
 
+  // objectFit state'i: her kutu için ayrı ayrı tutmak için bir nesne
+  const [objectFitMap, setObjectFitMap] = React.useState({});
+
+  // Görsel yüklendiğinde oranına göre objectFit belirle
+  const handleImgLoad = (e, imgKey) => {
+    const { naturalWidth, naturalHeight } = e.target;
+    setObjectFitMap(prev => ({
+      ...prev,
+      [imgKey]: naturalHeight > naturalWidth ? 'contain' : 'cover'
+    }));
+  };
+
   const handleOpenModal = (img, imgList) => {
     setModalImgList(imgList);
     setModalImgIndex(imgList.indexOf(img));
@@ -296,9 +318,9 @@ export default function Projelerim() {
                               src={foto}
                               alt={proje.baslik + " görsel " + (idx + 1)}
                               sx={{
-                                width: 180,
-                                height: 250,
-                                objectFit: 'contain',
+                                width: '100%',
+                                height: '100%',
+                                objectFit: objectFitMap[proje.baslik + idx] || 'cover',
                                 borderRadius: 3,
                                 background: 'transparent',
                                 boxShadow: '0 2px 8px 0 rgba(0,0,0,0.10)',
@@ -308,6 +330,7 @@ export default function Projelerim() {
                                 transition: 'box-shadow 0.2s',
                               }}
                               onClick={() => handleOpenModal(foto, proje.fotolar)}
+                              onLoad={e => handleImgLoad(e, proje.baslik + idx)}
                             />
                           </SwiperSlide>
                         ))}
@@ -318,9 +341,9 @@ export default function Projelerim() {
                         src={proje.fotolar[0]}
                         alt={proje.baslik}
                         sx={{
-                          width: 180,
-                          height: 250,
-                          objectFit: 'contain',
+                          width: '100%',
+                          height: '100%',
+                          objectFit: objectFitMap[proje.baslik + 'single'] || 'cover',
                           borderRadius: 3,
                           background: 'transparent',
                           boxShadow: '0 2px 8px 0 rgba(0,0,0,0.10)',
@@ -330,6 +353,7 @@ export default function Projelerim() {
                           transition: 'box-shadow 0.2s',
                         }}
                         onClick={() => handleOpenModal(proje.fotolar[0], proje.fotolar)}
+                        onLoad={e => handleImgLoad(e, proje.baslik + 'single')}
                       />
                     )}
                   </Box>
@@ -397,7 +421,7 @@ export default function Projelerim() {
                     ) : (
                       <>
                         {/* Etiketler */}
-                        <Box sx={{ position: 'absolute', left: 11, bottom: 55, pl: '2px', pb: 0, mt: 0, zIndex: 5 }}>
+                        <Box sx={{ position: 'absolute', left: 11, bottom: 44, pl: '2px', pb: 0, mt: 0, zIndex: 5 }}>
                           <Box className="proje-etiketler" sx={{ display: 'flex', flexWrap: 'wrap', gap: 1, mb: 0, justifyContent: 'flex-start' }}>
                             {proje.etiketler.map((etiket, i) => (
                               <Box
@@ -502,9 +526,9 @@ export default function Projelerim() {
                               src={foto}
                               alt={proje.baslik + " görsel " + (idx + 1)}
                               sx={{
-                                width: 180,
-                                height: 250,
-                                objectFit: 'contain',
+                                width: '100%',
+                                height: '100%',
+                                objectFit: objectFitMap[proje.baslik + idx] || 'cover',
                                 borderRadius: 3,
                                 background: 'transparent',
                                 boxShadow: '0 2px 8px 0 rgba(0,0,0,0.10)',
@@ -514,6 +538,7 @@ export default function Projelerim() {
                                 transition: 'box-shadow 0.2s',
                               }}
                               onClick={() => handleOpenModal(foto, proje.fotolar)}
+                              onLoad={e => handleImgLoad(e, proje.baslik + idx)}
                             />
                           </SwiperSlide>
                         ))}
@@ -524,9 +549,9 @@ export default function Projelerim() {
                         src={proje.fotolar[0]}
                         alt={proje.baslik}
                         sx={{
-                          width: 180,
-                          height: 250,
-                          objectFit: 'contain',
+                          width: '100%',
+                          height: '100%',
+                          objectFit: objectFitMap[proje.baslik + 'single'] || 'cover',
                           borderRadius: 3,
                           background: 'transparent',
                           boxShadow: '0 2px 8px 0 rgba(0,0,0,0.10)',
@@ -536,6 +561,7 @@ export default function Projelerim() {
                           transition: 'box-shadow 0.2s',
                         }}
                         onClick={() => handleOpenModal(proje.fotolar[0], proje.fotolar)}
+                        onLoad={e => handleImgLoad(e, proje.baslik + 'single')}
                       />
                     )}
                   </Box>
@@ -554,7 +580,7 @@ export default function Projelerim() {
                     {globalIdx === 0 ? (
                       <>
                         {/* Etiketler */}
-                        <Box sx={{ position: 'absolute', left: 11, bottom: 50, pl: '2px', pb: 0, mt: 0, zIndex: 5 }}>
+                        <Box sx={{ position: 'absolute', left: 11, bottom: 44, pl: '2px', pb: 0, mt: 0, zIndex: 5 }}>
                           <Box className="proje-etiketler" sx={{ display: 'flex', flexWrap: 'wrap', gap: 1, mb: 0, justifyContent: 'flex-start' }}>
                             {proje.etiketler.map((etiket, i) => (
                               <Box
@@ -603,7 +629,7 @@ export default function Projelerim() {
                     ) : (
                       <>
                         {/* Etiketler */}
-                        <Box sx={{ position: 'absolute', left: 11, bottom: 55, pl: '2px', pb: 0, mt: 0, zIndex: 5 }}>
+                        <Box sx={{ position: 'absolute', left: 11, bottom: 44, pl: '2px', pb: 0, mt: 0, zIndex: 5 }}>
                           <Box className="proje-etiketler" sx={{ display: 'flex', flexWrap: 'wrap', gap: 1, mb: 0, justifyContent: 'flex-start' }}>
                             {proje.etiketler.map((etiket, i) => (
                               <Box
@@ -708,9 +734,9 @@ export default function Projelerim() {
                               src={foto}
                               alt={proje.baslik + " görsel " + (idx + 1)}
                               sx={{
-                                width: 180,
-                                height: 250,
-                                objectFit: 'contain',
+                                width: '100%',
+                                height: '100%',
+                                objectFit: objectFitMap[proje.baslik + idx] || 'cover',
                                 borderRadius: 3,
                                 background: 'transparent',
                                 boxShadow: '0 2px 8px 0 rgba(0,0,0,0.10)',
@@ -720,6 +746,7 @@ export default function Projelerim() {
                                 transition: 'box-shadow 0.2s',
                               }}
                               onClick={() => handleOpenModal(foto, proje.fotolar)}
+                              onLoad={e => handleImgLoad(e, proje.baslik + idx)}
                             />
                           </SwiperSlide>
                         ))}
@@ -730,9 +757,9 @@ export default function Projelerim() {
                         src={proje.fotolar[0]}
                         alt={proje.baslik}
                         sx={{
-                          width: 180,
-                          height: 250,
-                          objectFit: 'contain',
+                          width: '100%',
+                          height: '100%',
+                          objectFit: objectFitMap[proje.baslik + 'single'] || 'cover',
                           borderRadius: 3,
                           background: 'transparent',
                           boxShadow: '0 2px 8px 0 rgba(0,0,0,0.10)',
@@ -742,6 +769,7 @@ export default function Projelerim() {
                           transition: 'box-shadow 0.2s',
                         }}
                         onClick={() => handleOpenModal(proje.fotolar[0], proje.fotolar)}
+                        onLoad={e => handleImgLoad(e, proje.baslik + 'single')}
                       />
                     )}
                   </Box>
@@ -760,7 +788,7 @@ export default function Projelerim() {
                     {globalIdx === 0 ? (
                       <>
                         {/* Etiketler */}
-                        <Box sx={{ position: 'absolute', left: 11, bottom: 50, pl: '2px', pb: 0, mt: 0, zIndex: 5 }}>
+                        <Box sx={{ position: 'absolute', left: 11, bottom: 44, pl: '2px', pb: 0, mt: 0, zIndex: 5 }}>
                           <Box className="proje-etiketler" sx={{ display: 'flex', flexWrap: 'wrap', gap: 1, mb: 0, justifyContent: 'flex-start' }}>
                             {proje.etiketler.map((etiket, i) => (
                               <Box
@@ -809,7 +837,7 @@ export default function Projelerim() {
                     ) : (
                       <>
                         {/* Etiketler */}
-                        <Box sx={{ position: 'absolute', left: 11, bottom: 55, pl: '2px', pb: 0, mt: 0, zIndex: 5 }}>
+                        <Box sx={{ position: 'absolute', left: 11, bottom: 44, pl: '2px', pb: 0, mt: 0, zIndex: 5 }}>
                           <Box className="proje-etiketler" sx={{ display: 'flex', flexWrap: 'wrap', gap: 1, mb: 0, justifyContent: 'flex-start' }}>
                             {proje.etiketler.map((etiket, i) => (
                               <Box
@@ -914,9 +942,9 @@ export default function Projelerim() {
                               src={foto}
                               alt={proje.baslik + " görsel " + (idx + 1)}
                               sx={{
-                                width: 180,
-                                height: 250,
-                                objectFit: 'contain',
+                                width: '100%',
+                                height: '100%',
+                                objectFit: objectFitMap[proje.baslik + idx] || 'cover',
                                 borderRadius: 3,
                                 background: 'transparent',
                                 boxShadow: '0 2px 8px 0 rgba(0,0,0,0.10)',
@@ -926,6 +954,7 @@ export default function Projelerim() {
                                 transition: 'box-shadow 0.2s',
                               }}
                               onClick={() => handleOpenModal(foto, proje.fotolar)}
+                              onLoad={e => handleImgLoad(e, proje.baslik + idx)}
                             />
                           </SwiperSlide>
                         ))}
@@ -936,9 +965,9 @@ export default function Projelerim() {
                         src={proje.fotolar[0]}
                         alt={proje.baslik}
                         sx={{
-                          width: 180,
-                          height: 250,
-                          objectFit: 'contain',
+                          width: '100%',
+                          height: '100%',
+                          objectFit: objectFitMap[proje.baslik + 'single'] || 'cover',
                           borderRadius: 3,
                           background: 'transparent',
                           boxShadow: '0 2px 8px 0 rgba(0,0,0,0.10)',
@@ -948,6 +977,7 @@ export default function Projelerim() {
                           transition: 'box-shadow 0.2s',
                         }}
                         onClick={() => handleOpenModal(proje.fotolar[0], proje.fotolar)}
+                        onLoad={e => handleImgLoad(e, proje.baslik + 'single')}
                       />
                     )}
                   </Box>
@@ -966,7 +996,7 @@ export default function Projelerim() {
                     {globalIdx === 0 ? (
                       <>
                         {/* Etiketler */}
-                        <Box sx={{ position: 'absolute', left: 11, bottom: 50, pl: '2px', pb: 0, mt: 0, zIndex: 5 }}>
+                        <Box sx={{ position: 'absolute', left: 11, bottom: 44, pl: '2px', pb: 0, mt: 0, zIndex: 5 }}>
                           <Box className="proje-etiketler" sx={{ display: 'flex', flexWrap: 'wrap', gap: 1, mb: 0, justifyContent: 'flex-start' }}>
                             {proje.etiketler.map((etiket, i) => (
                               <Box
@@ -1015,7 +1045,7 @@ export default function Projelerim() {
                     ) : (
                       <>
                         {/* Etiketler */}
-                        <Box sx={{ position: 'absolute', left: 11, bottom: 55, pl: '2px', pb: 0, mt: 0, zIndex: 5 }}>
+                        <Box sx={{ position: 'absolute', left: 11, bottom: 44, pl: '2px', pb: 0, mt: 0, zIndex: 5 }}>
                           <Box className="proje-etiketler" sx={{ display: 'flex', flexWrap: 'wrap', gap: 1, mb: 0, justifyContent: 'flex-start' }}>
                             {proje.etiketler.map((etiket, i) => (
                               <Box
