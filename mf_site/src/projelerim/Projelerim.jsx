@@ -34,6 +34,7 @@ import oyun1 from "../fotolar/oyun1.jpeg";
 import oyun2 from "../fotolar/oyun2.jpeg";
 import oyun3 from "../fotolar/oyun3.jpeg";
 import oyun4 from "../fotolar/oyun4.jpeg";
+import kişisel1 from "../fotolar/kişisel1.jpeg";
 
 
 
@@ -189,17 +190,17 @@ const projeler = [
   },
   // 12. KUTU
   {
-    baslik: "Işık Yoğunluğu Ölçer",
+    baslik: "Kişisel Web Sitem",
     aciklama:
-      "BH1750 ışık yoğunluğu sensörünü ESP8266 NodeMCU kartı ve Arduino IDE kullanarak ışık şiddetini ölçme uygulaması.",
+      " Kişisel portfolyo web sitesidir. Yazılım geliştirme becerilerimi sergileyen çeşitli projelerimi (web, masaüstü, mobil) barındırır. Duyarlı tasarımı ve kullanıcı dostu arayüzü ile çalışmalarımı sunar",
     etiketler: [
-      { ad: "SwiftUI", renk: "linear-gradient(90deg,#3ea6ff,#00e6d6)" },
-      { ad: "C++", renk: "linear-gradient(90deg,#2196f3,#19e6d6)" },
-      { ad: "Arduino", renk: "linear-gradient(90deg,#00c853,#00e6d6)" },
-      { ad: "ESP8266", renk: "linear-gradient(90deg,#00bcd4,#4caf50)" },
+      { ad: "React", renk: "linear-gradient(90deg,#3ea6ff,#00e6d6)" },
+      { ad: "CSS", renk: "linear-gradient(90deg,#2196f3,#19e6d6)" },
+      { ad: "JavaScript", renk: "linear-gradient(90deg,#00c853,#00e6d6)" },
+    
     ],
-    fotolar: [pp, hakkimda_pp, site_icon],
-    github: "#",
+    fotolar: [kişisel1],
+    github: "https://github.com/muhammetfisek/kisisel-sitem.git",
   },
 ];
 

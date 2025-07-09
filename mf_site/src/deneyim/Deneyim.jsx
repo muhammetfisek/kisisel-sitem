@@ -22,7 +22,7 @@ const deneyimler = [
         company: "Staj Okulu , Exedra Bilişim Çözümleri",
         date: "Temmuz 2024 - Ağustos 2024",
         location: "İstnabul-Üsküdar, Türkiye - Ofisten",
-        description: "Staj okulu sürecinde sektörün önde gelen firmalarından uzmanların gerçekleştirdiği seminer ve sunumlar sayesinde yazılım geliştirme süreçleri, kariyer planlaması ve güncel teknolojiler hakkında değerli bilgiler edindim. Bu deneyimler ışığında, kendimi aktif olarak geliştirmek adına Spring Boot (backend) ve React (frontend) teknolojilerini entegre ederek, kullanıcıların etkileşimli bir şekilde bilgi ve içerik paylaşımı yapabildiği tam kapsamlı bir web uygulaması hayata geçirdim. ",
+        description: "Staj okulu sürecinde sektörün önde gelen firmalarından uzmanların gerçekleştirdiği seminer ve sunumlar sayesinde yazılım geliştirme süreçleri, kariyer planlaması ve güncel teknolojiler hakkında değerli bilgiler edindim. Bu deneyimler ışığında, kendimi aktif olarak geliştirmek adına Spring Boot (backend) ve React (frontend) teknolojilerini entegre ederek, kullanıcıların etkileşimli bir şekilde bilgi ve içerik paylaşımı yapabildiği tam kapsamlı bir web uygulaması hayata geçirdim.",
       },
   
   
@@ -41,7 +41,7 @@ const egitimler = [
     degree: "Lise Eğitimi",
     date: "Eylül 2016 - Haziran 2020",
     location: "İstanbul-Pendik, Türkiye",
-    description: "Lise eğitimimi tamamlayarak yükseköğrenime hazırlandım. Bu süreçte temel bilimler ve yabancı dil alanlarında kendimi geliştirdim.",
+    description: "Lise eğitimimi tamamlayarak yükseköğrenime hazırlandım. Bu süreçte temel bilimler ve yabancı dil alanlarında kendimi geliştirdim. Lise döneminde orta düzeyde Fransızca eğitimi aldım.",
   },
 ];
 
