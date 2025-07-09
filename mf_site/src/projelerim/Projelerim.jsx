@@ -35,6 +35,12 @@ import oyun2 from "../fotolar/oyun2.jpeg";
 import oyun3 from "../fotolar/oyun3.jpeg";
 import oyun4 from "../fotolar/oyun4.jpeg";
 import kişisel1 from "../fotolar/kişisel1.jpeg";
+import horsinggame1 from "../fotolar/horsinggame1.jpeg";
+import horsinggame2 from "../fotolar/horsinggame2.jpeg";
+import stok1 from "../fotolar/stok1.jpeg";
+import stok2 from "../fotolar/stok2.jpeg";
+import stok3 from "../fotolar/stok3.jpeg";
+import stok4 from "../fotolar/stok4.jpeg";
 
 
 
@@ -122,7 +128,7 @@ const projeler = [
       { ad: "C#", renk: "linear-gradient(90deg,#1976d2,#00e6d6)" },
       { ad: "Windows Forms", renk: "linear-gradient(90deg,#43e97b,#38f9d7)" },
     ],
-    fotolar: [pp, hakkimda_pp, site_icon],
+    fotolar: [horsinggame1,horsinggame2],
     github: "https://github.com/muhammetfisek/Horse-Racing-Game.git",
   },
   // 7. KUTU
@@ -134,7 +140,7 @@ const projeler = [
       { ad: "C#", renk: "linear-gradient(90deg,#3ea6ff,#00e6d6)" },
       { ad: "MS-SQL", renk: "linear-gradient(90deg,#3ea6ff,#00e6d6)" },
     ],
-    fotolar: [berber1, berber2, berber3],
+    fotolar: [stok1,stok2,stok3,stok4],
     github: "https://github.com/muhammetfisek/Stock-Tracking-System.git",
   },
   // 8. KUTU
