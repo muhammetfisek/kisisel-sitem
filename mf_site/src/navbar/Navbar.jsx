@@ -60,6 +60,8 @@ export default function Navbar({ darkMode, setDarkMode, onScrollTo, activeMenu }
       onScrollTo("deneyim");
     } else if (item.label === "Projelerim" && onScrollTo) {
       onScrollTo("projelerim");
+    } else if (item.label === "İletişim" && onScrollTo) {
+      onScrollTo("iletisim");
     } else {
       // Diğer menüler için ileride ekleme yapılabilir
     }

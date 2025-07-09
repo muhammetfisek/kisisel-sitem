@@ -8,6 +8,7 @@ import Hakkimda from "./hakkimda/Hakkimda";
 import Yeteneklerim from "./yeteneklerim/Yeteneklerim";
 import Deneyim from "./deneyim/Deneyim";
 import Projelerim from "./projelerim/Projelerim";
+import Iletisim from "./iletisim/Iletisim";
 
 export default function App() {
   const [darkMode, setDarkMode] = React.useState(true);
@@ -16,6 +17,7 @@ export default function App() {
   const yeteneklerimRef = useRef(null);
   const deneyimRef = useRef(null);
   const projelerimRef = useRef(null);
+  const iletisimRef = useRef(null);
   const [activeSection, setActiveSection] = useState("anasayfa");
   const [contentLoaded, setContentLoaded] = useState(false); // Yeni state: İçerik yüklendi mi?
   const initialScrollDone = useRef(false);
@@ -59,6 +61,9 @@ export default function App() {
     } else if (section === "projelerim") {
       targetRef = projelerimRef;
       targetHash = "#projelerim";
+    } else if (section === "iletisim") {
+      targetRef = iletisimRef;
+      targetHash = "#iletisim";
     }
 
     if (targetRef && targetRef.current) {
@@ -93,6 +98,7 @@ export default function App() {
         { id: "yeteneklerim", ref: yeteneklerimRef },
         { id: "deneyim", ref: deneyimRef },
         { id: "projelerim", ref: projelerimRef },
+        { id: "iletisim", ref: iletisimRef },
       ];
 
       let currentActive = "anasayfa";
@@ -103,7 +109,7 @@ export default function App() {
           const top = section.ref.current.offsetTop;
           const height = section.ref.current.offsetHeight;
           if (scrollY + offset >= top && scrollY + offset < top + height) {
-            currentActive = section.id;
+            currentActive = section.id; // orijinal id'yi ata
             break;
           }
         }
@@ -153,7 +159,7 @@ export default function App() {
           darkMode={darkMode}
           setDarkMode={setDarkMode}
           onScrollTo={(section) => handleScrollTo(section, true)} // Navbar'dan gelenler smooth olsun
-          activeMenu={activeSection}
+          activeMenu={normalizeId(activeSection)}
         />
         {/* contentLoaded false ise sadece ilgili bölümü render et veya hiçbir şey gösterme */}
         {/* contentLoaded true ise tüm bölümleri normal şekilde render et */}
@@ -179,8 +185,23 @@ export default function App() {
           <div ref={projelerimRef} style={{ display: activeSection === "projelerim" || contentLoaded ? 'block' : 'none' }}>
             <Projelerim />
           </div>
+          <div ref={iletisimRef} style={{ display: activeSection === "iletisim" || contentLoaded ? 'block' : 'none' }}>
+            <Iletisim />
+          </div>
         </Box>
       </Box>
     </ThemeProvider>
   );
+}
+
+function normalizeId(str) {
+  return str
+    .toLowerCase()
+    .replace(/ı/g, 'i')
+    .replace(/ğ/g, 'g')
+    .replace(/ü/g, 'u')
+    .replace(/ş/g, 's')
+    .replace(/ö/g, 'o')
+    .replace(/ç/g, 'c')
+    .replace(/\s+/g, '');
 }
