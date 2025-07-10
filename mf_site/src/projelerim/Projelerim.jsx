@@ -5,9 +5,6 @@ import React, { useState, useCallback, memo } from "react";
 import Box from "@mui/material/Box";
 import Typography from "@mui/material/Typography";
 import Grid from "@mui/material/Grid";
-import Paper from "@mui/material/Paper";
-import GitHubIcon from "@mui/icons-material/GitHub";
-import SettingsIcon from "@mui/icons-material/Settings";
 
 // Swiper: Proje kartlarında çoklu görsel desteği için kullanılır
 import { Swiper, SwiperSlide } from 'swiper/react';
@@ -23,9 +20,6 @@ import CloseIcon from '@mui/icons-material/Close';
 import ProjectCard from "./ProjectCard";
 import { projeler } from "./projelerData";
 import { chunkArray } from "./utils";
-import Etiketler from "./components/Etiketler";
-import GelistiriliyorEtiketi from "./components/GelistiriliyorEtiketi";
-import GithubIconButton from "./components/GithubIconButton";
 
 // Ana Projelerim fonksiyonu
 export default function Projelerim() {

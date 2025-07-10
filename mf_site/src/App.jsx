@@ -180,7 +180,6 @@ export default function App() {
           </div>
           <div ref={iletisimRef} style={{ display: activeSection === "iletisim" || contentLoaded ? 'block' : 'none' }}>
             <Iletisim />
-            <Divider sx={{ my: 4, borderColor: 'divider', borderBottomWidth: 2, width: '100%' }} />
           </div>
         </Box>
         <Footer />
