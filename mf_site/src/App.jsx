@@ -10,6 +10,7 @@ import Deneyim from "./deneyim/Deneyim";
 import Projelerim from "./projelerim/Projelerim";
 import Iletisim from "./iletisim/Iletisim";
 import Footer from "./Footer";
+import Divider from "@mui/material/Divider";
 
 export default function App() {
   const [darkMode, setDarkMode] = React.useState(true);
@@ -43,36 +44,43 @@ export default function App() {
     [darkMode]
   );
 
-  const handleScrollTo = (section, smooth = true) => { // smooth parametresi eklendi
-    let targetRef = null;
-    let targetHash = null;
+  const sectionToPath = {
+    anasayfa: '/',
+    hakkimda: '/hakkimda',
+    yeteneklerim: '/yeteneklerim',
+    deneyim: '/deneyim',
+    projelerim: '/projelerim',
+    iletisim: '/iletisim',
+  };
+  const pathToSection = {
+    '/': 'anasayfa',
+    '/hakkimda': 'hakkimda',
+    '/yeteneklerim': 'yeteneklerim',
+    '/deneyim': 'deneyim',
+    '/projelerim': 'projelerim',
+    '/iletisim': 'iletisim',
+  };
 
+  const handleScrollTo = (section, smooth = true) => {
+    let targetRef = null;
     if (section === "hakkimda") {
       targetRef = hakkimdaRef;
-      targetHash = "#hakkimda";
     } else if (section === "anasayfa") {
       targetRef = anasayfaRef;
-      targetHash = ""; // Anasayfa için hash olmaması gerekiyor
     } else if (section === "yeteneklerim") {
       targetRef = yeteneklerimRef;
-      targetHash = "#yeteneklerim";
     } else if (section === "deneyim") {
       targetRef = deneyimRef;
-      targetHash = "#deneyim";
     } else if (section === "projelerim") {
       targetRef = projelerimRef;
-      targetHash = "#projelerim";
     } else if (section === "iletisim") {
       targetRef = iletisimRef;
-      targetHash = "#iletisim";
     }
-
     if (targetRef && targetRef.current) {
-      targetRef.current.scrollIntoView({ behavior: smooth ? "smooth" : "instant" }); // smooth parametresine göre kaydırma
-      if (targetHash) {
-        window.location.hash = targetHash;
-      } else {
-        history.replaceState(null, null, window.location.pathname + window.location.search);
+      targetRef.current.scrollIntoView({ behavior: smooth ? "smooth" : "instant" });
+      const newPath = sectionToPath[section] || '/';
+      if (window.location.pathname !== newPath) {
+        window.history.pushState({}, '', newPath);
       }
     }
   };
@@ -80,20 +88,15 @@ export default function App() {
   useEffect(() => {
     const handleScroll = () => {
       if (!initialScrollDone.current) return;
-      
       const scrollY = window.scrollY;
       const offset = 130;
-      
-      // Anasayfa için özel kontrol - scroll pozisyonu çok üstteyse
       if (scrollY < 50) {
         setActiveSection("anasayfa");
-        if (window.location.hash) {
-          history.replaceState(null, null, window.location.pathname + window.location.search);
+        if (window.location.pathname !== '/') {
+          window.history.replaceState({}, '', '/');
         }
         return;
       }
-      
-      // Diğer bölümler için kontrol
       const sections = [
         { id: "hakkimda", ref: hakkimdaRef },
         { id: "yeteneklerim", ref: yeteneklerimRef },
@@ -101,56 +104,41 @@ export default function App() {
         { id: "projelerim", ref: projelerimRef },
         { id: "iletisim", ref: iletisimRef },
       ];
-
       let currentActive = "anasayfa";
-      
       for (let i = sections.length - 1; i >= 0; i--) {
         const section = sections[i];
         if (section.ref.current) {
           const top = section.ref.current.offsetTop;
           const height = section.ref.current.offsetHeight;
           if (scrollY + offset >= top && scrollY + offset < top + height) {
-            currentActive = section.id; // orijinal id'yi ata
+            currentActive = section.id;
             break;
           }
         }
       }
-
       if (activeSection !== currentActive) {
         setActiveSection(currentActive);
       }
-
-      if (currentActive === "anasayfa") {
-        if (window.location.hash) {
-          history.replaceState(null, null, window.location.pathname + window.location.search);
-        }
-      } else {
-        if (window.location.hash !== `#${currentActive}`) {
-          window.location.hash = `#${currentActive}`;
-        }
+      const newPath = sectionToPath[currentActive] || '/';
+      if (window.location.pathname !== newPath) {
+        window.history.replaceState({}, '', newPath);
       }
     };
 
-    const hash = window.location.hash.replace('#', '');
-    let initialSection = hash || "anasayfa"; // Başlangıçta hangi bölümün aktif olacağını belirle
-
-    // İlk render'da aktif bölümü ayarla
+    // İlk açılışta path'e göre scroll
+    const currentPath = window.location.pathname;
+    let initialSection = pathToSection[currentPath] || 'anasayfa';
     setActiveSection(initialSection);
-
-    // Tüm bileşenlerin ve ref'lerin yüklenmesini bekle, ardından kaydır ve içeriği göster
-    // Bu setTimeout'u biraz daha uzun tutarak, tarayıcının tüm DOM'u çizmesine zaman tanıyoruz
     setTimeout(() => {
       if (initialSection !== "anasayfa") {
-        handleScrollTo(initialSection, false); // İlk kaydırmayı anında yap
+        handleScrollTo(initialSection, false);
       }
-      setContentLoaded(true); // İçerik yüklendi, artık gösterebiliriz
+      setContentLoaded(true);
       initialScrollDone.current = true;
       window.addEventListener("scroll", handleScroll);
-    },1); // 100ms'lik bir gecikme genellikle yeterli olur. Eğer hala yanıp sönüyorsa artırılabilir.
-
-
+    }, 1);
     return () => window.removeEventListener("scroll", handleScroll);
-  }, []); // Bağımlılık dizisini boş bırakıyoruz, sadece bir kez çalışsın
+  }, []);
 
   return (
     <ThemeProvider theme={theme}>
@@ -173,21 +161,27 @@ export default function App() {
         }}>
           <div ref={anasayfaRef} style={{ display: activeSection === "anasayfa" || contentLoaded ? 'block' : 'none' }}>
             <Home />
+            <Divider sx={{ my: 4, borderColor: 'divider', borderBottomWidth: 2, width: '100%' }} />
           </div>
           <div ref={hakkimdaRef} style={{ display: activeSection === "hakkimda" || contentLoaded ? 'block' : 'none' }}>
             <Hakkimda />
+            <Divider sx={{ my: 4, borderColor: 'divider', borderBottomWidth: 2, width: '100%' }} />
           </div>
           <div ref={yeteneklerimRef} style={{ display: activeSection === "yeteneklerim" || contentLoaded ? 'block' : 'none' }}>
             <Yeteneklerim />
+            <Divider sx={{ my: 4, borderColor: 'divider', borderBottomWidth: 2, width: '100%' }} />
           </div>
           <div ref={deneyimRef} style={{ display: activeSection === "deneyim" || contentLoaded ? 'block' : 'none' }}>
             <Deneyim />
+            <Divider sx={{ my: 4, borderColor: 'divider', borderBottomWidth: 2, width: '100%' }} />
           </div>
           <div ref={projelerimRef} style={{ display: activeSection === "projelerim" || contentLoaded ? 'block' : 'none' }}>
             <Projelerim />
+            <Divider sx={{ my: 4, borderColor: 'divider', borderBottomWidth: 2, width: '100%' }} />
           </div>
           <div ref={iletisimRef} style={{ display: activeSection === "iletisim" || contentLoaded ? 'block' : 'none' }}>
             <Iletisim />
+            <Divider sx={{ my: 4, borderColor: 'divider', borderBottomWidth: 2, width: '100%' }} />
           </div>
         </Box>
         <Footer />
