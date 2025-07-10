@@ -6,80 +6,9 @@ import GitHubIcon from "@mui/icons-material/GitHub";
 import SettingsIcon from "@mui/icons-material/Settings";
 import { Swiper, SwiperSlide } from 'swiper/react';
 import { Navigation, Pagination, Autoplay } from 'swiper/modules';
-
-// Etiketler için memoize edilmiş component
-const Etiketler = memo(({ etiketler }) => (
-  <Box className="proje-etiketler" sx={{ display: 'flex', flexWrap: 'wrap', gap: 1, mb: 0, justifyContent: 'flex-start' }}>
-    {etiketler.map((etiket, i) => (
-      <Box
-        key={i}
-        sx={{
-          background: etiket.renk,
-          color: '#fff',
-          fontSize: 13,
-          fontWeight: 600,
-          borderRadius: 999,
-          px: 2,
-          py: 0.5,
-          mr: 0.5,
-          boxShadow: '0 2px 8px 0 rgba(0,0,0,0.10)',
-          letterSpacing: 0.5,
-        }}
-      >
-        {etiket.ad}
-      </Box>
-    ))}
-  </Box>
-));
-
-// Geliştiriliyor etiketi
-const GelistiriliyorEtiketi = memo(() => (
-  <Box
-    sx={{
-      background: 'linear-gradient(90deg,#ff9800,#ffb347)',
-      color: '#fff',
-      fontSize: 13,
-      fontWeight: 600,
-      borderRadius: 999,
-      px: 2,
-      py: 0.5,
-      boxShadow: '0 2px 8px 0 rgba(0,0,0,0.10)',
-      letterSpacing: 0.5,
-      display: 'flex',
-      alignItems: 'center',
-      gap: 0.7,
-    }}
-  >
-    <SettingsIcon sx={{ fontSize: 16, color: '#fff', mr: 0.7, animation: 'spin 1.2s linear infinite', '@keyframes spin': { '0%': { transform: 'rotate(0deg)' }, '100%': { transform: 'rotate(360deg)' } } }} />
-    Şu anda Geliştiriliyor Takipte Kalın
-  </Box>
-));
-
-// Github ikonu
-const GithubIconButton = memo(({ url, cardBg, githubIconColor, isDark }) => (
-  <a href={url} target="_blank" rel="noopener noreferrer" style={{ textDecoration: 'none' }}>
-    <Box
-      sx={{
-        background: cardBg,
-        color: githubIconColor,
-        fontSize: 13,
-        fontWeight: 600,
-        borderRadius: 999,
-        px: 2,
-        py: 0.5,
-        boxShadow: '0 2px 8px 0 rgba(0,0,0,0.10)',
-        letterSpacing: 0.5,
-        display: 'flex',
-        alignItems: 'center',
-        gap: 0.7,
-        transition: 'background 0.2s',
-        '&:hover': { background: isDark ? 'linear-gradient(90deg,#3ea6ff,#00e6d6)' : 'linear-gradient(90deg,#232b39,#00e6d6)' },
-      }}
-    >
-      <GitHubIcon sx={{ fontSize: 30, color: githubIconColor, mr: 0.9 }} />
-    </Box>
-  </a>
-));
+import Etiketler from "./components/Etiketler";
+import GelistiriliyorEtiketi from "./components/GelistiriliyorEtiketi";
+import GithubIconButton from "./components/GithubIconButton";
 
 const ProjectCard = memo(function ProjectCard({ proje, globalIdx, cardBg, borderColor, hoverBorder, hoverShadow, githubIconColor, isDark, objectFitMap, handleOpenModal, handleImgLoad }) {
   return (
