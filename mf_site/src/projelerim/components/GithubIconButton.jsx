@@ -1,3 +1,6 @@
+// GithubIconButton: Proje kartında GitHub linkini gösteren buton.
+// Tıklanınca yeni sekmede GitHub reposunu açar.
+
 import React, { memo } from "react";
 import Box from "@mui/material/Box";
 import GitHubIcon from "@mui/icons-material/GitHub";

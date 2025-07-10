@@ -1,16 +1,25 @@
+// ProjectCard: Tek bir projeyi kart olarak gösteren component.
+// Görsel, başlık, açıklama, etiketler ve GitHub/Geliştiriliyor ikonları içerir.
+
 import React, { memo } from "react";
 import Box from "@mui/material/Box";
 import Typography from "@mui/material/Typography";
 import Paper from "@mui/material/Paper";
-import GitHubIcon from "@mui/icons-material/GitHub";
-import SettingsIcon from "@mui/icons-material/Settings";
 import { Swiper, SwiperSlide } from 'swiper/react';
 import { Navigation, Pagination, Autoplay } from 'swiper/modules';
 import Etiketler from "./components/Etiketler";
 import GelistiriliyorEtiketi from "./components/GelistiriliyorEtiketi";
 import GithubIconButton from "./components/GithubIconButton";
 
+// ProjectCard componenti memo ile optimize edildi
 const ProjectCard = memo(function ProjectCard({ proje, globalIdx, cardBg, borderColor, hoverBorder, hoverShadow, githubIconColor, isDark, objectFitMap, handleOpenModal, handleImgLoad }) {
+  // proje: Proje verisi (başlık, açıklama, etiketler, görseller, github)
+  // globalIdx: Proje sırası (ilk kutu için "geliştiriliyor" etiketi gösterilir)
+  // cardBg, borderColor, hoverBorder, hoverShadow, githubIconColor, isDark: Tema ve stil prop'ları
+  // objectFitMap: Her görsel için object-fit bilgisi
+  // handleOpenModal: Görsele tıklanınca büyük modalı açar
+  // handleImgLoad: Görsel yüklendiğinde oranına göre object-fit belirler
+
   return (
     <Paper
       elevation={10}
@@ -39,6 +48,7 @@ const ProjectCard = memo(function ProjectCard({ proje, globalIdx, cardBg, border
       {/* Üst görsel alanı, Swiper ile çoklu görsel desteği */}
       <Box sx={{ width: '100%', height: 250, display: 'flex', alignItems: 'center', justifyContent: 'center', bgcolor: 'linear-gradient(120deg,#e0eafc,#cfdef3 80%)', borderBottom: '1px solid #232b39', position: 'relative' }}>
         {proje.fotolar.length > 1 ? (
+          // Birden fazla görsel varsa Swiper ile slider göster
           <Swiper
             modules={[Navigation, Pagination, Autoplay]}
             navigation
@@ -72,6 +82,7 @@ const ProjectCard = memo(function ProjectCard({ proje, globalIdx, cardBg, border
             ))}
           </Swiper>
         ) : (
+          // Tek görsel varsa doğrudan göster
           <Box
             component="img"
             src={proje.fotolar[0]}
@@ -95,6 +106,7 @@ const ProjectCard = memo(function ProjectCard({ proje, globalIdx, cardBg, border
       </Box>
       {/* Alt içerik alanı: başlık, açıklama, etiketler ve ikonlar */}
       <Box sx={{ flex: 1, display: 'flex', flexDirection: 'column', justifyContent: 'flex-start', alignItems: 'flex-start', px: 3, pt: 2, pb: 2, bgcolor: '#232b39', position: 'relative' }}>
+        {/* Proje başlığı ve açıklaması */}
         <Box sx={{ width: '100%' }}>
           <Typography variant="h6" sx={{ fontWeight: 700, color: '#fff', mb: 1, textAlign: 'left', fontSize: '1.1rem' }}>
             {proje.baslik}
@@ -103,9 +115,11 @@ const ProjectCard = memo(function ProjectCard({ proje, globalIdx, cardBg, border
             {proje.aciklama}
           </Typography>
         </Box>
+        {/* Etiketler componenti ile teknolojiler */}
         <Box sx={{ position: 'absolute', left: 11, bottom: 44, pl: '2px', pb: 0, mt: 0, zIndex: 5 }}>
           <Etiketler etiketler={proje.etiketler} />
         </Box>
+        {/* İlk kutuysa "Geliştiriliyor" etiketi, diğerlerinde GitHub ikonu */}
         {globalIdx === 0 ? (
           <Box sx={{ position: 'absolute', left: 0, bottom: 2, pl: 2, pb: 1, mt: 0 }}>
             <GelistiriliyorEtiketi />

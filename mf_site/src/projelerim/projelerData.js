@@ -1,3 +1,8 @@
+// projelerData.js: Tüm projelerin verisini ve görsellerini tutar.
+// Projelerim sayfası ve ProjectCard bu veriyi kullanır.
+// Her proje: başlık, açıklama, etiketler, görseller ve github linki içerir.
+
+// Proje görselleri import edilir
 import berber1 from "../fotolar/berber1.jpeg";
 import berber2 from "../fotolar/berber2.jpeg";
 import berber3 from "../fotolar/berber3.jpeg";
@@ -32,7 +37,9 @@ import stok2 from "../fotolar/stok2.jpeg";
 import stok3 from "../fotolar/stok3.jpeg";
 import stok4 from "../fotolar/stok4.jpeg";
 
+// Projeler dizisi: Her obje bir projeyi temsil eder
 export const projeler = [
+  // 1. Proje
   {
     baslik: "Yapay Zekâ Tabanlı Kuaför Asistanı ve İşletme Yönetimi Uygulaması",
     aciklama:
@@ -44,6 +51,7 @@ export const projeler = [
     fotolar: [berber1, berber2, berber3],
     github: "#",
   },
+  // 2. Proje
   {
     baslik: "Görüntü İşleme ve Kümeleme Uygulaması",
     aciklama:
@@ -55,6 +63,7 @@ export const projeler = [
     fotolar: [goruntuisleme1, goruntuisleme2, goruntuisleme3],
     github: "https://github.com/muhammetfisek/image-processing.git",
   },
+  // 3. Proje
   {
     baslik: "Spor Kompleksi Uygulaması",
     aciklama:
@@ -66,6 +75,7 @@ export const projeler = [
     fotolar: [spor1,spor2,spor3],
     github: "https://github.com/muhammetfisek/Spor-Kompleksi.git",
   },
+  // 4. Proje
   {
     baslik: "Staj Projesi: Kullanıcı Platformu",
     aciklama:
@@ -78,6 +88,7 @@ export const projeler = [
     fotolar: [staj1,staj2,staj3],
     github: "https://github.com/muhammetfisek/staj-projesi.git",
   },
+  // 5. Proje
   {
     baslik: "Statik Web Sitesi: Haberler",
     aciklama:
@@ -89,6 +100,7 @@ export const projeler = [
     fotolar: [newssite2,newssite1,newssite3],
     github: "https://github.com/muhammetfisek/News-WebSite.git",
   },
+  // 6. Proje
   {
     baslik: "Horse-Racing-Game",
     aciklama:
@@ -100,6 +112,7 @@ export const projeler = [
     fotolar: [horsinggame1,horsinggame2],
     github: "https://github.com/muhammetfisek/Horse-Racing-Game.git",
   },
+  // 7. Proje
   {
     baslik: "Stock-Tracking-System",
     aciklama:
@@ -111,6 +124,7 @@ export const projeler = [
     fotolar: [stok1,stok2,stok3,stok4],
     github: "https://github.com/muhammetfisek/Stock-Tracking-System.git",
   },
+  // 8. Proje
   {
     baslik: " Hesap Makinesi",
     aciklama:
@@ -123,6 +137,7 @@ export const projeler = [
     fotolar: [hesapmakinesi1,hesapmakinesi2],
     github: "https://github.com/muhammetfisek/HesapMakinesi.git",
   },
+  // 9. Proje
   {
     baslik: "To-Do-List",
     aciklama:
@@ -136,6 +151,7 @@ export const projeler = [
     fotolar: [yapılacak1,yapılacak2],
     github: "https://github.com/muhammetfisek/To-Do-List.git",
   },
+  // 10. Proje
   {
     baslik: "Statik Web Sitesi: Gardener",
     aciklama:
@@ -147,6 +163,7 @@ export const projeler = [
     fotolar: [gardener1,gardener2,gardener3],
     github: "https://github.com/muhammetfisek/gardener.git",
   },
+  // 11. Proje
   {
     baslik: "Mini-Game-WebSite",
     aciklama:
@@ -158,6 +175,7 @@ export const projeler = [
     fotolar: [oyun1,oyun2,oyun3,oyun4],
     github: "https://github.com/muhammetfisek/Mini-Game-Website.git",
   },
+  // 12. Proje
   {
     baslik: "Kişisel Web Sitem",
     aciklama:

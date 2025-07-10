@@ -1,3 +1,6 @@
+// GelistiriliyorEtiketi: Proje kartında "Geliştiriliyor" durumunu gösteren özel etiket.
+// Sadece ilk kutuda gösterilir, animasyonlu ayar ikonu içerir.
+
 import React, { memo } from "react";
 import Box from "@mui/material/Box";
 import SettingsIcon from "@mui/icons-material/Settings";
@@ -19,6 +22,7 @@ const GelistiriliyorEtiketi = memo(() => (
       gap: 0.7,
     }}
   >
+    {/* Dönen ayar ikonu */}
     <SettingsIcon sx={{ fontSize: 16, color: '#fff', mr: 0.7, animation: 'spin 1.2s linear infinite', '@keyframes spin': { '0%': { transform: 'rotate(0deg)' }, '100%': { transform: 'rotate(360deg)' } } }} />
     Şu anda Geliştiriliyor Takipte Kalın
   </Box>

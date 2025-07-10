@@ -1,3 +1,6 @@
+// Etiketler: Proje kartında kullanılan teknolojileri/özellikleri gösteren component.
+// Her etiket için renkli bir rozet gösterir.
+
 import React, { memo } from "react";
 import Box from "@mui/material/Box";
 
