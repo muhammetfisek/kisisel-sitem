@@ -68,7 +68,7 @@ export default function Iletisim() {
         />
       </Typography>
       <Typography variant="h6" sx={{ color: 'text.secondary', textAlign: 'center', mb: 5 }}>
-        Proje teklifleri, iş birliği fırsatları veya herhangi bir sorunuz için benimle iletişime geçebilirsiniz.
+        Proje teklifleri, iş birliği fırsatları veya herhangi bir sorunuz varsa benimle iletişime geçebilirsiniz.
       </Typography>
       <Paper elevation={8} sx={{
         maxWidth: 500,

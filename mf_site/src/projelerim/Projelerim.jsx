@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useState, useCallback, memo } from "react";
 import Box from "@mui/material/Box";
 import Typography from "@mui/material/Typography";
 import Grid from "@mui/material/Grid";
@@ -210,6 +210,88 @@ const projeler = [
   },
 ];
 
+// Etiketler için memoize edilmiş component
+const Etiketler = memo(({ etiketler }) => (
+  <Box className="proje-etiketler" sx={{ display: 'flex', flexWrap: 'wrap', gap: 1, mb: 0, justifyContent: 'flex-start' }}>
+    {etiketler.map((etiket, i) => (
+      <Box
+        key={i}
+        sx={{
+          background: etiket.renk,
+          color: '#fff',
+          fontSize: 13,
+          fontWeight: 600,
+          borderRadius: 999,
+          px: 2,
+          py: 0.5,
+          mr: 0.5,
+          boxShadow: '0 2px 8px 0 rgba(0,0,0,0.10)',
+          letterSpacing: 0.5,
+        }}
+      >
+        {etiket.ad}
+      </Box>
+    ))}
+  </Box>
+));
+
+// Geliştiriliyor etiketi
+const GelistiriliyorEtiketi = memo(() => (
+  <Box
+    sx={{
+      background: 'linear-gradient(90deg,#ff9800,#ffb347)',
+      color: '#fff',
+      fontSize: 13,
+      fontWeight: 600,
+      borderRadius: 999,
+      px: 2,
+      py: 0.5,
+      boxShadow: '0 2px 8px 0 rgba(0,0,0,0.10)',
+      letterSpacing: 0.5,
+      display: 'flex',
+      alignItems: 'center',
+      gap: 0.7,
+    }}
+  >
+    <SettingsIcon sx={{ fontSize: 16, color: '#fff', mr: 0.7, animation: 'spin 1.2s linear infinite', '@keyframes spin': { '0%': { transform: 'rotate(0deg)' }, '100%': { transform: 'rotate(360deg)' } } }} />
+    Şu anda Geliştiriliyor Takipte Kalın
+  </Box>
+));
+
+// Github ikonu
+const GithubIconButton = memo(({ url, cardBg, githubIconColor, isDark }) => (
+  <a href={url} target="_blank" rel="noopener noreferrer" style={{ textDecoration: 'none' }}>
+    <Box
+      sx={{
+        background: cardBg,
+        color: githubIconColor,
+        fontSize: 13,
+        fontWeight: 600,
+        borderRadius: 999,
+        px: 2,
+        py: 0.5,
+        boxShadow: '0 2px 8px 0 rgba(0,0,0,0.10)',
+        letterSpacing: 0.5,
+        display: 'flex',
+        alignItems: 'center',
+        gap: 0.7,
+        transition: 'background 0.2s',
+        '&:hover': { background: isDark ? 'linear-gradient(90deg,#3ea6ff,#00e6d6)' : 'linear-gradient(90deg,#232b39,#00e6d6)' },
+      }}
+    >
+      <GitHubIcon sx={{ fontSize: 30, color: githubIconColor, mr: 0.9 }} />
+    </Box>
+  </a>
+));
+
+function chunkArray(array, size) {
+  const result = [];
+  for (let i = 0; i < array.length; i += size) {
+    result.push(array.slice(i, i + size));
+  }
+  return result;
+}
+
 export default function Projelerim() {
   const theme = useTheme();
   const isDark = theme.palette.mode === 'dark';
@@ -221,37 +303,36 @@ export default function Projelerim() {
     : '0 0 24px 2px #19e6d655, 0 0 0 2px #19e6d633';
   const githubIconColor = isDark ? '#fff' : '#232b39';
 
-  const [openModal, setOpenModal] = React.useState(false);
-  const [modalImgIndex, setModalImgIndex] = React.useState(0);
-  const [modalImgList, setModalImgList] = React.useState([]);
-
-  // objectFit state'i: her kutu için ayrı ayrı tutmak için bir nesne
-  const [objectFitMap, setObjectFitMap] = React.useState({});
+  const [openModal, setOpenModal] = useState(false);
+  const [modalImgIndex, setModalImgIndex] = useState(0);
+  const [modalImgList, setModalImgList] = useState([]);
+  const [objectFitMap, setObjectFitMap] = useState({});
 
   // Görsel yüklendiğinde oranına göre objectFit belirle
-  const handleImgLoad = (e, imgKey) => {
+  const handleImgLoad = useCallback((e, imgKey) => {
     const { naturalWidth, naturalHeight } = e.target;
     setObjectFitMap(prev => ({
       ...prev,
       [imgKey]: naturalHeight > naturalWidth ? 'contain' : 'cover'
     }));
-  };
+  }, []);
 
-  const handleOpenModal = (img, imgList) => {
+  const handleOpenModal = useCallback((img, imgList) => {
     setModalImgList(imgList);
     setModalImgIndex(imgList.indexOf(img));
     setOpenModal(true);
-  };
-  const handleCloseModal = () => {
+  }, []);
+  const handleCloseModal = useCallback(() => {
     setOpenModal(false);
     setModalImgList([]);
     setModalImgIndex(0);
-  };
+  }, []);
+
+  // projeleri 3'erli gruplara ayır
+  const projeGruplari = chunkArray(projeler, 3);
 
   return (
-      // Sayfanın ana kutusu
     <Box sx={{ width: '100%', minHeight: '90vh', bgcolor: 'background.default', px: { xs: 1, md: 6 }, py: 8 }}>
-    {/* Başlık ve alt başlık */}
       <Typography
         variant="h3"
         sx={{
@@ -290,844 +371,125 @@ export default function Projelerim() {
       <Typography variant="h6" sx={{ color: 'text.secondary', textAlign: 'center', mb: 5 }}>
         Üzerinde çalışmış olduğum bazı projeler
       </Typography>
-            {/* Proje kartlarını 3+3 şeklinde iki satırda gösteren Grid yapısı */}
       <Box sx={{ maxWidth: 1200, mx: 'auto' }}>
-        {/* 1-3. kutular */}
-        <Grid container spacing={4} justifyContent="center" alignItems="flex-start">
-          {projeler.slice(0, 3).map((proje, idx) => {
-            const globalIdx = idx;
-            return (
-              <Grid item xs={12} sm={6} md={4} key={proje.baslik + 'ilk' + idx} sx={{ display: 'flex', flex: 1, minWidth: 0, maxWidth: '100%', height: '100%' }}>
-                {/* Proje kartı */}
-                <Paper
-                  elevation={10}
-                  sx={{
-                    borderRadius: 5,
-                    overflow: 'hidden',
-                    minHeight: 560,
-                    height: 560,
-                    width: '100%',
-                    display: 'flex',
-                    flexDirection: 'column',
-                    justifyContent: 'flex-start',
-                    alignItems: 'stretch',
-                    bgcolor: cardBg,
-                    boxShadow: '0 8px 32px 0 rgba(25,230,214,0.10)',
-                    position: 'relative',
-                    border: `2px solid ${borderColor}`,
-                    transition: 'border-color 0.4s, box-shadow 0.4s, transform 0.3s',
-                    '&:hover': {
-                      borderColor: hoverBorder,
-                      boxShadow: hoverShadow,
-                      transform: 'scale(1.04)',
-                    },
-                  }}
-                >
-                  {/* Üst görsel alanı, Swiper ile çoklu görsel desteği */}
-                  <Box sx={{ width: '100%', height: 250, display: 'flex', alignItems: 'center', justifyContent: 'center', bgcolor: 'linear-gradient(120deg,#e0eafc,#cfdef3 80%)', borderBottom: '1px solid #232b39', position: 'relative' }}>
-                    {proje.fotolar.length > 1 ? (
-                      <Swiper
-                        modules={[Navigation, Pagination, Autoplay]}
-                        navigation
-                        pagination={{ clickable: true }}
-                        autoplay={{ delay: 3000, disableOnInteraction: false }}
-                        loop
-                        style={{ width: '100%', height: '100%' }}
-                      >
-                        {proje.fotolar.map((foto, idx) => (
-                          <SwiperSlide key={idx}>
-                            <Box
-                              component="img"
-                              src={foto}
-                              alt={proje.baslik + " görsel " + (idx + 1)}
-                              sx={{
-                                width: '100%',
-                                height: '100%',
-                                objectFit: objectFitMap[proje.baslik + idx] || 'cover',
-                                borderRadius: 3,
-                                background: 'transparent',
-                                boxShadow: '0 2px 8px 0 rgba(0,0,0,0.10)',
-                                mx: 'auto',
-                                display: 'block',
-                                cursor: 'pointer',
-                                transition: 'box-shadow 0.2s',
-                              }}
-                              onClick={() => handleOpenModal(foto, proje.fotolar)}
-                              onLoad={e => handleImgLoad(e, proje.baslik + idx)}
-                            />
-                          </SwiperSlide>
-                        ))}
-                      </Swiper>
-                    ) : (
-                      <Box
-                        component="img"
-                        src={proje.fotolar[0]}
-                        alt={proje.baslik}
-                        sx={{
-                          width: '100%',
-                          height: '100%',
-                          objectFit: objectFitMap[proje.baslik + 'single'] || 'cover',
-                          borderRadius: 3,
-                          background: 'transparent',
-                          boxShadow: '0 2px 8px 0 rgba(0,0,0,0.10)',
-                          mx: 'auto',
-                          display: 'block',
-                          cursor: 'pointer',
-                          transition: 'box-shadow 0.2s',
-                        }}
-                        onClick={() => handleOpenModal(proje.fotolar[0], proje.fotolar)}
-                        onLoad={e => handleImgLoad(e, proje.baslik + 'single')}
-                      />
-                    )}
-                  </Box>
-                  {/* Alt içerik alanı: başlık, açıklama, etiketler ve ikonlar */}
-                  <Box sx={{ flex: 1, display: 'flex', flexDirection: 'column', justifyContent: 'flex-start', alignItems: 'flex-start', px: 3, pt: 2, pb: 2, bgcolor: '#232b39', position: 'relative' }}>
-                    {/* Üst alan: başlık ve açıklama */}
-                    <Box sx={{ width: '100%' }}>
-                      <Typography variant="h6" sx={{ fontWeight: 700, color: '#fff', mb: 1, textAlign: 'left', fontSize: '1.1rem' }}>
-                        {proje.baslik}
-                      </Typography>
-                      <Typography variant="body1" sx={{ color: '#b0bec5', mb: 2, textAlign: 'left', fontSize: '0.95rem' }}>
-                        {proje.aciklama}
-                      </Typography>
+        {projeGruplari.map((grup, grupIdx) => (
+          <Grid container spacing={4} justifyContent="center" alignItems="flex-start" key={grupIdx} sx={{ mt: grupIdx === 0 ? 0 : '59px' }}>
+            {grup.map((proje, idx) => {
+              const globalIdx = grupIdx * 3 + idx;
+              return (
+                <Grid item xs={12} sm={6} md={4} key={proje.baslik + grupIdx + idx} sx={{ display: 'flex', flex: 1, minWidth: 0, maxWidth: '100%', height: '100%' }}>
+                  <Paper
+                    elevation={10}
+                    sx={{
+                      borderRadius: 5,
+                      overflow: 'hidden',
+                      minHeight: 560,
+                      height: 560,
+                      width: '100%',
+                      display: 'flex',
+                      flexDirection: 'column',
+                      justifyContent: 'flex-start',
+                      alignItems: 'stretch',
+                      bgcolor: cardBg,
+                      boxShadow: '0 8px 32px 0 rgba(25,230,214,0.10)',
+                      position: 'relative',
+                      border: `2px solid ${borderColor}`,
+                      transition: 'border-color 0.4s, box-shadow 0.4s, transform 0.3s',
+                      '&:hover': {
+                        borderColor: hoverBorder,
+                        boxShadow: hoverShadow,
+                        transform: 'scale(1.04)',
+                      },
+                    }}
+                  >
+                    {/* Üst görsel alanı, Swiper ile çoklu görsel desteği */}
+                    <Box sx={{ width: '100%', height: 250, display: 'flex', alignItems: 'center', justifyContent: 'center', bgcolor: 'linear-gradient(120deg,#e0eafc,#cfdef3 80%)', borderBottom: '1px solid #232b39', position: 'relative' }}>
+                      {proje.fotolar.length > 1 ? (
+                        <Swiper
+                          modules={[Navigation, Pagination, Autoplay]}
+                          navigation
+                          pagination={{ clickable: true }}
+                          autoplay={{ delay: 3000, disableOnInteraction: false }}
+                          loop
+                          style={{ width: '100%', height: '100%' }}
+                        >
+                          {proje.fotolar.map((foto, fidx) => (
+                            <SwiperSlide key={fidx}>
+                              <Box
+                                component="img"
+                                src={foto}
+                                alt={proje.baslik + " görsel " + (fidx + 1)}
+                                sx={{
+                                  width: '100%',
+                                  height: '100%',
+                                  objectFit: objectFitMap[proje.baslik + fidx] || 'cover',
+                                  borderRadius: 3,
+                                  background: 'transparent',
+                                  boxShadow: '0 2px 8px 0 rgba(0,0,0,0.10)',
+                                  mx: 'auto',
+                                  display: 'block',
+                                  cursor: 'pointer',
+                                  transition: 'box-shadow 0.2s',
+                                }}
+                                onClick={() => handleOpenModal(foto, proje.fotolar)}
+                                onLoad={e => handleImgLoad(e, proje.baslik + fidx)}
+                              />
+                            </SwiperSlide>
+                          ))}
+                        </Swiper>
+                      ) : (
+                        <Box
+                          component="img"
+                          src={proje.fotolar[0]}
+                          alt={proje.baslik}
+                          sx={{
+                            width: '100%',
+                            height: '100%',
+                            objectFit: objectFitMap[proje.baslik + 'single'] || 'cover',
+                            borderRadius: 3,
+                            background: 'transparent',
+                            boxShadow: '0 2px 8px 0 rgba(0,0,0,0.10)',
+                            mx: 'auto',
+                            display: 'block',
+                            cursor: 'pointer',
+                            transition: 'box-shadow 0.2s',
+                          }}
+                          onClick={() => handleOpenModal(proje.fotolar[0], proje.fotolar)}
+                          onLoad={e => handleImgLoad(e, proje.baslik + 'single')}
+                        />
+                      )}
                     </Box>
-                    {/* Alt alan: etiketler ve ikonlar */}
-                    {globalIdx === 0 ? (
-                      <>
-                        {/* Etiketler */}
-                        <Box sx={{ position: 'absolute', left: 11, bottom: 50, pl: '2px', pb: 0, mt: 0, zIndex: 5 }}>
-                          <Box className="proje-etiketler" sx={{ display: 'flex', flexWrap: 'wrap', gap: 1, mb: 0, justifyContent: 'flex-start' }}>
-                            {proje.etiketler.map((etiket, i) => (
-                              <Box
-                                key={i}
-                                sx={{
-                                  background: etiket.renk,
-                                  color: '#fff',
-                                  fontSize: 13,
-                                  fontWeight: 600,
-                                  borderRadius: 999,
-                                  px: 2,
-                                  py: 0.5,
-                                  mr: 0.5,
-                                  boxShadow: '0 2px 8px 0 rgba(0,0,0,0.10)',
-                                  letterSpacing: 0.5,
-                                }}
-                              >
-                                {etiket.ad}
-                              </Box>
-                            ))}
-                          </Box>
-                        </Box>
-                        {/* Geliştiriliyor etiketi */}
+                    {/* Alt içerik alanı: başlık, açıklama, etiketler ve ikonlar */}
+                    <Box sx={{ flex: 1, display: 'flex', flexDirection: 'column', justifyContent: 'flex-start', alignItems: 'flex-start', px: 3, pt: 2, pb: 2, bgcolor: '#232b39', position: 'relative' }}>
+                      <Box sx={{ width: '100%' }}>
+                        <Typography variant="h6" sx={{ fontWeight: 700, color: '#fff', mb: 1, textAlign: 'left', fontSize: '1.1rem' }}>
+                          {proje.baslik}
+                        </Typography>
+                        <Typography variant="body1" sx={{ color: '#b0bec5', mb: 2, textAlign: 'left', fontSize: '0.95rem' }}>
+                          {proje.aciklama}
+                        </Typography>
+                      </Box>
+                      <Box sx={{ position: 'absolute', left: 11, bottom: 44, pl: '2px', pb: 0, mt: 0, zIndex: 5 }}>
+                        <Etiketler etiketler={proje.etiketler} />
+                      </Box>
+                      {globalIdx === 0 ? (
                         <Box sx={{ position: 'absolute', left: 0, bottom: 2, pl: 2, pb: 1, mt: 0 }}>
-                          <Box
-                            sx={{
-                              background: 'linear-gradient(90deg,#ff9800,#ffb347)',
-                              color: '#fff',
-                              fontSize: 13,
-                              fontWeight: 600,
-                              borderRadius: 999,
-                              px: 2,
-                              py: 0.5,
-                              boxShadow: '0 2px 8px 0 rgba(0,0,0,0.10)',
-                              letterSpacing: 0.5,
-                              display: 'flex',
-                              alignItems: 'center',
-                              gap: 0.7,
-                            }}
-                          >
-                            <SettingsIcon sx={{ fontSize: 16, color: '#fff', mr: 0.7, animation: 'spin 1.2s linear infinite', '@keyframes spin': { '0%': { transform: 'rotate(0deg)' }, '100%': { transform: 'rotate(360deg)' } } }} />
-                            Şu anda Geliştiriliyor Takipte Kalın
-                          </Box>
+                          <GelistiriliyorEtiketi />
                         </Box>
-                      </>
-                    ) : (
-                      <>
-                        {/* Etiketler */}
-                        <Box sx={{ position: 'absolute', left: 11, bottom: 44, pl: '2px', pb: 0, mt: 0, zIndex: 5 }}>
-                          <Box className="proje-etiketler" sx={{ display: 'flex', flexWrap: 'wrap', gap: 1, mb: 0, justifyContent: 'flex-start' }}>
-                            {proje.etiketler.map((etiket, i) => (
-                              <Box
-                                key={i}
-                                sx={{
-                                  background: etiket.renk,
-                                  color: '#fff',
-                                  fontSize: 13,
-                                  fontWeight: 600,
-                                  borderRadius: 999,
-                                  px: 2,
-                                  py: 0.5,
-                                  mr: 0.5,
-                                  boxShadow: '0 2px 8px 0 rgba(0,0,0,0.10)',
-                                  letterSpacing: 0.5,
-                                }}
-                              >
-                                {etiket.ad}
-                              </Box>
-                            ))}
-                          </Box>
-                        </Box>
-                        {/* GitHub ikonu */}
+                      ) : (
                         <Box sx={{ position: 'absolute', left: 0, bottom: 0, pl: 0, pb: 0, mt: 0, zIndex: 1 }}>
-                          <a href={proje.github} target="_blank" rel="noopener noreferrer" style={{ textDecoration: 'none' }}>
-                            <Box
-                              sx={{
-                                background: cardBg,
-                                color: githubIconColor,
-                                fontSize: 13,
-                                fontWeight: 600,
-                                borderRadius: 999,
-                                px: 2,
-                                py: 0.5,
-                                boxShadow: '0 2px 8px 0 rgba(0,0,0,0.10)',
-                                letterSpacing: 0.5,
-                                display: 'flex',
-                                alignItems: 'center',
-                                gap: 0.7,
-                                transition: 'background 0.2s',
-                                '&:hover': { background: isDark ? 'linear-gradient(90deg,#3ea6ff,#00e6d6)' : 'linear-gradient(90deg,#232b39,#00e6d6)' },
-                              }}
-                            >
-                              <GitHubIcon sx={{ fontSize: 30, color: githubIconColor, mr: 0.9 }} />
-                            </Box>
-                          </a>
+                          <GithubIconButton url={proje.github} cardBg={cardBg} githubIconColor={githubIconColor} isDark={isDark} />
                         </Box>
-                      </>
-                    )}
-                  </Box>
-                </Paper>
-              </Grid>
-            );
-          })}
-        </Grid>
-        {/* 4-6. kutular */}
-        <Grid container spacing={4} justifyContent="center" alignItems="flex-start" sx={{ mt: '59px' }}>
-          {projeler.slice(3, 6).map((proje, idx) => {
-            const globalIdx = idx + 3;
-            return (
-              <Grid item xs={12} sm={6} md={4} key={proje.baslik + 'orta' + idx} sx={{ display: 'flex', flex: 1, minWidth: 0, maxWidth: '100%', height: '100%' }}>
-                {/* Proje kartı */}
-                <Paper
-                  elevation={10}
-                  sx={{
-                    borderRadius: 5,
-                    overflow: 'hidden',
-                    minHeight: 560,
-                    height: 560,
-                    width: '100%',
-                    display: 'flex',
-                    flexDirection: 'column',
-                    justifyContent: 'flex-start',
-                    alignItems: 'stretch',
-                    bgcolor: cardBg,
-                    boxShadow: '0 8px 32px 0 rgba(25,230,214,0.10)',
-                    position: 'relative',
-                    border: `2px solid ${borderColor}`,
-                    transition: 'border-color 0.4s, box-shadow 0.4s, transform 0.3s',
-                    '&:hover': {
-                      borderColor: hoverBorder,
-                      boxShadow: hoverShadow,
-                      transform: 'scale(1.04)',
-                    },
-                  }}
-                >
-                  {/* Üst görsel alanı, Swiper ile çoklu görsel desteği */}
-                  <Box sx={{ width: '100%', height: 250, display: 'flex', alignItems: 'center', justifyContent: 'center', bgcolor: 'linear-gradient(120deg,#e0eafc,#cfdef3 80%)', borderBottom: '1px solid #232b39', position: 'relative' }}>
-                    {proje.fotolar.length > 1 ? (
-                      <Swiper
-                        modules={[Navigation, Pagination, Autoplay]}
-                        navigation
-                        pagination={{ clickable: true }}
-                        autoplay={{ delay: 3000, disableOnInteraction: false }}
-                        loop
-                        style={{ width: '100%', height: '100%' }}
-                      >
-                        {proje.fotolar.map((foto, idx) => (
-                          <SwiperSlide key={idx}>
-                            <Box
-                              component="img"
-                              src={foto}
-                              alt={proje.baslik + " görsel " + (idx + 1)}
-                              sx={{
-                                width: '100%',
-                                height: '100%',
-                                objectFit: objectFitMap[proje.baslik + idx] || 'cover',
-                                borderRadius: 3,
-                                background: 'transparent',
-                                boxShadow: '0 2px 8px 0 rgba(0,0,0,0.10)',
-                                mx: 'auto',
-                                display: 'block',
-                                cursor: 'pointer',
-                                transition: 'box-shadow 0.2s',
-                              }}
-                              onClick={() => handleOpenModal(foto, proje.fotolar)}
-                              onLoad={e => handleImgLoad(e, proje.baslik + idx)}
-                            />
-                          </SwiperSlide>
-                        ))}
-                      </Swiper>
-                    ) : (
-                      <Box
-                        component="img"
-                        src={proje.fotolar[0]}
-                        alt={proje.baslik}
-                        sx={{
-                          width: '100%',
-                          height: '100%',
-                          objectFit: objectFitMap[proje.baslik + 'single'] || 'cover',
-                          borderRadius: 3,
-                          background: 'transparent',
-                          boxShadow: '0 2px 8px 0 rgba(0,0,0,0.10)',
-                          mx: 'auto',
-                          display: 'block',
-                          cursor: 'pointer',
-                          transition: 'box-shadow 0.2s',
-                        }}
-                        onClick={() => handleOpenModal(proje.fotolar[0], proje.fotolar)}
-                        onLoad={e => handleImgLoad(e, proje.baslik + 'single')}
-                      />
-                    )}
-                  </Box>
-                  {/* Alt içerik alanı: başlık, açıklama, etiketler ve ikonlar */}
-                  <Box sx={{ flex: 1, display: 'flex', flexDirection: 'column', justifyContent: 'flex-start', alignItems: 'flex-start', px: 3, pt: 2, pb: 2, bgcolor: '#232b39', position: 'relative' }}>
-                    {/* Üst alan: başlık ve açıklama */}
-                    <Box sx={{ width: '100%' }}>
-                      <Typography variant="h6" sx={{ fontWeight: 700, color: '#fff', mb: 1, textAlign: 'left', fontSize: '1.1rem' }}>
-                        {proje.baslik}
-                      </Typography>
-                      <Typography variant="body1" sx={{ color: '#b0bec5', mb: 2, textAlign: 'left', fontSize: '0.95rem' }}>
-                        {proje.aciklama}
-                      </Typography>
+                      )}
                     </Box>
-                    {/* Alt alan: etiketler ve ikonlar */}
-                    {globalIdx === 0 ? (
-                      <>
-                        {/* Etiketler */}
-                        <Box sx={{ position: 'absolute', left: 11, bottom: 44, pl: '2px', pb: 0, mt: 0, zIndex: 5 }}>
-                          <Box className="proje-etiketler" sx={{ display: 'flex', flexWrap: 'wrap', gap: 1, mb: 0, justifyContent: 'flex-start' }}>
-                            {proje.etiketler.map((etiket, i) => (
-                              <Box
-                                key={i}
-                                sx={{
-                                  background: etiket.renk,
-                                  color: '#fff',
-                                  fontSize: 13,
-                                  fontWeight: 600,
-                                  borderRadius: 999,
-                                  px: 2,
-                                  py: 0.5,
-                                  mr: 0.5,
-                                  boxShadow: '0 2px 8px 0 rgba(0,0,0,0.10)',
-                                  letterSpacing: 0.5,
-                                }}
-                              >
-                                {etiket.ad}
-                              </Box>
-                            ))}
-                          </Box>
-                        </Box>
-                        {/* Geliştiriliyor etiketi */}
-                        <Box sx={{ position: 'absolute', left: 0, bottom: 2, pl: 2, pb: 1, mt: 0 }}>
-                          <Box
-                            sx={{
-                              background: 'linear-gradient(90deg,#ff9800,#ffb347)',
-                              color: '#fff',
-                              fontSize: 13,
-                              fontWeight: 600,
-                              borderRadius: 999,
-                              px: 2,
-                              py: 0.5,
-                              boxShadow: '0 2px 8px 0 rgba(0,0,0,0.10)',
-                              letterSpacing: 0.5,
-                              display: 'flex',
-                              alignItems: 'center',
-                              gap: 0.7,
-                            }}
-                          >
-                            <SettingsIcon sx={{ fontSize: 16, color: '#fff', mr: 0.7, animation: 'spin 1.2s linear infinite', '@keyframes spin': { '0%': { transform: 'rotate(0deg)' }, '100%': { transform: 'rotate(360deg)' } } }} />
-                            Şu anda Geliştiriliyor Takipte Kalın
-                          </Box>
-                        </Box>
-                      </>
-                    ) : (
-                      <>
-                        {/* Etiketler */}
-                        <Box sx={{ position: 'absolute', left: 11, bottom: 44, pl: '2px', pb: 0, mt: 0, zIndex: 5 }}>
-                          <Box className="proje-etiketler" sx={{ display: 'flex', flexWrap: 'wrap', gap: 1, mb: 0, justifyContent: 'flex-start' }}>
-                            {proje.etiketler.map((etiket, i) => (
-                              <Box
-                                key={i}
-                                sx={{
-                                  background: etiket.renk,
-                                  color: '#fff',
-                                  fontSize: 13,
-                                  fontWeight: 600,
-                                  borderRadius: 999,
-                                  px: 2,
-                                  py: 0.5,
-                                  mr: 0.5,
-                                  boxShadow: '0 2px 8px 0 rgba(0,0,0,0.10)',
-                                  letterSpacing: 0.5,
-                                }}
-                              >
-                                {etiket.ad}
-                              </Box>
-                            ))}
-                          </Box>
-                        </Box>
-                        {/* GitHub ikonu */}
-                        <Box sx={{ position: 'absolute', left: 0, bottom: 0, pl: 0, pb: 0, mt: 0, zIndex: 1 }}>
-                          <a href={proje.github} target="_blank" rel="noopener noreferrer" style={{ textDecoration: 'none' }}>
-                            <Box
-                              sx={{
-                                background: cardBg,
-                                color: githubIconColor,
-                                fontSize: 13,
-                                fontWeight: 600,
-                                borderRadius: 999,
-                                px: 2,
-                                py: 0.5,
-                                boxShadow: '0 2px 8px 0 rgba(0,0,0,0.10)',
-                                letterSpacing: 0.5,
-                                display: 'flex',
-                                alignItems: 'center',
-                                gap: 0.7,
-                                transition: 'background 0.2s',
-                                '&:hover': { background: isDark ? 'linear-gradient(90deg,#3ea6ff,#00e6d6)' : 'linear-gradient(90deg,#232b39,#00e6d6)' },
-                              }}
-                            >
-                              <GitHubIcon sx={{ fontSize: 30, color: githubIconColor, mr: 0.9 }} />
-                            </Box>
-                          </a>
-                        </Box>
-                      </>
-                    )}
-                  </Box>
-                </Paper>
-              </Grid>
-            );
-          })}
-        </Grid>
-        {/* 7-9. kutular */}
-        <Grid container spacing={4} justifyContent="center" alignItems="flex-start" sx={{ mt: '59px' }}>
-          {projeler.slice(6, 9).map((proje, idx) => {
-            const globalIdx = idx + 6;
-            return (
-              <Grid item xs={12} sm={6} md={4} key={proje.baslik + 'alt' + idx} sx={{ display: 'flex', flex: 1, minWidth: 0, maxWidth: '100%', height: '100%' }}>
-                {/* Proje kartı */}
-                <Paper
-                  elevation={10}
-                  sx={{
-                    borderRadius: 5,
-                    overflow: 'hidden',
-                    minHeight: 560,
-                    height: 560,
-                    width: '100%',
-                    display: 'flex',
-                    flexDirection: 'column',
-                    justifyContent: 'flex-start',
-                    alignItems: 'stretch',
-                    bgcolor: cardBg,
-                    boxShadow: '0 8px 32px 0 rgba(25,230,214,0.10)',
-                    position: 'relative',
-                    border: `2px solid ${borderColor}`,
-                    transition: 'border-color 0.4s, box-shadow 0.4s, transform 0.3s',
-                    '&:hover': {
-                      borderColor: hoverBorder,
-                      boxShadow: hoverShadow,
-                      transform: 'scale(1.04)',
-                    },
-                  }}
-                >
-                  {/* Üst görsel alanı, Swiper ile çoklu görsel desteği */}
-                  <Box sx={{ width: '100%', height: 250, display: 'flex', alignItems: 'center', justifyContent: 'center', bgcolor: 'linear-gradient(120deg,#e0eafc,#cfdef3 80%)', borderBottom: '1px solid #232b39', position: 'relative' }}>
-                    {proje.fotolar.length > 1 ? (
-                      <Swiper
-                        modules={[Navigation, Pagination, Autoplay]}
-                        navigation
-                        pagination={{ clickable: true }}
-                        autoplay={{ delay: 3000, disableOnInteraction: false }}
-                        loop
-                        style={{ width: '100%', height: '100%' }}
-                      >
-                        {proje.fotolar.map((foto, idx) => (
-                          <SwiperSlide key={idx}>
-                            <Box
-                              component="img"
-                              src={foto}
-                              alt={proje.baslik + " görsel " + (idx + 1)}
-                              sx={{
-                                width: '100%',
-                                height: '100%',
-                                objectFit: objectFitMap[proje.baslik + idx] || 'cover',
-                                borderRadius: 3,
-                                background: 'transparent',
-                                boxShadow: '0 2px 8px 0 rgba(0,0,0,0.10)',
-                                mx: 'auto',
-                                display: 'block',
-                                cursor: 'pointer',
-                                transition: 'box-shadow 0.2s',
-                              }}
-                              onClick={() => handleOpenModal(foto, proje.fotolar)}
-                              onLoad={e => handleImgLoad(e, proje.baslik + idx)}
-                            />
-                          </SwiperSlide>
-                        ))}
-                      </Swiper>
-                    ) : (
-                      <Box
-                        component="img"
-                        src={proje.fotolar[0]}
-                        alt={proje.baslik}
-                        sx={{
-                          width: '100%',
-                          height: '100%',
-                          objectFit: objectFitMap[proje.baslik + 'single'] || 'cover',
-                          borderRadius: 3,
-                          background: 'transparent',
-                          boxShadow: '0 2px 8px 0 rgba(0,0,0,0.10)',
-                          mx: 'auto',
-                          display: 'block',
-                          cursor: 'pointer',
-                          transition: 'box-shadow 0.2s',
-                        }}
-                        onClick={() => handleOpenModal(proje.fotolar[0], proje.fotolar)}
-                        onLoad={e => handleImgLoad(e, proje.baslik + 'single')}
-                      />
-                    )}
-                  </Box>
-                  {/* Alt içerik alanı: başlık, açıklama, etiketler ve ikonlar */}
-                  <Box sx={{ flex: 1, display: 'flex', flexDirection: 'column', justifyContent: 'flex-start', alignItems: 'flex-start', px: 3, pt: 2, pb: 2, bgcolor: '#232b39', position: 'relative' }}>
-                    {/* Üst alan: başlık ve açıklama */}
-                    <Box sx={{ width: '100%' }}>
-                      <Typography variant="h6" sx={{ fontWeight: 700, color: '#fff', mb: 1, textAlign: 'left', fontSize: '1.1rem' }}>
-                        {proje.baslik}
-                      </Typography>
-                      <Typography variant="body1" sx={{ color: '#b0bec5', mb: 2, textAlign: 'left', fontSize: '0.95rem' }}>
-                        {proje.aciklama}
-                      </Typography>
-                    </Box>
-                    {/* Alt alan: etiketler ve ikonlar */}
-                    {globalIdx === 0 ? (
-                      <>
-                        {/* Etiketler */}
-                        <Box sx={{ position: 'absolute', left: 11, bottom: 44, pl: '2px', pb: 0, mt: 0, zIndex: 5 }}>
-                          <Box className="proje-etiketler" sx={{ display: 'flex', flexWrap: 'wrap', gap: 1, mb: 0, justifyContent: 'flex-start' }}>
-                            {proje.etiketler.map((etiket, i) => (
-                              <Box
-                                key={i}
-                                sx={{
-                                  background: etiket.renk,
-                                  color: '#fff',
-                                  fontSize: 13,
-                                  fontWeight: 600,
-                                  borderRadius: 999,
-                                  px: 2,
-                                  py: 0.5,
-                                  mr: 0.5,
-                                  boxShadow: '0 2px 8px 0 rgba(0,0,0,0.10)',
-                                  letterSpacing: 0.5,
-                                }}
-                              >
-                                {etiket.ad}
-                              </Box>
-                            ))}
-                          </Box>
-                        </Box>
-                        {/* Geliştiriliyor etiketi */}
-                        <Box sx={{ position: 'absolute', left: 0, bottom: 2, pl: 2, pb: 1, mt: 0 }}>
-                          <Box
-                            sx={{
-                              background: 'linear-gradient(90deg,#ff9800,#ffb347)',
-                              color: '#fff',
-                              fontSize: 13,
-                              fontWeight: 600,
-                              borderRadius: 999,
-                              px: 2,
-                              py: 0.5,
-                              boxShadow: '0 2px 8px 0 rgba(0,0,0,0.10)',
-                              letterSpacing: 0.5,
-                              display: 'flex',
-                              alignItems: 'center',
-                              gap: 0.7,
-                            }}
-                          >
-                            <SettingsIcon sx={{ fontSize: 16, color: '#fff', mr: 0.7, animation: 'spin 1.2s linear infinite', '@keyframes spin': { '0%': { transform: 'rotate(0deg)' }, '100%': { transform: 'rotate(360deg)' } } }} />
-                            Şu anda Geliştiriliyor Takipte Kalın
-                          </Box>
-                        </Box>
-                      </>
-                    ) : (
-                      <>
-                        {/* Etiketler */}
-                        <Box sx={{ position: 'absolute', left: 11, bottom: 44, pl: '2px', pb: 0, mt: 0, zIndex: 5 }}>
-                          <Box className="proje-etiketler" sx={{ display: 'flex', flexWrap: 'wrap', gap: 1, mb: 0, justifyContent: 'flex-start' }}>
-                            {proje.etiketler.map((etiket, i) => (
-                              <Box
-                                key={i}
-                                sx={{
-                                  background: etiket.renk,
-                                  color: '#fff',
-                                  fontSize: 13,
-                                  fontWeight: 600,
-                                  borderRadius: 999,
-                                  px: 2,
-                                  py: 0.5,
-                                  mr: 0.5,
-                                  boxShadow: '0 2px 8px 0 rgba(0,0,0,0.10)',
-                                  letterSpacing: 0.5,
-                                }}
-                              >
-                                {etiket.ad}
-                              </Box>
-                            ))}
-                          </Box>
-                        </Box>
-                        {/* GitHub ikonu */}
-                        <Box sx={{ position: 'absolute', left: 0, bottom: 0, pl: 0, pb: 0, mt: 0, zIndex: 1 }}>
-                          <a href={proje.github} target="_blank" rel="noopener noreferrer" style={{ textDecoration: 'none' }}>
-                            <Box
-                              sx={{
-                                background: cardBg,
-                                color: githubIconColor,
-                                fontSize: 13,
-                                fontWeight: 600,
-                                borderRadius: 999,
-                                px: 2,
-                                py: 0.5,
-                                boxShadow: '0 2px 8px 0 rgba(0,0,0,0.10)',
-                                letterSpacing: 0.5,
-                                display: 'flex',
-                                alignItems: 'center',
-                                gap: 0.7,
-                                transition: 'background 0.2s',
-                                '&:hover': { background: isDark ? 'linear-gradient(90deg,#3ea6ff,#00e6d6)' : 'linear-gradient(90deg,#232b39,#00e6d6)' },
-                              }}
-                            >
-                              <GitHubIcon sx={{ fontSize: 30, color: githubIconColor, mr: 0.9 }} />
-                            </Box>
-                          </a>
-                        </Box>
-                      </>
-                    )}
-                  </Box>
-                </Paper>
-              </Grid>
-            );
-          })}
-        </Grid>
-        {/* 10-12. kutular */}
-        <Grid container spacing={4} justifyContent="center" alignItems="flex-start" sx={{ mt: '59px' }}>
-          {projeler.slice(9, 12).map((proje, idx) => {
-            const globalIdx = idx + 9;
-            return (
-              <Grid item xs={12} sm={6} md={4} key={proje.baslik + 'son' + idx} sx={{ display: 'flex', flex: 1, minWidth: 0, maxWidth: '100%', height: '100%' }}>
-                {/* Proje kartı */}
-                <Paper
-                  elevation={10}
-                  sx={{
-                    borderRadius: 5,
-                    overflow: 'hidden',
-                    minHeight: 560,
-                    height: 560,
-                    width: '100%',
-                    display: 'flex',
-                    flexDirection: 'column',
-                    justifyContent: 'flex-start',
-                    alignItems: 'stretch',
-                    bgcolor: cardBg,
-                    boxShadow: '0 8px 32px 0 rgba(25,230,214,0.10)',
-                    position: 'relative',
-                    border: `2px solid ${borderColor}`,
-                    transition: 'border-color 0.4s, box-shadow 0.4s, transform 0.3s',
-                    '&:hover': {
-                      borderColor: hoverBorder,
-                      boxShadow: hoverShadow,
-                      transform: 'scale(1.04)',
-                    },
-                  }}
-                >
-                  {/* Üst görsel alanı, Swiper ile çoklu görsel desteği */}
-                  <Box sx={{ width: '100%', height: 250, display: 'flex', alignItems: 'center', justifyContent: 'center', bgcolor: 'linear-gradient(120deg,#e0eafc,#cfdef3 80%)', borderBottom: '1px solid #232b39', position: 'relative' }}>
-                    {proje.fotolar.length > 1 ? (
-                      <Swiper
-                        modules={[Navigation, Pagination, Autoplay]}
-                        navigation
-                        pagination={{ clickable: true }}
-                        autoplay={{ delay: 3000, disableOnInteraction: false }}
-                        loop
-                        style={{ width: '100%', height: '100%' }}
-                      >
-                        {proje.fotolar.map((foto, idx) => (
-                          <SwiperSlide key={idx}>
-                            <Box
-                              component="img"
-                              src={foto}
-                              alt={proje.baslik + " görsel " + (idx + 1)}
-                              sx={{
-                                width: '100%',
-                                height: '100%',
-                                objectFit: objectFitMap[proje.baslik + idx] || 'cover',
-                                borderRadius: 3,
-                                background: 'transparent',
-                                boxShadow: '0 2px 8px 0 rgba(0,0,0,0.10)',
-                                mx: 'auto',
-                                display: 'block',
-                                cursor: 'pointer',
-                                transition: 'box-shadow 0.2s',
-                              }}
-                              onClick={() => handleOpenModal(foto, proje.fotolar)}
-                              onLoad={e => handleImgLoad(e, proje.baslik + idx)}
-                            />
-                          </SwiperSlide>
-                        ))}
-                      </Swiper>
-                    ) : (
-                      <Box
-                        component="img"
-                        src={proje.fotolar[0]}
-                        alt={proje.baslik}
-                        sx={{
-                          width: '100%',
-                          height: '100%',
-                          objectFit: objectFitMap[proje.baslik + 'single'] || 'cover',
-                          borderRadius: 3,
-                          background: 'transparent',
-                          boxShadow: '0 2px 8px 0 rgba(0,0,0,0.10)',
-                          mx: 'auto',
-                          display: 'block',
-                          cursor: 'pointer',
-                          transition: 'box-shadow 0.2s',
-                        }}
-                        onClick={() => handleOpenModal(proje.fotolar[0], proje.fotolar)}
-                        onLoad={e => handleImgLoad(e, proje.baslik + 'single')}
-                      />
-                    )}
-                  </Box>
-                  {/* Alt içerik alanı: başlık, açıklama, etiketler ve ikonlar */}
-                  <Box sx={{ flex: 1, display: 'flex', flexDirection: 'column', justifyContent: 'flex-start', alignItems: 'flex-start', px: 3, pt: 2, pb: 2, bgcolor: '#232b39', position: 'relative' }}>
-                    {/* Üst alan: başlık ve açıklama */}
-                    <Box sx={{ width: '100%' }}>
-                      <Typography variant="h6" sx={{ fontWeight: 700, color: '#fff', mb: 1, textAlign: 'left', fontSize: '1.1rem' }}>
-                        {proje.baslik}
-                      </Typography>
-                      <Typography variant="body1" sx={{ color: '#b0bec5', mb: 2, textAlign: 'left', fontSize: '0.95rem' }}>
-                        {proje.aciklama}
-                      </Typography>
-                    </Box>
-                    {/* Alt alan: etiketler ve ikonlar */}
-                    {globalIdx === 0 ? (
-                      <>
-                        {/* Etiketler */}
-                        <Box sx={{ position: 'absolute', left: 11, bottom: 44, pl: '2px', pb: 0, mt: 0, zIndex: 5 }}>
-                          <Box className="proje-etiketler" sx={{ display: 'flex', flexWrap: 'wrap', gap: 1, mb: 0, justifyContent: 'flex-start' }}>
-                            {proje.etiketler.map((etiket, i) => (
-                              <Box
-                                key={i}
-                                sx={{
-                                  background: etiket.renk,
-                                  color: '#fff',
-                                  fontSize: 13,
-                                  fontWeight: 600,
-                                  borderRadius: 999,
-                                  px: 2,
-                                  py: 0.5,
-                                  mr: 0.5,
-                                  boxShadow: '0 2px 8px 0 rgba(0,0,0,0.10)',
-                                  letterSpacing: 0.5,
-                                }}
-                              >
-                                {etiket.ad}
-                              </Box>
-                            ))}
-                          </Box>
-                        </Box>
-                        {/* Geliştiriliyor etiketi */}
-                        <Box sx={{ position: 'absolute', left: 0, bottom: 2, pl: 2, pb: 1, mt: 0 }}>
-                          <Box
-                            sx={{
-                              background: 'linear-gradient(90deg,#ff9800,#ffb347)',
-                              color: '#fff',
-                              fontSize: 13,
-                              fontWeight: 600,
-                              borderRadius: 999,
-                              px: 2,
-                              py: 0.5,
-                              boxShadow: '0 2px 8px 0 rgba(0,0,0,0.10)',
-                              letterSpacing: 0.5,
-                              display: 'flex',
-                              alignItems: 'center',
-                              gap: 0.7,
-                            }}
-                          >
-                            <SettingsIcon sx={{ fontSize: 16, color: '#fff', mr: 0.7, animation: 'spin 1.2s linear infinite', '@keyframes spin': { '0%': { transform: 'rotate(0deg)' }, '100%': { transform: 'rotate(360deg)' } } }} />
-                            Şu anda Geliştiriliyor Takipte Kalın
-                          </Box>
-                        </Box>
-                      </>
-                    ) : (
-                      <>
-                        {/* Etiketler */}
-                        <Box sx={{ position: 'absolute', left: 11, bottom: 44, pl: '2px', pb: 0, mt: 0, zIndex: 5 }}>
-                          <Box className="proje-etiketler" sx={{ display: 'flex', flexWrap: 'wrap', gap: 1, mb: 0, justifyContent: 'flex-start' }}>
-                            {proje.etiketler.map((etiket, i) => (
-                              <Box
-                                key={i}
-                                sx={{
-                                  background: etiket.renk,
-                                  color: '#fff',
-                                  fontSize: 13,
-                                  fontWeight: 600,
-                                  borderRadius: 999,
-                                  px: 2,
-                                  py: 0.5,
-                                  mr: 0.5,
-                                  boxShadow: '0 2px 8px 0 rgba(0,0,0,0.10)',
-                                  letterSpacing: 0.5,
-                                }}
-                              >
-                                {etiket.ad}
-                              </Box>
-                            ))}
-                          </Box>
-                        </Box>
-                        {/* GitHub ikonu */}
-                        <Box sx={{ position: 'absolute', left: 0, bottom: 0, pl: 0, pb: 0, mt: 0, zIndex: 1 }}>
-                          <a href={proje.github} target="_blank" rel="noopener noreferrer" style={{ textDecoration: 'none' }}>
-                            <Box
-                              sx={{
-                                background: cardBg,
-                                color: githubIconColor,
-                                fontSize: 13,
-                                fontWeight: 600,
-                                borderRadius: 999,
-                                px: 2,
-                                py: 0.5,
-                                boxShadow: '0 2px 8px 0 rgba(0,0,0,0.10)',
-                                letterSpacing: 0.5,
-                                display: 'flex',
-                                alignItems: 'center',
-                                gap: 0.7,
-                                transition: 'background 0.2s',
-                                '&:hover': { background: isDark ? 'linear-gradient(90deg,#3ea6ff,#00e6d6)' : 'linear-gradient(90deg,#232b39,#00e6d6)' },
-                              }}
-                            >
-                              <GitHubIcon sx={{ fontSize: 30, color: githubIconColor, mr: 0.9 }} />
-                            </Box>
-                          </a>
-                        </Box>
-                      </>
-                    )}
-                  </Box>
-                </Paper>
-              </Grid>
-            );
-          })}
-        </Grid>
-
-
+                  </Paper>
+                </Grid>
+              );
+            })}
+          </Grid>
+        ))}
       </Box>
-           {/* Modal: Büyük görseli göstermek için */}
+      {/* Modal: Büyük görseli göstermek için */}
       <Modal
         open={openModal}
         onClose={handleCloseModal}
@@ -1156,15 +518,12 @@ export default function Projelerim() {
           justifyContent: 'center',
           backdropFilter: 'blur(8px)',
         }}>
-        {/* Modalı kapatma butonu */}
           <IconButton
             onClick={handleCloseModal}
             sx={{ position: 'absolute', top: 8, right: 8, zIndex: 10, bgcolor: 'rgba(0,0,0,0.5)', color: '#fff', '&:hover': { bgcolor: 'rgba(0,0,0,0.7)' } }}
           >
             <CloseIcon />
           </IconButton>
-
-          {/* Swiper ile büyük görsel gösterimi */}
           <Swiper
             modules={[Navigation, Pagination, Autoplay]}
             navigation
