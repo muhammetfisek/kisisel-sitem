@@ -23,6 +23,13 @@ export default function Iletisim() {
     window.location.href = mailto;
   };
 
+  const handleUnselect = (e) => {
+    if (e.target.value) {
+      const len = e.target.value.length;
+      e.target.setSelectionRange(len, len);
+    }
+  };
+
   return (
     <Box sx={{ width: '100%', minHeight: '90vh', bgcolor: 'background.default', py: { xs: 4, md: 12 }, px: { xs: 1, md: 6 }, display: 'flex', flexDirection: 'column', alignItems: 'center', justifyContent: 'flex-start' }}>
       <Typography
@@ -86,6 +93,14 @@ export default function Iletisim() {
             name="adsoyad"
             value={form.adsoyad}
             onChange={handleChange}
+            onFocus={handleUnselect}
+            onMouseUp={handleUnselect}
+            onSelect={handleUnselect}
+            inputProps={{
+              autoComplete: 'off',
+              spellCheck: false,
+              style: { caretColor: '#00c6fb' }
+            }}
             fullWidth
             required
             sx={{ mb: 3 }}
@@ -95,6 +110,14 @@ export default function Iletisim() {
             name="konu"
             value={form.konu}
             onChange={handleChange}
+            onFocus={handleUnselect}
+            onMouseUp={handleUnselect}
+            onSelect={handleUnselect}
+            inputProps={{
+              autoComplete: 'off',
+              spellCheck: false,
+              style: { caretColor: '#00c6fb' }
+            }}
             fullWidth
             required
             sx={{ mb: 3 }}
@@ -104,6 +127,14 @@ export default function Iletisim() {
             name="mesaj"
             value={form.mesaj}
             onChange={handleChange}
+            onFocus={handleUnselect}
+            onMouseUp={handleUnselect}
+            onSelect={handleUnselect}
+            inputProps={{
+              autoComplete: 'off',
+              spellCheck: false,
+              style: { caretColor: '#00c6fb' }
+            }}
             fullWidth
             required
             multiline
