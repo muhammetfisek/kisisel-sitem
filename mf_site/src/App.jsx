@@ -9,6 +9,7 @@ import Yeteneklerim from "./yeteneklerim/Yeteneklerim";
 import Deneyim from "./deneyim/Deneyim";
 import Projelerim from "./projelerim/Projelerim";
 import Iletisim from "./iletisim/Iletisim";
+import Footer from "./Footer";
 
 export default function App() {
   const [darkMode, setDarkMode] = React.useState(true);
@@ -189,12 +190,11 @@ export default function App() {
             <Iletisim />
           </div>
         </Box>
+        <Footer />
       </Box>
     </ThemeProvider>
   );
-}
-
-function normalizeId(str) {
+}function normalizeId(str) {
   return str
     .toLowerCase()
     .replace(/ı/g, 'i')
