@@ -39,7 +39,7 @@ function normalizeId(str) {
     .replace(/\s+/g, '');
 }
 
-export default function Navbar({ darkMode, setDarkMode, onScrollTo, activeMenu }) {
+export default function Navbar({ darkMode, setDarkMode, onScrollTo, activePath }) {
   const [drawerOpen, setDrawerOpen] = React.useState(false);
   const theme = useTheme();
   const isMobile = useMediaQuery(theme.breakpoints.down('md'));
@@ -116,12 +116,12 @@ export default function Navbar({ darkMode, setDarkMode, onScrollTo, activeMenu }
               <List>
                 {menuItems.map((item) => (
                   <ListItem key={item.label} disablePadding>
-                    <ListItemButton onClick={() => handleMenuClick(item)}>
+                    <ListItemButton onClick={() => handleMenuClick(item)} selected={item.path === activePath}>
                       <ListItemText
                         primary={item.label}
                         primaryTypographyProps={{
                           sx: {
-                            color: "text.primary",
+                            color: item.path === activePath ? "secondary.main" : "text.primary",
                             fontWeight: 500,
                             fontSize: 18,
                             textTransform: "none",
@@ -162,21 +162,20 @@ export default function Navbar({ darkMode, setDarkMode, onScrollTo, activeMenu }
         ) : (
           <Box sx={{ display: "flex", gap: 2, justifyContent: "center", flex: 1 }}>
             {menuItems.map((item) => {
-              const itemId = normalizeId(item.label);
-              const normalizedActive = normalizeId(activeMenu || "");
+              const isActive = item.path === activePath;
               return (
                 <Button
                   key={item.label}
                   sx={{
-                    color: normalizedActive === itemId ? "secondary.main" : "text.primary",
+                    color: isActive ? "secondary.main" : "text.primary",
                     fontWeight: 500,
                     fontSize: 18,
                     borderRadius: 3,
                     px: 2,
                     textTransform: "none",
-                    border: normalizedActive === itemId ? '2px solid' : 'none',
-                    borderColor: normalizedActive === itemId ? 'secondary.main' : 'transparent',
-                    boxShadow: normalizedActive === itemId ? 3 : 'none',
+                    border: isActive ? '2px solid' : 'none',
+                    borderColor: isActive ? 'secondary.main' : 'transparent',
+                    boxShadow: isActive ? 3 : 'none',
                     outline: 'none',
                     '&:focus': {
                       outline: 'none',

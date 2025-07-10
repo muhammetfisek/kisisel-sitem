@@ -147,7 +147,7 @@ export default function App() {
           darkMode={darkMode}
           setDarkMode={setDarkMode}
           onScrollTo={(section) => handleScrollTo(section, true)} // Navbar'dan gelenler smooth olsun
-          activeMenu={normalizeId(activeSection)}
+          activePath={location.pathname}
         />
         {/* contentLoaded false ise sadece ilgili bölümü render et veya hiçbir şey gösterme */}
         {/* contentLoaded true ise tüm bölümleri normal şekilde render et */}
@@ -187,14 +187,4 @@ export default function App() {
       </Box>
     </ThemeProvider>
   );
-}function normalizeId(str) {
-  return str
-    .toLowerCase()
-    .replace(/ı/g, 'i')
-    .replace(/ğ/g, 'g')
-    .replace(/ü/g, 'u')
-    .replace(/ş/g, 's')
-    .replace(/ö/g, 'o')
-    .replace(/ç/g, 'c')
-    .replace(/\s+/g, '');
 }
