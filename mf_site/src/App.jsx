@@ -9,7 +9,7 @@ import Yeteneklerim from "./yeteneklerim/Yeteneklerim";
 import Deneyim from "./deneyim/Deneyim";
 import Projelerim from "./projelerim/Projelerim";
 import Iletisim from "./iletisim/Iletisim";
-import Footer from "./Footer";
+import Footer from "./footer/Footer";
 import Divider from "@mui/material/Divider";
 import { useLocation, useNavigate } from 'react-router-dom';
 
