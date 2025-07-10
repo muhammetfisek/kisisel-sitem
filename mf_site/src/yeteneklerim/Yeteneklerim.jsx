@@ -8,6 +8,7 @@ import PaletteIcon from '@mui/icons-material/Palette';
 import TranslateIcon from '@mui/icons-material/Translate';
 import EmojiObjectsIcon from '@mui/icons-material/EmojiObjects';
 import SkillGroupCard from "./components/SkillGroupCard";
+import BounceArrow from "../iletisim/components/BounceArrow";
 
 // Yetenek gruplarını ve her grubun altındaki yetenekleri tanımlayan sabit dizi
 const skills = [
