@@ -5,7 +5,7 @@ import Typography from "@mui/material/Typography";
 import Avatar from "@mui/material/Avatar";
 import Divider from "@mui/material/Divider";
 import LocationOnIcon from "@mui/icons-material/LocationOn";
-import hakkimdaPhoto from '../../fotolar/hakkimda_pp.jpeg';
+import hakkimdaPhoto from "@/fotolar/hakkimda_pp.jpeg";
 
 export default function ProfileCard() {
   return (
