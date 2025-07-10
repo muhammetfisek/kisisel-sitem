@@ -14,12 +14,12 @@ import LanguageSwitcher from "./components/LanguageSwitcher";
 
 // Menüdeki sayfalar
 const menuItems = [
-  { label: "Ana Sayfa", path: "/" },
-  { label: "Hakkımda", path: "/hakkimda" },
-  { label: "Yeteneklerim", path: "/yeteneklerim" },
-  { label: "Deneyim", path: "/deneyim" },
-  { label: "Projelerim", path: "/projelerim" },
-  { label: "İletişim", path: "/iletisim" },
+  { label: "Ana Sayfa", path: "/", section: "anasayfa" },
+  { label: "Hakkımda", path: "/hakkimda", section: "hakkimda" },
+  { label: "Yeteneklerim", path: "/yeteneklerim", section: "yeteneklerim" },
+  { label: "Deneyim", path: "/deneyim", section: "deneyim" },
+  { label: "Projelerim", path: "/projelerim", section: "projelerim" },
+  { label: "İletişim", path: "/iletisim", section: "iletisim" },
 ];
 
 // Navbar ana componenti
@@ -34,7 +34,7 @@ export default function Navbar({ darkMode, setDarkMode, onScrollTo, activePath }
   const handleMenuClick = (item) => {
     navigate(item.path);
     setDrawerOpen(false);
-    if (onScrollTo) onScrollTo(item.label.toLowerCase());
+    if (onScrollTo) onScrollTo(item.section);
   };
 
   return (

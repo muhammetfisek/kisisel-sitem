@@ -67,13 +67,20 @@ export default function App() {
 
   // Menüden tıklama ile scroll
   const handleScrollTo = (section, smooth = true) => {
+    if (section === "anasayfa") {
+      // Anasayfa için en üste scroll yap
+      scrollTriggeredRef.current = false; // Menüden tıklama ile scroll
+      window.scrollTo({ top: 0, behavior: smooth ? "smooth" : "instant" });
+      return;
+    }
+    
     let targetRef = null;
     if (section === "hakkimda") targetRef = hakkimdaRef;
-    else if (section === "anasayfa") targetRef = anasayfaRef;
     else if (section === "yeteneklerim") targetRef = yeteneklerimRef;
     else if (section === "deneyim") targetRef = deneyimRef;
     else if (section === "projelerim") targetRef = projelerimRef;
     else if (section === "iletisim") targetRef = iletisimRef;
+    
     if (targetRef && targetRef.current) {
       scrollTriggeredRef.current = false; // Menüden tıklama ile scroll
       targetRef.current.scrollIntoView({ behavior: smooth ? "smooth" : "instant" });
@@ -159,7 +166,7 @@ export default function App() {
           flexDirection: 'column',
         }}>
           <div ref={anasayfaRef} style={{ display: activeSection === "anasayfa" || contentLoaded ? 'block' : 'none' }}>
-            <Home />
+            <Home onScrollTo={handleScrollTo} />
             <Divider sx={{ my: 4, borderColor: 'divider', borderBottomWidth: 2, width: '100%' }} />
           </div>
           <div ref={hakkimdaRef} style={{ display: activeSection === "hakkimda" || contentLoaded ? 'block' : 'none' }}>

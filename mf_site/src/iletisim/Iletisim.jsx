@@ -2,6 +2,7 @@ import React from "react";
 import Box from "@mui/material/Box";
 import Typography from "@mui/material/Typography";
 import ContactForm from "./components/ContactForm";
+import BounceArrow from "./components/BounceArrow";
 
 // İletişim sayfasının ana componenti
 export default function Iletisim() {
@@ -51,6 +52,8 @@ export default function Iletisim() {
       </Typography>
       {/* İletişim formu componenti */}
       <ContactForm />
+      {/* En alta zıplayan ok */}
+      <BounceArrow onClick={() => window.scrollTo({ top: document.body.scrollHeight, behavior: "smooth" })} />
     </Box>
   );
 } 

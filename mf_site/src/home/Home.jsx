@@ -8,7 +8,7 @@ import ProfileInfo from "./components/ProfileInfo";
 import ProfileAvatar from "./components/ProfileAvatar";
 import ScrollDownArrow from "./components/ScrollDownArrow";
 
-export default function Home() {
+export default function Home({ onScrollTo }) {
   // Gülücük animasyonu için hover state'i
   const [hover, setHover] = React.useState(false);
   // Sayfa animasyonları için show state'i
@@ -51,7 +51,7 @@ export default function Home() {
       {/* Aşağı ok animasyonu */}
       <Fade in={show} timeout={1200}>
         <Box>
-          <ScrollDownArrow show={show} />
+          <ScrollDownArrow show={show} onClick={() => onScrollTo && onScrollTo("hakkimda")} />
         </Box>
       </Fade>
     </>
