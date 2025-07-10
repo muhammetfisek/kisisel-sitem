@@ -43,29 +43,33 @@ export default function Navbar({ darkMode, setDarkMode, onScrollTo, activeMenu }
   const [drawerOpen, setDrawerOpen] = React.useState(false);
   const theme = useTheme();
   const isMobile = useMediaQuery(theme.breakpoints.down('md'));
-  const navigate = typeof window !== 'undefined' ? (path) => window.location.hash = path : () => {};
+  const navigate = useNavigate();
 
   const handleMenuClick = (item) => {
     if (item.label === "Ana Sayfa") {
+      navigate('/');
       if (typeof window !== 'undefined' && window.scrollY < 100) {
         window.location.reload();
       } else {
         window.scrollTo({ top: 0, behavior: "smooth" });
       }
-    } else if (item.label === "Hakkımda" && onScrollTo) {
-      onScrollTo("hakkimda");
-    } else if (item.label === "Yeteneklerim" && onScrollTo) {
-      onScrollTo("yeteneklerim");
-    } else if (item.label === "Deneyim" && onScrollTo) {
-      onScrollTo("deneyim");
-    } else if (item.label === "Projelerim" && onScrollTo) {
-      onScrollTo("projelerim");
-    } else if (item.label === "İletişim" && onScrollTo) {
-      onScrollTo("iletisim");
-    } else {
-      // Diğer menüler için ileride ekleme yapılabilir
+    } else if (item.label === "Hakkımda") {
+      navigate('/hakkimda');
+      if (onScrollTo) onScrollTo("hakkimda");
+    } else if (item.label === "Yeteneklerim") {
+      navigate('/yeteneklerim');
+      if (onScrollTo) onScrollTo("yeteneklerim");
+    } else if (item.label === "Deneyim") {
+      navigate('/deneyim');
+      if (onScrollTo) onScrollTo("deneyim");
+    } else if (item.label === "Projelerim") {
+      navigate('/projelerim');
+      if (onScrollTo) onScrollTo("projelerim");
+    } else if (item.label === "İletişim") {
+      navigate('/iletisim');
+      if (onScrollTo) onScrollTo("iletisim");
     }
-    setDrawerOpen(false); // Drawer açıksa kapat
+    setDrawerOpen(false);
   };
 
   return (

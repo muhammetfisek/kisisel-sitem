@@ -11,6 +11,7 @@ import Projelerim from "./projelerim/Projelerim";
 import Iletisim from "./iletisim/Iletisim";
 import Footer from "./Footer";
 import Divider from "@mui/material/Divider";
+import { useLocation, useNavigate } from 'react-router-dom';
 
 export default function App() {
   const [darkMode, setDarkMode] = React.useState(true);
@@ -23,6 +24,9 @@ export default function App() {
   const [activeSection, setActiveSection] = useState("anasayfa");
   const [contentLoaded, setContentLoaded] = useState(false); // Yeni state: İçerik yüklendi mi?
   const initialScrollDone = useRef(false);
+  const location = useLocation();
+  const navigate = useNavigate();
+  const scrollTriggeredRef = useRef(false);
 
   const theme = React.useMemo(
     () =>
@@ -61,39 +65,45 @@ export default function App() {
     '/iletisim': 'iletisim',
   };
 
+  // Menüden tıklama ile scroll
   const handleScrollTo = (section, smooth = true) => {
     let targetRef = null;
-    if (section === "hakkimda") {
-      targetRef = hakkimdaRef;
-    } else if (section === "anasayfa") {
-      targetRef = anasayfaRef;
-    } else if (section === "yeteneklerim") {
-      targetRef = yeteneklerimRef;
-    } else if (section === "deneyim") {
-      targetRef = deneyimRef;
-    } else if (section === "projelerim") {
-      targetRef = projelerimRef;
-    } else if (section === "iletisim") {
-      targetRef = iletisimRef;
-    }
+    if (section === "hakkimda") targetRef = hakkimdaRef;
+    else if (section === "anasayfa") targetRef = anasayfaRef;
+    else if (section === "yeteneklerim") targetRef = yeteneklerimRef;
+    else if (section === "deneyim") targetRef = deneyimRef;
+    else if (section === "projelerim") targetRef = projelerimRef;
+    else if (section === "iletisim") targetRef = iletisimRef;
     if (targetRef && targetRef.current) {
+      scrollTriggeredRef.current = false; // Menüden tıklama ile scroll
       targetRef.current.scrollIntoView({ behavior: smooth ? "smooth" : "instant" });
-      const newPath = sectionToPath[section] || '/';
-      if (window.location.pathname !== newPath) {
-        window.history.pushState({}, '', newPath);
-      }
     }
   };
 
   useEffect(() => {
+    const section = pathToSection[location.pathname] || 'anasayfa';
+    setActiveSection(section); // önce aktif bölümü path'e göre ayarla
+    // Sadece menüden tıklama veya ilk yüklemede scroll yap
+    if (!scrollTriggeredRef.current) {
+      setTimeout(() => {
+        handleScrollTo(section, false);
+        setContentLoaded(true);
+        initialScrollDone.current = true;
+      }, 1);
+    }
+    // eslint-disable-next-line
+  }, [location.pathname]);
+
+  useEffect(() => {
     const handleScroll = () => {
       if (!initialScrollDone.current) return;
+      scrollTriggeredRef.current = true; // Scroll event'i ile path değişimi
       const scrollY = window.scrollY;
       const offset = 130;
       if (scrollY < 50) {
-        setActiveSection("anasayfa");
-        if (window.location.pathname !== '/') {
-          window.history.replaceState({}, '', '/');
+        if (activeSection !== "anasayfa") setActiveSection("anasayfa");
+        if (location.pathname !== '/') {
+          navigate('/', { replace: true });
         }
         return;
       }
@@ -120,25 +130,14 @@ export default function App() {
         setActiveSection(currentActive);
       }
       const newPath = sectionToPath[currentActive] || '/';
-      if (window.location.pathname !== newPath) {
-        window.history.replaceState({}, '', newPath);
+      if (location.pathname !== newPath) {
+        navigate(newPath, { replace: true });
       }
     };
-
-    // İlk açılışta path'e göre scroll
-    const currentPath = window.location.pathname;
-    let initialSection = pathToSection[currentPath] || 'anasayfa';
-    setActiveSection(initialSection);
-    setTimeout(() => {
-      if (initialSection !== "anasayfa") {
-        handleScrollTo(initialSection, false);
-      }
-      setContentLoaded(true);
-      initialScrollDone.current = true;
-      window.addEventListener("scroll", handleScroll);
-    }, 1);
+    window.addEventListener("scroll", handleScroll);
     return () => window.removeEventListener("scroll", handleScroll);
-  }, []);
+    // eslint-disable-next-line
+  }, [activeSection, location.pathname]);
 
   return (
     <ThemeProvider theme={theme}>
