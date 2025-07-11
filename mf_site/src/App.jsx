@@ -12,6 +12,7 @@ import Iletisim from "./pages/iletisim/Iletisim";
 import Footer from "./footer/Footer";
 import Divider from "@mui/material/Divider";
 import { useLocation, useNavigate } from 'react-router-dom';
+import AIChatWidget from "./aiassistant/AIChatWidget";
 
 export default function App() {
   const [darkMode, setDarkMode] = React.useState(true);
@@ -190,6 +191,7 @@ export default function App() {
           </div>
         </Box>
         <Footer />
+        <AIChatWidget />
       </Box>
     </ThemeProvider>
   );
