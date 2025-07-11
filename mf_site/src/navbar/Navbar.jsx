@@ -11,19 +11,11 @@ import NavbarMenu from "./components/NavbarMenu";
 import NavbarDrawer from "./components/NavbarDrawer";
 import DarkModeToggle from "./components/DarkModeToggle";
 import LanguageSwitcher from "./components/LanguageSwitcher";
-
-// Menüdeki sayfalar
-const menuItems = [
-  { label: "Ana Sayfa", path: "/", section: "anasayfa" },
-  { label: "Hakkımda", path: "/hakkimda", section: "hakkimda" },
-  { label: "Yeteneklerim", path: "/yeteneklerim", section: "yeteneklerim" },
-  { label: "Deneyim", path: "/deneyim", section: "deneyim" },
-  { label: "Projelerim", path: "/projelerim", section: "projelerim" },
-  { label: "İletişim", path: "/iletisim", section: "iletisim" },
-];
+import { useTranslation } from "react-i18next";
 
 // Navbar ana componenti
 export default function Navbar({ darkMode, setDarkMode, onScrollTo, activePath }) {
+  const { t } = useTranslation();
   // Drawer (mobil menü) açık mı?
   const [drawerOpen, setDrawerOpen] = React.useState(false);
   const theme = useTheme();
@@ -36,6 +28,16 @@ export default function Navbar({ darkMode, setDarkMode, onScrollTo, activePath }
     setDrawerOpen(false);
     if (onScrollTo) onScrollTo(item.section);
   };
+
+  // Menüdeki sayfalar
+  const menuItems = [
+    { label: t('navbar.anasayfa'), path: "/", section: "anasayfa" },
+    { label: t('navbar.hakkimda'), path: "/hakkimda", section: "hakkimda" },
+    { label: t('navbar.yeteneklerim'), path: "/yeteneklerim", section: "yeteneklerim" },
+    { label: t('navbar.deneyim'), path: "/deneyim", section: "deneyim" },
+    { label: t('navbar.projelerim'), path: "/projelerim", section: "projelerim" },
+    { label: t('navbar.iletisim'), path: "/iletisim", section: "iletisim" },
+  ];
 
   return (
     // Sabit üst bar

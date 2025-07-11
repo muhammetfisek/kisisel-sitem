@@ -1,8 +1,10 @@
 import React from "react";
 import Typography from "@mui/material/Typography";
+import { useTranslation } from "react-i18next";
 
 // Footer'da isim, unvan ve copyright bilgisini gösteren component
 export default function FooterInfo() {
+  const { t } = useTranslation();
   return (
     <>
       {/* İsim */}
@@ -11,11 +13,11 @@ export default function FooterInfo() {
       </Typography>
       {/* Unvan */}
       <Typography variant="body1" sx={{ color: 'text.secondary', textAlign: 'center', maxWidth: 500 }}>
-        Bilgisayar Mühendisi & Backend Developer
+        {t('footer.unvan')}
       </Typography>
       {/* Copyright */}
       <Typography variant="body2" sx={{ color: 'text.disabled', mt: 3 }}>
-        © {new Date().getFullYear()} Muhammet FİŞEK
+        {t('footer.copyright', { year: new Date().getFullYear() })}
       </Typography>
     </>
   );

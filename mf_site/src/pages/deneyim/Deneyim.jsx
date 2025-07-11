@@ -7,6 +7,7 @@ import WorkIcon from '@mui/icons-material/Work';
 import SchoolIcon from '@mui/icons-material/School';
 import { useTheme } from '@mui/material/styles';
 import TimelineList from "./components/TimelineList";
+import { useTranslation } from "react-i18next";
 
 // Deneyim (iş) ve eğitim geçmişini tutan veri dizileri
 const deneyimler = [
@@ -47,6 +48,9 @@ const egitimler = [
 export default function Deneyim() {
   // Tema (açık/koyu) bilgisini almak için MUI'nin useTheme hook'u kullanılır
   const theme = useTheme();
+  const { t } = useTranslation();
+  const deneyimler = t('experience.jobs', { returnObjects: true });
+  const egitimler = t('experience.educations', { returnObjects: true });
   const isDark = theme.palette.mode === 'dark';
   // Kartların arka plan rengi, temaya göre belirlenir
   const cardBg = isDark
@@ -80,7 +84,7 @@ export default function Deneyim() {
           },
         }}
       >
-        DENEYİM & EĞİTİM
+        {t('deneyim.baslik')}
         {/* Altındaki renkli çizgi */}
         <Box
           sx={{
@@ -96,7 +100,7 @@ export default function Deneyim() {
       </Typography>
       {/* Kısa açıklama metni */}
       <Typography variant="h6" sx={{ color: 'text.secondary', textAlign: 'center', mb: 5 }}>
-        Profesyonel deneyimlerim ve akademik geçmişim
+        {t('deneyim.altBaslik')}
       </Typography>
       {/* Deneyim ve eğitim kartlarını grid ile yan yana sırala */}
       <Grid container spacing={4} justifyContent="center" alignItems="stretch" sx={{
@@ -140,7 +144,7 @@ export default function Deneyim() {
                 <WorkIcon sx={{ fontSize: 32, color: '#fff' }} />
               </Box>
               <Typography variant="h4" sx={{ fontWeight: 900, color: '#2196f3', ml: 1, fontSize: 32, letterSpacing: 0.5 }}>
-                Deneyim
+                {t('experience.card_experience')}
               </Typography>
             </Box>
             {/* TimelineList ile deneyimler listelenir */}
@@ -181,7 +185,7 @@ export default function Deneyim() {
                 <SchoolIcon sx={{ fontSize: 32, color: '#fff' }} />
               </Box>
               <Typography variant="h4" sx={{ fontWeight: 900, color: '#43a047', ml: 1, fontSize: 36, letterSpacing: 0.5 }}>
-                Eğitim
+                {t('experience.card_education')}
               </Typography>
             </Box>
             {/* TimelineList ile eğitimler listelenir */}

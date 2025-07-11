@@ -4,9 +4,12 @@ import Typography from "@mui/material/Typography";
 import Paper from "@mui/material/Paper";
 import SkillItem from "./SkillItem";
 import KeyboardArrowDownIcon from '@mui/icons-material/KeyboardArrowDown';
+import { useTranslation } from "react-i18next";
 
 // Bir yetenek grubunu (başlık, ikon, altındaki yetenekler ve gerekirse scroll okunu) gösteren kart componenti
-export default function SkillGroupCard({ group }) {
+export default function SkillGroupCard({ group, groupIdx }) {
+  const { t } = useTranslation();
+  const groupI18n = t(`skills.groups.${groupIdx}`, { returnObjects: true });
   // Kart içeriğine referans (scroll olup olmadığını kontrol etmek için)
   const contentRef = React.useRef(null);
   // Scroll bar gerektiğinde sağ altta ok göstermek için state
@@ -63,7 +66,7 @@ export default function SkillGroupCard({ group }) {
       }}>
         {group.icon}
         <Typography variant="h1" sx={{ fontWeight: 800, color: group.color, fontSize: { xs: 22, md: 26 } }}>
-          {group.title}
+          {groupI18n.title}
         </Typography>
       </Box>
       <Box sx={{ height: '30px' }} />
@@ -85,8 +88,8 @@ export default function SkillGroupCard({ group }) {
         }}
       >
         {/* Her bir yetenek için SkillItem componenti */}
-        {group.items.map((item) => (
-          <SkillItem key={item.name} name={item.name} level={item.level} color={group.color} />
+        {group.items.map((item, i) => (
+          <SkillItem key={item.name} name={groupI18n.items[i] || item.name} level={item.level} color={group.color} />
         ))}
       </Box>
       {/* İçerik taşarsa sağ altta zıplayan ok göster */}

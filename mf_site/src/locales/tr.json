@@ -1,0 +1,189 @@
+{
+  "navbar": {
+    "anasayfa": "Ana Sayfa",
+    "hakkimda": "Hakkımda",
+    "yeteneklerim": "Yeteneklerim",
+    "deneyim": "Deneyim",
+    "projelerim": "Projelerim",
+    "iletisim": "İletişim"
+  },
+  "home": {
+    "hosgeldin": "Hoşgeldiniz!",
+    "aciklama": "Java + Spring Boot tarafında backend geliştiriyorum. Temiz kod, iyi mimari ve performans odaklı sistemler ilgi alanım. Hobi olarak da modern web uygulamaları tasarlayıp frontend dünyasında kendimi geliştiriyorum.",
+    "altBaslik": ""
+  },
+  "hakkimda": {
+    "baslik": "HAKKIMDA",
+    "altBaslik": "Yazılımla Şekillenen Bir Kariyer"
+  },
+  "yeteneklerim": {
+    "baslik": "Yeteneklerim",
+    "altBaslik": "Kariyerim boyunca edindiğim teknik ve kişisel becerilerim"
+  },
+  "deneyim": {
+    "baslik": "DENEYİM & EĞİTİM",
+    "altBaslik": "Profesyonel deneyimlerim ve akademik geçmişim"
+  },
+  "projelerim": {
+    "baslik": "Projelerim",
+    "altBaslik": "Üzerinde çalışmış olduğum bazı projeler"
+  },
+  "iletisim": {
+    "baslik": "İLETİŞİME GEÇ",
+    "altBaslik": "Proje teklifleri, iş birliği fırsatları veya herhangi bir sorunuz varsa benimle iletişime geçebilirsiniz."
+  },
+  "footer": {
+    "unvan": "Bilgisayar Mühendisi & Backend Developer",
+    "copyright": "© {{year}} Muhammet FİŞEK"
+  },
+  "about": {
+    "title": "< Merhaba, Ben Muhammet />",
+    "items": [
+      "2020 yılında Kurtköy Anadolu Lisesi'nden mezun olduktan sonra, yazılıma olan tutkumun peşinden giderek Erzincan Binali Yıldırım Üniversitesi Bilgisayar Mühendisliği bölümünde 2025 yılında eğitimimi tamamladım. Artık  bir Bilgisayar Mühendisi olarak, edindiğim teorik bilgileri gerçek dünya projeleriyle buluşturmanın heyecanını taşıyorum.",
+      "Java + Spring Boot ile backend geliştirme konusunda çabalıyorum. Temiz kod, iyi mimari ve performans odaklı sistemler ilgi alanım. Hobi olarak modern web uygulamaları tasarlayıp frontend dünyasında kendimi geliştiriyorum.",
+      "Teknolojinin sunduğu sonsuz imkanları keşfetmeye ve kendimi her geçen gün daha da ileriye taşımaya olan inancım tam. Amacım, sadece işlevsel değil, aynı zamanda kullanıcıların hayatına değer katan, yenilikçi ve sürdürülebilir yazılım çözümleri geliştirmek."
+    ],
+    "profile": {
+      "name": "Muhammet FİŞEK",
+      "title": "Bilgisayar Mühendisi & Backend Developer",
+      "location": "Türkiye / İstanbul"
+    }
+  },
+  "skills": {
+    "groups": [
+      {
+        "title": "Programlama & Geliştirme",
+        "items": [
+          "Java - Spring Boot",
+          "React.js",
+          "Android Geliştirme(Java)",
+          "C#",
+          "C",
+          "JavaScript",
+          "HTML/CSS",
+          "MS-SQL",
+          "PostgreSQL",
+          "Veri Yapıları ve Algoritmalar",
+          "Nesne Yönelimli Programlama (OOP)"
+        ]
+      },
+      {
+        "title": "Tasarım",
+        "items": [
+          "Mobile Android UI/UX",
+          "Web UI/UX",
+          "Adobe Photoshop"
+        ]
+      },
+      {
+        "title": "Diller",
+        "items": [
+          "Türkçe (Anadil)",
+          "İngilizce (Orta)",
+          "Fransızca (Başlangıç)"
+        ]
+      },
+      {
+        "title": "Kişisel Beceriler",
+        "items": [
+          "Problem Çözme",
+          "Analitik Düşünme",
+          "Takım Çalışması",
+          "Zaman Yönetimi"
+        ]
+      }
+    ]
+  },
+  "experience": {
+    "jobs": [
+      {
+        "title": "Backend Developer",
+        "company": "Serbest Çalışma",
+        "date": "Şubat 2025 - Devam Ediyor",
+        "location": "İstanbul, Türkiye - Uzaktan",
+        "description": "Kendi geliştirmiş olduğum uygulamamın backend kısmını yazıyorum"
+      },
+      {
+        "title": "Stajyer Yazılım Geliştirici",
+        "company": "Staj Okulu , Exedra Bilişim Çözümleri",
+        "date": "Temmuz 2024 - Ağustos 2024",
+        "location": "İstanbul-Üsküdar, Türkiye - Ofisten",
+        "description": "Staj okulu sürecinde sektörün önde gelen firmalarından uzmanların gerçekleştirdiği seminer ve sunumlar sayesinde yazılım geliştirme süreçleri, kariyer planlaması ve güncel teknolojiler hakkında değerli bilgiler edindim. Bu deneyimler ışığında, kendimi aktif olarak geliştirmek adına Spring Boot (backend) ve React (frontend) teknolojilerini entegre ederek, kullanıcıların etkileşimli bir şekilde bilgi ve içerik paylaşımı yapabildiği tam kapsamlı bir web uygulaması hayata geçirdim."
+      }
+    ],
+    "educations": [
+      {
+        "title": "Erzincan Binali Yıldırım Üniversitesi",
+        "degree": "Bilgisayar Mühendisliği",
+        "date": "Eylül 2021 - Haziran 2025",
+        "location": "Erzincan, Türkiye",
+        "description": "Lisans eğitimimi bilgisayar mühendisliği alanında tamamladım. Eğitimim sırasında programlama, veri yapıları, mobil uygulama geliştirme ve yazılım mühendisliği gibi çeşitli  konularda bilgiler edindim."
+      },
+      {
+        "title": "Kurtköy Anadolu Lisesi",
+        "degree": "Lise Eğitimi",
+        "date": "Eylül 2016 - Haziran 2020",
+        "location": "İstanbul-Pendik, Türkiye",
+        "description": "Lise eğitimimi tamamlayarak yükseköğrenime hazırlandım. Bu süreçte temel bilimler ve yabancı dil alanlarında kendimi geliştirdim. Lise döneminde orta düzeyde Fransızca eğitimi aldım."
+      }
+    ],
+    "card_experience": "Deneyim",
+    "card_education": "Eğitim"
+  },
+  "projects": [
+    {
+      "title": "Yapay Zekâ Tabanlı Kuaför Asistanı ve İşletme Yönetimi Uygulaması",
+      "desc": "Bu uygulama, kuaförler ve güzellik salonları için randevu yönetim uygulamasıdır. Backend kısmı Spring Boot ile yazılmıştır. Yapay zeka ise Python-Flask ile geliştirilmiştir. Yapay zekaya fotoğrafınızı yükleyerek saç kesimi ve bakım önerileri alabiliyoruz ."
+    },
+    {
+      "title": "Görüntü İşleme ve Kümeleme Uygulaması",
+      "desc": "C# Windows Forms kullanarak geliştirdiğim kapsamlı bir uygulamadır. K-Means (yoğunluk, RGB, Mahalanobis) ve Sobel kenar bulma gibi gelişmiş görüntü işleme algoritmalarını içerir. Detaylı piksel ve histogram analiz yetenekleri de sunmaktadır."
+    },
+    {
+      "title": "Spor Kompleksi Uygulaması",
+      "desc": "Mobil uygulama Java ve SQLite kullanılarak geliştirilmiştir. Kullanıcılar uygulamaya kayıt olarak ve giriş yaparak günlük egzersiz rutinlerini oluşturabilirler. Amacımız, uygulayacağımız egzersizleri göstererek kullanıcıların günlük yaşamlarında sağlıklı bir yaşam tarzı sürdürmelerine yardimci olmaktır."
+    },
+    {
+      "title": "Staj Projesi: Kullanıcı Platformu",
+      "desc": "Bu uygulama kullanıcı odaklı bir sosyal etkileşim platformudur. Uygulama, güvenli kayıt/giriş, kullanıcı listeleme, detaylı profil görüntüleme ve düzenleme gibi fonksiyonellikler sağlayarak, kullanıcıların dijital ortamda birbirleriyle bağlantı kurmasını ve bilgi paylaşmasını kolaylaştırır."
+    },
+    {
+      "title": "Statik Web Sitesi: Haberler",
+      "desc": "HTML ve CSS kullanılarak geliştirildi. Haber ve içerik gösteren bir web sitesi oluşturuldu. Anasayfa,Bilim,Spor,Teknoloji vb. sayfalardan oluşmaktadır."
+    },
+    {
+      "title": "Horse-Racing-Game",
+      "desc": "C# kullanılarak geliştirilmiştir. Oyuncu sayısı girilerek oyuna başlanır. Minimum 2 , maximum 4 oyuncu kabul edilir. Atlar rastgele ilerler ve bitiş çizgisine ilk ulaşan oyuncu kazanır. Oyun reset ile tekrar başlar."
+    },
+    {
+      "title": "Stock-Tracking-System",
+      "desc": "C# ve MS-SQL kullanılarak geliştirilmiştir. Yönetici ve çalışan olmak üzere iki ayrı panel bulunmaktadır. Yönetici giriş yapabilir ve çalışan ekleyebilir. Çalışan giriş yaptıktan sonra ürün ekleyip çıkararak ürün stok takip sistemi yapar."
+    },
+    {
+      "title": " Hesap Makinesi",
+      "desc": "HTML, CSS ve JavaScript kullanarak geliştirdiğim tam işlevli bir web tabanlı hesap makinesi uygulamasıdır. Temel aritmetik işlemleri destekler ve dinamik tema değiştirme özelliğine sahiptir."
+    },
+    {
+      "title": "To-Do-List",
+      "desc": "Bu projede  yapılacaklar listesi uygulaması geliştirilmiştir. Kullanıcılar yapılacakları ekleyebilir, düzenleyebilir ve silebilir. Ayrıca Tümü, Devam Ediyor ve Bitti butonları ile görevleri filtreleyebilirler."
+    },
+    {
+      "title": "Statik Web Sitesi: Gardener",
+      "desc": "Bu site HTML, CSS, JS kullanılarak geliştirilmiştir. Site, bazı bitkilerin nasıl yetiştirildiği ve bakımının nasıl yapıldığı hakkında faydalı bilgiler içermektedir."
+    },
+    {
+      "title": "Mini-Game-WebSite",
+      "desc": "HTML, CSS ve vanilla JavaScript ile geliştirdiğim, kullanıcı dostu bir mini oyun portalıdır. Pong, Yılan Oyunu ve Köstebeğe Vurma gibi popüler oyunları içeren bu site, temel front-end becerilerimi ve dinamik oyun mantığı uygulama yeteneğimi kapsamlı bir şekilde sergiler"
+    },
+    {
+      "title": "Kişisel Web Sitem",
+      "desc": " Kişisel portfolyo web sitesidir. Yazılım geliştirme becerilerimi sergileyen çeşitli projelerimi (web, masaüstü, mobil) barındırır. Duyarlı tasarımı ve kullanıcı dostu arayüzü ile çalışmalarımı sunar"
+    }
+  ],
+  "contactForm": {
+    "adsoyad": "Ad Soyad",
+    "konu": "Konu",
+    "mesaj": "Mesaj",
+    "gonder": "Gönder"
+  }
+} 

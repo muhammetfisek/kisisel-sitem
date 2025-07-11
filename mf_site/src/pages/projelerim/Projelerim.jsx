@@ -20,11 +20,13 @@ import CloseIcon from '@mui/icons-material/Close';
 import ProjectCard from "./ProjectCard";
 import { projeler } from "./projelerData";
 import { chunkArray } from "./utils";
+import { useTranslation } from "react-i18next";
 
 // Ana Projelerim fonksiyonu
 export default function Projelerim() {
   // Tema ayarlarını al (dark/light)
   const theme = useTheme();
+  const { t } = useTranslation();
   const isDark = theme.palette.mode === 'dark';
   // Kartların arka plan ve kenar renkleri tema göre belirlenir
   const cardBg = isDark ? 'rgba(35, 43, 57, 0.97)' : 'rgba(255,255,255,0.97)';
@@ -92,7 +94,7 @@ export default function Projelerim() {
           },
         }}
       >
-        PROJELERİM
+        {t('projelerim.baslik')}
         {/* Altındaki renkli çizgi */}
         <Box
           sx={{
@@ -107,7 +109,7 @@ export default function Projelerim() {
         />
       </Typography>
       <Typography variant="h6" sx={{ color: 'text.secondary', textAlign: 'center', mb: 5 }}>
-        Üzerinde çalışmış olduğum bazı projeler
+        {t('projelerim.altBaslik')}
       </Typography>
       {/* Proje kartlarını 3'erli satırlarda gösteren grid yapısı */}
       <Box sx={{ maxWidth: 1200, mx: 'auto' }}>

@@ -6,9 +6,11 @@ import GitHubIcon from "@mui/icons-material/GitHub";
 import LinkedInIcon from "@mui/icons-material/LinkedIn";
 import EmailIcon from "@mui/icons-material/Email";
 import InstagramIcon from "@mui/icons-material/Instagram";
+import { useTranslation } from "react-i18next";
 
 // Profil bilgileri ve sosyal medya ikonları
 export default function ProfileInfo() {
+  const { t } = useTranslation();
   return (
     <Box sx={{ flex: 1, minWidth: 300 }}>
       <Typography
@@ -27,10 +29,10 @@ export default function ProfileInfo() {
         variant="h5"
         sx={{ color: "text.primary", marginLeft: 7, fontWeight: 400, mb: 2 }}
       >
-        Bilgisayar Mühendisi & Backend Developer
+        {t('footer.unvan')}
       </Typography>
       <Typography variant="body1" sx={{ color: "text.secondary", marginLeft: 7, mb: 3 }}>
-        Java + Spring Boot tarafında backend geliştiriyorum. Temiz kod, iyi mimari ve performans odaklı sistemler ilgi alanım. Hobi olarak da modern web uygulamaları tasarlayıp frontend dünyasında kendimi geliştiriyorum.
+        {t('home.aciklama')}
       </Typography>
       {/* Sosyal medya ikonları */}
       <Box>

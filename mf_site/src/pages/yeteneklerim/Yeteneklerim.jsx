@@ -9,6 +9,7 @@ import TranslateIcon from '@mui/icons-material/Translate';
 import EmojiObjectsIcon from '@mui/icons-material/EmojiObjects';
 import SkillGroupCard from "./components/SkillGroupCard";
 import BounceArrow from "../iletisim/components/BounceArrow";
+import { useTranslation } from "react-i18next";
 
 // Yetenek gruplarını ve her grubun altındaki yetenekleri tanımlayan sabit dizi
 const skills = [
@@ -65,6 +66,8 @@ const skills = [
 
 // Yeteneklerim ana sayfa componenti
 export default function Yeteneklerim() {
+  const { t } = useTranslation();
+  const groups = t('skills.groups', { returnObjects: true });
   // Sayfa animasyonunu başlatmak için kullanılan state
   const [show, setShow] = React.useState(false);
   // Component mount olduğunda animasyonu başlat
@@ -100,7 +103,7 @@ export default function Yeteneklerim() {
               },
             }}
           >
-            YETENEKLERİM
+            {t('yeteneklerim.baslik')}
             {/* Altındaki renkli çizgi */}
             <Box
               sx={{
@@ -115,18 +118,17 @@ export default function Yeteneklerim() {
             />
           </Typography>
           <Typography variant="h6" sx={{ color: 'text.secondary', textAlign: 'center', mb: 5 }}>
-            Kariyerim boyunca edindiğim teknik ve kişisel becerilerim
+            {t('yeteneklerim.altBaslik')}
           </Typography>
         </Box>
       </Fade>
       {/* Yetenek gruplarını grid olarak sırala */}
       <Grid container spacing={4} justifyContent="center" alignItems="stretch">
-        {skills.map((group) => (
-          // Her yetenek grubu için bir Grid item ve animasyon
+        {skills.map((group, idx) => (
           <Grid item xs={12} sm={6} md={3} key={group.title} sx={{ display: 'flex', flex: 1, minWidth: 0, maxWidth: '100%', height: '100%' }}>
             <Fade in={show} timeout={1000}>
               <Box sx={{ width: '100%' }}>
-                <SkillGroupCard group={group} />
+                <SkillGroupCard group={group} groupIdx={idx} />
               </Box>
             </Fade>
           </Grid>

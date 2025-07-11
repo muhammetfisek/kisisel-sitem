@@ -1,9 +1,11 @@
 import React from "react";
 import Box from "@mui/material/Box";
 import Typography from "@mui/material/Typography";
+import { useTranslation } from "react-i18next";
 
 // Hoşgeldiniz başlığı ve gülücük animasyonu
 export default function WelcomeHeader({ hover, setHover, show }) {
+  const { t } = useTranslation();
   return (
     <Box
       component={show ? 'div' : 'span'}
@@ -59,7 +61,7 @@ export default function WelcomeHeader({ hover, setHover, show }) {
             },
           }}
         >
-          Hoşgeldiniz
+          {t('home.hosgeldin')}
           {/* Altındaki renkli çizgi */}
           <Box
             sx={{

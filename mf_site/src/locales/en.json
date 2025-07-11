@@ -1,0 +1,189 @@
+{
+  "navbar": {
+    "anasayfa": "Home",
+    "hakkimda": "About Me",
+    "yeteneklerim": "Skills",
+    "deneyim": "Experience",
+    "projelerim": "Projects",
+    "iletisim": "Contact"
+  },
+  "home": {
+    "hosgeldin": "WELCOME!",
+    "aciklama": "I develop backend with Java + Spring Boot. Clean code, good architecture, and performance-oriented systems are my interests. As a hobby, I design modern web applications and improve myself in the frontend world.",
+    "altBaslik": ""
+  },
+  "hakkimda": {
+    "baslik": "ABOUT ME",
+    "altBaslik": "A Career Shaped by Software"
+  },
+  "yeteneklerim": {
+    "baslik": "MY SKİLLS",
+    "altBaslik": "My technical and personal skills acquired throughout my career"
+  },
+  "deneyim": {
+    "baslik": "EXPERIENCE & EDUCATION",
+    "altBaslik": "My professional experience and academic background"
+  },
+  "projelerim": {
+    "baslik": "MY PROJECTS",
+    "altBaslik": "Some of the projects I have worked on"
+  },
+  "iletisim": {
+    "baslik": "GET IN TOUCH",
+    "altBaslik": "If you have project proposals, collaboration opportunities or any questions, feel free to contact me."
+  },
+  "footer": {
+    "unvan": "Computer Engineer & Backend Developer",
+    "copyright": "© {{year}} Muhammet FİŞEK"
+  },
+  "about": {
+    "title": "< Hello, I'm Muhammet />",
+    "items": [
+      "After graduating from Kurtköy Anatolian High School in 2020, I followed my passion for software and completed my education at Erzincan Binali Yıldırım University, Department of Computer Engineering in 2025. Now, as a Computer Engineer, I am excited to combine the theoretical knowledge I have gained with real-world projects.",
+      "I strive to develop backend with Java + Spring Boot. Clean code, good architecture, and performance-oriented systems are my interests. As a hobby, I design modern web applications and improve myself in the frontend world.",
+      "I am fully committed to discovering the endless possibilities offered by technology and improving myself further every day. My goal is to develop not only functional but also innovative and sustainable software solutions that add value to users' lives."
+    ],
+    "profile": {
+      "name": "Muhammet FİŞEK",
+      "title": "Computer Engineer & Backend Developer",
+      "location": "Turkey / Istanbul"
+    }
+  },
+  "skills": {
+    "groups": [
+      {
+        "title": "Programming & Development",
+        "items": [
+          "Java - Spring Boot",
+          "React.js",
+          "Android Development (Java)",
+          "C#",
+          "C",
+          "JavaScript",
+          "HTML/CSS",
+          "MS-SQL",
+          "PostgreSQL",
+          "Data Structures and Algorithms",
+          "Object Oriented Programming (OOP)"
+        ]
+      },
+      {
+        "title": "Design",
+        "items": [
+          "Mobile Android UI/UX",
+          "Web UI/UX",
+          "Adobe Photoshop"
+        ]
+      },
+      {
+        "title": "Languages",
+        "items": [
+          "Turkish (Native)",
+          "English (Intermediate)",
+          "French (Beginner)"
+        ]
+      },
+      {
+        "title": "Personal Skills",
+        "items": [
+          "Problem Solving",
+          "Analytical Thinking",
+          "Teamwork",
+          "Time Management"
+        ]
+      }
+    ]
+  },
+  "experience": {
+    "jobs": [
+      {
+        "title": "Backend Developer",
+        "company": "Freelance",
+        "date": "Feb 2025 - Present",
+        "location": "Istanbul, Turkey - Remote",
+        "description": "I am writing the backend part of my own application."
+      },
+      {
+        "title": "Intern Software Developer",
+        "company": "Intern School, Exedra IT Solutions",
+        "date": "July 2024 - August 2024",
+        "location": "Istanbul-Üsküdar, Turkey - Onsite",
+        "description": "During the internship school, I gained valuable information about software development processes, career planning, and current technologies through seminars and presentations by experts from leading companies in the sector. In light of these experiences, I actively improved myself by integrating Spring Boot (backend) and React (frontend) technologies and developed a comprehensive web application where users can interactively share information and content."
+      }
+    ],
+    "educations": [
+      {
+        "title": "Erzincan Binali Yıldırım University",
+        "degree": "Computer Engineering",
+        "date": "Sep 2021 - Jun 2025",
+        "location": "Erzincan, Turkey",
+        "description": "I completed my undergraduate education in computer engineering. During my education, I gained knowledge in various subjects such as programming, data structures, mobile application development, and software engineering."
+      },
+      {
+        "title": "Kurtköy Anatolian High School",
+        "degree": "High School Education",
+        "date": "Sep 2016 - Jun 2020",
+        "location": "Istanbul-Pendik, Turkey",
+        "description": "I completed my high school education and prepared for higher education. During this process, I improved myself in basic sciences and foreign languages. I received intermediate level French education during high school."
+      }
+    ],
+    "card_experience": "Experience",
+    "card_education": "Education"
+  },
+  "projects": [
+    {
+      "title": "AI-Based Hairdresser Assistant and Business Management App",
+      "desc": "This app is an appointment management application for hairdressers and beauty salons. The backend is written in Spring Boot. The AI is developed with Python-Flask. You can upload your photo to the AI and get haircut and care suggestions."
+    },
+    {
+      "title": "Image Processing and Clustering Application",
+      "desc": "A comprehensive application I developed using C# Windows Forms. It includes advanced image processing algorithms such as K-Means (density, RGB, Mahalanobis) and Sobel edge detection. It also offers detailed pixel and histogram analysis capabilities."
+    },
+    {
+      "title": "Sports Complex Application",
+      "desc": "The mobile app was developed using Java and SQLite. Users can register and log in to the app to create daily exercise routines. Our goal is to help users maintain a healthy lifestyle by showing the exercises to be performed in daily life."
+    },
+    {
+      "title": "Internship Project: User Platform",
+      "desc": "This application is a user-oriented social interaction platform. It provides functionalities such as secure registration/login, user listing, detailed profile viewing and editing, making it easy for users to connect and share information in a digital environment."
+    },
+    {
+      "title": "Static Website: News",
+      "desc": "Developed using HTML and CSS. A website was created to display news and content. It consists of pages such as Home, Science, Sports, Technology, etc."
+    },
+    {
+      "title": "Horse-Racing-Game",
+      "desc": "Developed using C#. The game starts by entering the number of players. A minimum of 2 and a maximum of 4 players are accepted. Horses move randomly and the first player to reach the finish line wins. The game restarts with reset."
+    },
+    {
+      "title": "Stock-Tracking-System",
+      "desc": "Developed using C# and MS-SQL. There are two separate panels for admin and employee. The admin can log in and add employees. After logging in, the employee can add and remove products to manage product stock."
+    },
+    {
+      "title": "Calculator",
+      "desc": "A fully functional web-based calculator application I developed using HTML, CSS, and JavaScript. It supports basic arithmetic operations and has a dynamic theme switching feature."
+    },
+    {
+      "title": "To-Do-List",
+      "desc": "In this project, a to-do list application was developed. Users can add, edit, and delete tasks. They can also filter tasks with All, In Progress, and Completed buttons."
+    },
+    {
+      "title": "Static Website: Gardener",
+      "desc": "This site was developed using HTML, CSS, and JS. The site contains useful information about how to grow and care for some plants."
+    },
+    {
+      "title": "Mini-Game-WebSite",
+      "desc": "A user-friendly mini game portal I developed with HTML, CSS, and vanilla JavaScript. This site, which includes popular games such as Pong, Snake Game, and Whac-A-Mole, comprehensively demonstrates my basic front-end skills and ability to implement dynamic game logic."
+    },
+    {
+      "title": "Personal Website",
+      "desc": "A personal portfolio website. It contains various projects (web, desktop, mobile) that showcase my software development skills. It presents my work with a responsive design and user-friendly interface."
+    }
+  ],
+  "contactForm": {
+    "adsoyad": "Full Name",
+    "konu": "Subject",
+    "mesaj": "Message",
+    "gonder": "Send"
+  }
+} 

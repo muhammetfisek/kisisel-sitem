@@ -10,15 +10,21 @@ import { Navigation, Pagination, Autoplay } from 'swiper/modules';
 import Etiketler from "./components/Etiketler";
 import GelistiriliyorEtiketi from "./components/GelistiriliyorEtiketi";
 import GithubIconButton from "./components/GithubIconButton";
+import { useTranslation } from "react-i18next";
 
 // ProjectCard componenti memo ile optimize edildi
 const ProjectCard = memo(function ProjectCard({ proje, globalIdx, cardBg, borderColor, hoverBorder, hoverShadow, githubIconColor, isDark, objectFitMap, handleOpenModal, handleImgLoad }) {
+  const { t, i18n } = useTranslation();
   // proje: Proje verisi (başlık, açıklama, etiketler, görseller, github)
   // globalIdx: Proje sırası (ilk kutu için "geliştiriliyor" etiketi gösterilir)
   // cardBg, borderColor, hoverBorder, hoverShadow, githubIconColor, isDark: Tema ve stil prop'ları
   // objectFitMap: Her görsel için object-fit bilgisi
   // handleOpenModal: Görsele tıklanınca büyük modalı açar
   // handleImgLoad: Görsel yüklendiğinde oranına göre object-fit belirler
+
+  // Proje indexini bul
+  const projectIndex = proje._idx !== undefined ? proje._idx : globalIdx;
+  const projectI18n = t(`projects.${projectIndex}`, { returnObjects: true });
 
   return (
     <Paper
@@ -109,10 +115,10 @@ const ProjectCard = memo(function ProjectCard({ proje, globalIdx, cardBg, border
         {/* Proje başlığı ve açıklaması */}
         <Box sx={{ width: '100%' }}>
           <Typography variant="h6" sx={{ fontWeight: 700, color: '#fff', mb: 1, textAlign: 'left', fontSize: '1.1rem' }}>
-            {proje.baslik}
+            {projectI18n.title || proje.baslik}
           </Typography>
           <Typography variant="body1" sx={{ color: '#b0bec5', mb: 2, textAlign: 'left', fontSize: '0.95rem' }}>
-            {proje.aciklama}
+            {projectI18n.desc || proje.aciklama}
           </Typography>
         </Box>
         {/* Etiketler componenti ile teknolojiler */}

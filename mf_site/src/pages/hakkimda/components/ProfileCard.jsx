@@ -6,8 +6,11 @@ import Avatar from "@mui/material/Avatar";
 import Divider from "@mui/material/Divider";
 import LocationOnIcon from "@mui/icons-material/LocationOn";
 import hakkimdaPhoto from "@/fotolar/hakkimda_pp.jpeg";
+import { useTranslation } from "react-i18next";
 
 export default function ProfileCard() {
+  const { t } = useTranslation();
+  const profile = t('about.profile', { returnObjects: true });
   return (
     // Kartın ana kutusu, responsive ve hover efektli
     <Box
@@ -35,24 +38,24 @@ export default function ProfileCard() {
     >
       {/* Profil fotoğrafı */}
       <Avatar
-        alt="Muhammet Fişek"
+        alt={profile.name}
         src={hakkimdaPhoto}
         sx={{ width: 200, height: 200, mb: 2, border: '4px solid', borderColor: 'secondary.main' }}
       />
       {/* Kullanıcı adı */}
       <Typography variant="h5" sx={{ fontWeight: 700, color: 'primary.main', mb: 1 }}>
-        Muhammet FİŞEK
+        {profile.name}
       </Typography>
       {/* Kullanıcı unvanı */}
       <Typography variant="subtitle1" sx={{ color: 'text.secondary', mb: 2, textAlign: 'center' }}>
-        Bilgisayar Mühendisi & Backend Developer
+        {profile.title}
       </Typography>
       {/* Ayırıcı çizgi */}
       <Divider sx={{ width: '80%', my: 2 }} />
       {/* Lokasyon bilgisi */}
       <Box sx={{ display: 'flex', alignItems: 'center', gap: 1, color: 'text.secondary', fontSize: 16 }}>
         <LocationOnIcon fontSize="small" sx={{ color: 'primary.main' }} />
-        Türkiye / İstanbul
+        {profile.location}
       </Box>
     </Box>
   );

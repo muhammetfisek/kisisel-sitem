@@ -3,9 +3,11 @@ import TextField from "@mui/material/TextField";
 import Button from "@mui/material/Button";
 import SendIcon from '@mui/icons-material/Send';
 import Paper from "@mui/material/Paper";
+import { useTranslation } from "react-i18next";
 
 // İletişim formunu gösteren component
 export default function ContactForm() {
+  const { t } = useTranslation();
   // Formun state'i: adsoyad, konu ve mesaj alanlarını tutar
   const [form, setForm] = useState({
     adsoyad: "",
@@ -55,7 +57,7 @@ export default function ContactForm() {
       <form onSubmit={handleSubmit}>
         {/* Ad Soyad alanı */}
         <TextField
-          label="Ad Soyad"
+          label={t('contactForm.adsoyad')}
           name="adsoyad"
           value={form.adsoyad}
           onChange={handleChange}
@@ -73,7 +75,7 @@ export default function ContactForm() {
         />
         {/* Konu alanı */}
         <TextField
-          label="Konu"
+          label={t('contactForm.konu')}
           name="konu"
           value={form.konu}
           onChange={handleChange}
@@ -91,7 +93,7 @@ export default function ContactForm() {
         />
         {/* Mesaj alanı */}
         <TextField
-          label="Mesaj"
+          label={t('contactForm.mesaj')}
           name="mesaj"
           value={form.mesaj}
           onChange={handleChange}
@@ -118,7 +120,7 @@ export default function ContactForm() {
           fullWidth
           sx={{ fontWeight: 700, fontSize: 18, py: 1.2, mt: 1, background: 'linear-gradient(90deg,#00c6fb,#1de9b6)', boxShadow: '0 2px 12px 0 rgba(29,233,182,0.15)' }}
         >
-          Gönder
+          {t('contactForm.gonder')}
         </Button>
       </form>
     </Paper>

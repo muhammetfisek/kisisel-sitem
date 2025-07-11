@@ -3,12 +3,14 @@ import Box from "@mui/material/Box";
 import Typography from "@mui/material/Typography";
 
 import { useTheme } from '@mui/material/styles';
+import { useTranslation } from "react-i18next";
 
 import ProfileCard from "./components/ProfileCard";
 import AboutText from "./components/AboutText";
 
 export default function Hakkimda() {
   const theme = useTheme();
+  const { t } = useTranslation();
   return (
     <Box sx={{ width: '100%', minHeight: '90vh', bgcolor: 'background.default', py: { xs: 4, md: 12 }, px: { xs: 1, md: 6 } }}>
       <Typography
@@ -33,7 +35,7 @@ export default function Hakkimda() {
           },
         }}
       >
-        HAKKIMDA
+        {t('hakkimda.baslik')}
         <Box
           sx={{
             width: 160,
@@ -47,7 +49,7 @@ export default function Hakkimda() {
         />
       </Typography>
       <Typography variant="h6" sx={{ color: 'text.secondary', textAlign: 'center', mb: 5,marginTop:3 }}>
-      Yazılımla Şekillenen Bir Kariyer
+        {t('hakkimda.altBaslik')}
       </Typography>
       <Box
         sx={{

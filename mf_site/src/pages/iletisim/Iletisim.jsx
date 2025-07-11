@@ -3,9 +3,11 @@ import Box from "@mui/material/Box";
 import Typography from "@mui/material/Typography";
 import ContactForm from "./components/ContactForm";
 import BounceArrow from "./components/BounceArrow";
+import { useTranslation } from "react-i18next";
 
 // İletişim sayfasının ana componenti
 export default function Iletisim() {
+  const { t } = useTranslation();
   return (
     // Sayfanın ana kutusu, başlık ve form ile
     <Box sx={{ width: '100%', minHeight: '90vh', bgcolor: 'background.default', py: { xs: 4, md: 12 }, px: { xs: 1, md: 6 }, display: 'flex', flexDirection: 'column', alignItems: 'center', justifyContent: 'flex-start' }}>
@@ -32,7 +34,7 @@ export default function Iletisim() {
           },
         }}
       >
-        İLETİŞİME GEÇ
+        {t('iletisim.baslik')}
         {/* Altındaki renkli çizgi */}
         <Box
           sx={{
@@ -48,7 +50,7 @@ export default function Iletisim() {
       </Typography>
       {/* Kısa açıklama metni */}
       <Typography variant="h6" sx={{ color: 'text.secondary', textAlign: 'center', mb: 5 }}>
-        Proje teklifleri, iş birliği fırsatları veya herhangi bir sorunuz varsa benimle iletişime geçebilirsiniz.
+        {t('iletisim.altBaslik')}
       </Typography>
       {/* İletişim formu componenti */}
       <ContactForm />

@@ -3,8 +3,11 @@ import React from "react";
 import Box from "@mui/material/Box";
 import Typography from "@mui/material/Typography";
 import FiberManualRecordIcon from '@mui/icons-material/FiberManualRecord';
+import { useTranslation } from "react-i18next";
 
 export default function AboutText() {
+  const { t } = useTranslation();
+  const items = t('about.items', { returnObjects: true });
   return (
     // Sağ kutunun ana container'ı, responsive ve hover efektli
     <Box
@@ -30,31 +33,16 @@ export default function AboutText() {
     >
       {/* Başlık */}
       <Typography variant="h5" sx={{ color: 'primary.main', fontWeight: 700, mb: 2 }}>
-        {'< Merhaba, Ben Muhammet />'}
+        {t('about.title')}
       </Typography>
       {/* Kariyer ve vizyon maddeleri */}
       <ul style={{ paddingLeft: 16, color: '#8a8a8a', fontSize: 17, marginBottom: 0 }}>
-        {/* Mezuniyet ve kariyer başlangıcı */}
-        <li style={{ marginBottom: 16, display: 'flex', alignItems: 'flex-start', gap: 8 }}>
-          <FiberManualRecordIcon sx={{ fontSize: 12, marginTop: '7px', color: 'secondary.main' }} />
-          <span>
-            2020 yılında Kurtköy Anadolu Lisesi'nden mezun olduktan sonra, yazılıma olan tutkumun peşinden giderek Erzincan Binali Yıldırım Üniversitesi Bilgisayar Mühendisliği bölümünde 2025 yılında eğitimimi tamamladım. Artık  bir Bilgisayar Mühendisi olarak, edindiğim teorik bilgileri gerçek dünya projeleriyle buluşturmanın heyecanını taşıyorum.
-          </span>
-        </li>
-        {/* Backend ve yazılım ilgisi */}
-        <li style={{ marginBottom: 16, display: 'flex', alignItems: 'flex-start', gap: 8 }}>
-          <FiberManualRecordIcon sx={{ fontSize: 12, marginTop: '7px', color: 'secondary.main' }} />
-          <span>
-            Java + Spring Boot ile backend geliştirme konusunda çabalıyorum. Temiz kod, iyi mimari ve performans odaklı sistemler ilgi alanım. Hobi olarak modern web uygulamaları tasarlayıp frontend dünyasında kendimi geliştiriyorum.
-          </span>
-        </li>
-        {/* Vizyon ve motivasyon */}
-        <li style={{ marginBottom: 16, display: 'flex', alignItems: 'flex-start', gap: 8 }}>
-          <FiberManualRecordIcon sx={{ fontSize: 12, marginTop: '7px', color: 'secondary.main' }} />
-          <span>
-            Teknolojinin sunduğu sonsuz imkanları keşfetmeye ve kendimi her geçen gün daha da ileriye taşımaya olan inancım tam. Amacım, sadece işlevsel değil, aynı zamanda kullanıcıların hayatına değer katan, yenilikçi ve sürdürülebilir yazılım çözümleri geliştirmek.
-          </span>
-        </li>
+        {items.map((item, idx) => (
+          <li key={idx} style={{ marginBottom: 16, display: 'flex', alignItems: 'flex-start', gap: 8 }}>
+            <FiberManualRecordIcon sx={{ fontSize: 12, marginTop: '7px', color: 'secondary.main' }} />
+            <span>{item}</span>
+          </li>
+        ))}
       </ul>
     </Box>
   );
