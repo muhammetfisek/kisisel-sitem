@@ -1,12 +1,52 @@
-# React + Vite
+# FİŞEK Kişisel Web Sitesi
 
-This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
+Bu proje, Muhammet FİŞEK'in kişisel web sitesidir. React + Vite kullanılarak geliştirilmiştir.
 
-Currently, two official plugins are available:
+## Özellikler
 
-- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react) uses [Babel](https://babeljs.io/) for Fast Refresh
-- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react-swc) uses [SWC](https://swc.rs/) for Fast Refresh
+- 🎨 Modern ve responsive tasarım
+- 🌙 Dark/Light mode desteği
+- 🌍 Türkçe/İngilizce dil desteği
+- 🤖 AI Chat Asistanı (Gemini API entegrasyonu)
+- 📱 Mobil uyumlu tasarım
+- ⚡ Hızlı yükleme (Vite)
 
-## Expanding the ESLint configuration
+## AI Chat Asistanı Kurulumu
 
-If you are developing a production application, we recommend using TypeScript with type-aware lint rules enabled. Check out the [TS template](https://github.com/vitejs/vite/tree/main/packages/create-vite/template-react-ts) for information on how to integrate TypeScript and [`typescript-eslint`](https://typescript-eslint.io) in your project.
+AI Chat özelliğini aktif hale getirmek için:
+
+1. [Google AI Studio](https://aistudio.google.com/apikey) adresinden Gemini API key alın
+2. Proje ana dizininde `.env` dosyası oluşturun
+3. `.env` dosyasına API key'inizi ekleyin:
+
+```env
+VITE_GEMINI_API_KEY=your_gemini_api_key_here
+```
+
+4. Uygulamayı yeniden başlatın
+
+## Kurulum
+
+```bash
+# Bağımlılıkları yükle
+npm install
+
+# Geliştirme sunucusunu başlat
+npm run dev
+
+# Production build
+npm run build
+```
+
+## Teknolojiler
+
+- React 19
+- Vite
+- Material-UI (MUI)
+- React Router
+- i18next (Çoklu dil desteği)
+- Google Generative AI (Gemini)
+
+## Lisans
+
+MIT

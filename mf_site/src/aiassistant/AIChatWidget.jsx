@@ -4,7 +4,9 @@ import IconButton from "@mui/material/IconButton";
 import PsychologyIcon from "@mui/icons-material/Psychology";
 import CloseIcon from "@mui/icons-material/Close";
 import SendIcon from "@mui/icons-material/Send";
+import CircularProgress from "@mui/material/CircularProgress";
 import { useTheme } from "@mui/material/styles";
+import { sendMessage, isApiKeyAvailable } from "../services/geminiService";
 
 export default function AIChatWidget() {
   const [open, setOpen] = useState(false);
@@ -13,9 +15,11 @@ export default function AIChatWidget() {
     {
       from: "bot",
       text:
-        "Merhaba! Ben FİŞEK'in kişisel asistanıyım. Size FİŞEK hakkında bilgi verebilir ve sorularınızı yanıtlayabilirim. Nasıl yardımcı olabilirim?",
+        "Merhaba! Ben FİŞEK'in kişisel asistanıyım. Size FİŞEK hakkında bilgi verebilir ve sorularınızı yanıtlayabilirim. Nasıl yardımcı olabilirim? 😊",
     },
   ]);
+  const [isLoading, setIsLoading] = useState(false);
+  const [apiKeyAvailable, setApiKeyAvailable] = useState(true);
   const theme = useTheme();
   const inputRef = useRef(null);
   const messagesEndRef = useRef(null);
@@ -33,6 +37,11 @@ export default function AIChatWidget() {
       messagesEndRef.current.scrollIntoView({ behavior: 'smooth' });
     }
   }, [messages, open]);
+
+  // API key kontrolü
+  useEffect(() => {
+    setApiKeyAvailable(isApiKeyAvailable());
+  }, []);
 
   // Dışarı tıklanınca pencereyi kapat
   useEffect(() => {
@@ -53,23 +62,48 @@ export default function AIChatWidget() {
     };
   }, [open]);
 
-  // Sadece UI için sahte gönderme
-  const handleSend = () => {
-    if (!input.trim()) return;
+  // Gerçek API ile mesaj gönderme
+  const handleSend = async () => {
+    if (!input.trim() || isLoading) return;
+
+    const userMessage = input.trim();
+    setInput("");
+    setIsLoading(true);
+
+    // Kullanıcı mesajını ekle
     setMessages((prev) => [
       ...prev,
-      { from: "user", text: input },
-      {
-        from: "bot",
-        text:
-          "Üzgünüm, ben sadece FİŞEK'in özgeçmişi hakkında bilgi verebilirim.",
-      },
+      { from: "user", text: userMessage },
     ]);
-    setInput("");
+
+    try {
+      // API'ye mesaj gönder
+      const response = await sendMessage(userMessage);
+      
+      // Bot yanıtını ekle
+      setMessages((prev) => [
+        ...prev,
+        { from: "bot", text: response.text },
+      ]);
+    } catch (error) {
+      console.error("Mesaj gönderme hatası:", error);
+      setMessages((prev) => [
+        ...prev,
+        { 
+          from: "bot", 
+          text: "Üzgünüm, bir hata oluştu. Lütfen daha sonra tekrar deneyin." 
+        },
+      ]);
+    } finally {
+      setIsLoading(false);
+    }
   };
 
   const handleInputKeyDown = (e) => {
-    if (e.key === "Enter") handleSend();
+    if (e.key === "Enter" && !e.shiftKey) {
+      e.preventDefault();
+      handleSend();
+    }
   };
 
   return (
@@ -91,7 +125,7 @@ export default function AIChatWidget() {
             background: `linear-gradient(135deg, ${theme.palette.primary.main} 0%, ${theme.palette.secondary.main} 100%)`,
             color: "#fff",
             boxShadow: 6,
-            animation: "ai-glow 2.5s ease-in-out infinite",
+            animation: apiKeyAvailable ? "ai-glow 2.5s ease-in-out infinite" : "none",
             border: `2px solid ${theme.palette.secondary.main}`,
             transition: "transform 0.2s, box-shadow 0.2s",
             '&:hover': {
@@ -140,6 +174,14 @@ export default function AIChatWidget() {
               <CloseIcon fontSize="small" />
             </IconButton>
           </Box>
+          
+          {/* API Key Uyarısı */}
+          {!apiKeyAvailable && (
+            <Box sx={{ p: 1, bgcolor: '#ff9800', color: '#fff', fontSize: 12, textAlign: 'center' }}>
+              ⚠️ API anahtarı bulunamadı. Lütfen .env dosyasına VITE_GEMINI_API_KEY ekleyin.
+            </Box>
+          )}
+
           {/* Chat Alanı */}
           <Box sx={{ flex: 1, p: 2, bgcolor: "#181a20", color: "#fff", fontSize: 15, overflowY: "auto", display: 'flex', flexDirection: 'column', gap: 2 }}>
             {messages.map((msg, i) => (
@@ -168,17 +210,46 @@ export default function AIChatWidget() {
                 {msg.text}
               </Box>
             ))}
+            
+            {/* Loading indicator */}
+            {isLoading && (
+              <Box
+                sx={{
+                  alignSelf: "flex-start",
+                  maxWidth: '80%',
+                  mb: 1,
+                  borderRadius: 3,
+                  px: 2,
+                  py: 1.5,
+                  bgcolor: "#23272f",
+                  color: "#e0e0e0",
+                  boxShadow: 1,
+                  fontSize: 16,
+                  fontWeight: 400,
+                  borderTopLeftRadius: 12,
+                  display: 'flex',
+                  alignItems: 'center',
+                  gap: 1,
+                }}
+              >
+                <CircularProgress size={16} sx={{ color: theme.palette.secondary.main }} />
+                Düşünüyor...
+              </Box>
+            )}
+            
             <div ref={messagesEndRef} />
           </Box>
+          
           {/* Mesaj Girişi */}
           <Box sx={{ display: "flex", alignItems: "center", p: 2, borderTop: "1px solid #222", bgcolor: "background.paper", gap: 1 }}>
             <input
               type="text"
-              placeholder="Mesajınızı yazın..."
+              placeholder={apiKeyAvailable ? "Mesajınızı yazın..." : "API anahtarı gerekli"}
               value={input}
               onChange={e => setInput(e.target.value)}
               onKeyDown={handleInputKeyDown}
               ref={inputRef}
+              disabled={!apiKeyAvailable || isLoading}
               style={{
                 flex: 1,
                 border: "none",
@@ -187,10 +258,20 @@ export default function AIChatWidget() {
                 background: "transparent",
                 color: theme.palette.mode === 'dark' ? '#fff' : '#222',
                 padding: '8px 0',
+                opacity: (!apiKeyAvailable || isLoading) ? 0.5 : 1,
               }}
             />
-            <IconButton color="primary" onClick={handleSend} disabled={!input.trim()} sx={{ background: input.trim() ? `linear-gradient(135deg, ${theme.palette.primary.main}, ${theme.palette.secondary.main})` : 'none', color: input.trim() ? '#fff' : '#888', transition: 'all 0.2s' }}>
-              <SendIcon />
+            <IconButton 
+              color="primary" 
+              onClick={handleSend} 
+              disabled={!input.trim() || isLoading || !apiKeyAvailable}
+              sx={{ 
+                background: (input.trim() && !isLoading && apiKeyAvailable) ? `linear-gradient(135deg, ${theme.palette.primary.main}, ${theme.palette.secondary.main})` : 'none', 
+                color: (input.trim() && !isLoading && apiKeyAvailable) ? '#fff' : '#888', 
+                transition: 'all 0.2s' 
+              }}
+            >
+              {isLoading ? <CircularProgress size={20} sx={{ color: theme.palette.secondary.main }} /> : <SendIcon />}
             </IconButton>
           </Box>
         </Box>
