@@ -27,10 +27,10 @@ export default function AIChatWidget() {
   const iconRef = useRef(null);
 
   useEffect(() => {
-    if (open && inputRef.current) {
+    if (!isLoading && open && inputRef.current) {
       inputRef.current.focus();
     }
-  }, [open]);
+  }, [isLoading, open]);
 
   useEffect(() => {
     if (messagesEndRef.current) {
@@ -96,6 +96,7 @@ export default function AIChatWidget() {
       ]);
     } finally {
       setIsLoading(false);
+      if (inputRef.current) inputRef.current.focus();
     }
   };
 
@@ -249,7 +250,7 @@ export default function AIChatWidget() {
               onChange={e => setInput(e.target.value)}
               onKeyDown={handleInputKeyDown}
               ref={inputRef}
-              disabled={!apiKeyAvailable || isLoading}
+              disabled={!apiKeyAvailable}
               style={{
                 flex: 1,
                 border: "none",
@@ -258,7 +259,7 @@ export default function AIChatWidget() {
                 background: "transparent",
                 color: theme.palette.mode === 'dark' ? '#fff' : '#222',
                 padding: '8px 0',
-                opacity: (!apiKeyAvailable || isLoading) ? 0.5 : 1,
+                opacity: (!apiKeyAvailable) ? 0.5 : 1,
               }}
             />
             <IconButton 

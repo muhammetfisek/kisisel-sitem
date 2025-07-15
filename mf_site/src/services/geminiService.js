@@ -1,19 +1,33 @@
 import { GoogleGenerativeAI } from "@google/generative-ai";
 
-// Gemini API anahtarını environment variable'dan al
+// Google Gemini API anahtarını .env dosyasından alıyoruz.
+// Bu anahtar, Google Cloud Console'dan alınır ve güvenli şekilde saklanmalıdır.
 const API_KEY = import.meta.env.VITE_GEMINI_API_KEY;
 
-// Eğer API key yoksa uyarı ver
+// Eğer API anahtarı yoksa, konsola uyarı veriyoruz.
 if (!API_KEY) {
   console.warn("VITE_GEMINI_API_KEY environment variable bulunamadı!");
 }
 
-// Gemini AI modelini başlat
+// Google Gemini AI servisini başlatıyoruz.
 const genAI = new GoogleGenerativeAI(API_KEY);
 
-// FİŞEK'in kişisel bilgileri - context olarak kullanılacak
+// Kullanılacak AI modelini seçiyoruz..
+const model = genAI.getGenerativeModel({ model: "gemini-1.5-flash" });
+
+// Sohbeti (chat) yönetmek için global bir chat objesi tanımlıyoruz.
+let chat = null;
+
+// Güncel tarihi alıp, context'e ekliyoruz.
+// Böylece AI, her zaman doğru tarihi bilir.
+const TODAY = new Date();
+const GUNCEL_TARIH = TODAY.toLocaleDateString("tr-TR", { year: "numeric", month: "long", day: "numeric" });
+
+// AI'ya, FİŞEK hakkında bilgi vermesi için gerekli tüm kişisel bilgileri ve kuralları context olarak veriyoruz.
+// Bu context, AI'nın her soruya doğru ve kişisel yanıt vermesini sağlar.
 const FISEK_CONTEXT = `
-Sen FİŞEK'in kişisel AI asistanısın. Aşağıdaki bilgileri kullanarak soruları yanıtla:
+Sen FİŞEK'in kişisel AI asistanısın. Bugünün tarihi: ${GUNCEL_TARIH}
+Aşağıdaki bilgileri kullanarak soruları yanıtla:
 
 KİŞİSEL BİLGİLER:
 - Ad Soyad: Muhammet FİŞEK
@@ -112,87 +126,58 @@ KURALLAR:
 6. Emoji kullanabilirsin 😊
 `;
 
-// Chat modelini oluştur
-const model = genAI.getGenerativeModel({ model: "gemini-1.5-flash" });
-
-// Chat geçmişini tut
-let chatHistory = [];
-
-// Mesaj gönderme fonksiyonu
+// Kullanıcıdan gelen mesajı AI'ya gönderen fonksiyon.
+// Bu fonksiyon, chat başlatılmamışsa önce context ile başlatır, ardından kullanıcı mesajını AI'ya iletir.
 export const sendMessage = async (userMessage) => {
   try {
-    // API key kontrolü
+    // API anahtarı kontrolü. Eğer yoksa hata fırlatılır.
     if (!API_KEY) {
       throw new Error("Gemini API anahtarı bulunamadı!");
     }
 
-    // İlk mesajsa context'i ekle
-    if (chatHistory.length === 0) {
-      chatHistory.push({
-        role: "user",
-        parts: [{ text: FISEK_CONTEXT }]
-      });
-      chatHistory.push({
-        role: "model",
-        parts: [{ text: "Merhaba! Ben FİŞEK'in kişisel asistanıyım. Size FİŞEK hakkında bilgi verebilir ve sorularınızı yanıtlayabilirim. Nasıl yardımcı olabilirim? 😊" }]
+    // Eğer chat başlatılmadıysa, context ile yeni bir sohbet başlatılır.
+    if (!chat) {
+      chat = model.startChat({
+        history: [
+          { role: "user", parts: [{ text: FISEK_CONTEXT }] },
+          { role: "model", parts: [{ text: "Merhaba! Ben FİŞEK'in kişisel asistanıyım. Size FİŞEK hakkında bilgi verebilir ve sorularınızı yanıtlayabilirim. Nasıl yardımcı olabilirim? 😊" }] }
+        ],
+        generationConfig: {
+          // AI'nın döndüreceği maksimum token (kelime/karakter) sayısı. Yüksek tutulursa daha uzun yanıtlar alınır.
+          maxOutputTokens: 4096,
+          // Yanıtların çeşitliliğini belirler. 0.7 genellikle doğal ve çeşitli yanıtlar için idealdir.
+          temperature: 0.7,
+        },
       });
     }
 
-    // Kullanıcı mesajını ekle
-    chatHistory.push({
-      role: "user",
-      parts: [{ text: userMessage }]
-    });
-
-    // Chat'i başlat
-    const chat = model.startChat({
-      history: chatHistory,
-      generationConfig: {
-        maxOutputTokens: 500,
-        temperature: 0.7,
-      },
-    });
-
-    // Yanıt al
+    // Kullanıcı mesajını AI'ya gönderiyoruz ve yanıtı bekliyoruz.
     const result = await chat.sendMessage(userMessage);
     const response = await result.response;
     const text = response.text();
 
-    // Model yanıtını geçmişe ekle
-    chatHistory.push({
-      role: "model",
-      parts: [{ text }]
-    });
-
-    // Geçmişi 10 mesajla sınırla (performans için)
-    if (chatHistory.length > 10) {
-      chatHistory = chatHistory.slice(-10);
-    }
-
+    // AI'dan gelen yanıtı döndürüyoruz.
     return { success: true, text };
 
   } catch (error) {
+    // Hata oluşursa, konsola detaylı hata yazılır ve kullanıcıya uygun mesaj gösterilir.
     console.error("Gemini API Hatası:", error);
-    
-    // Hata durumunda kullanıcı dostu mesaj
     let errorMessage = "Üzgünüm, şu anda yanıt veremiyorum. Lütfen daha sonra tekrar deneyin.";
-    
     if (error.message.includes("API anahtarı")) {
       errorMessage = "API bağlantısında sorun var. Lütfen daha sonra tekrar deneyin.";
     } else if (error.message.includes("quota")) {
       errorMessage = "API kotası dolmuş. Lütfen daha sonra tekrar deneyin.";
     }
-
     return { success: false, text: errorMessage };
   }
 };
 
-// Chat geçmişini temizle
+// Sohbeti sıfırlamak için kullanılır. Yeni bir konuşma başlatmak istediğinde çağrılır.
 export const clearChatHistory = () => {
-  chatHistory = [];
+  chat = null;
 };
 
-// API key'in varlığını kontrol et
+// API anahtarının var olup olmadığını kontrol eden yardımcı fonksiyon.
 export const isApiKeyAvailable = () => {
   return !!API_KEY;
 }; 
