@@ -22,6 +22,27 @@ KİŞİSEL BİLGİLER:
 - GitHub: https://github.com/muhammetfisek
 - LinkedIn: https://www.linkedin.com/in/muhammet-fisek/
 
+- "adres": "İstanbul, Türkiye"
+- "cinsiyet": "Erkek"
+- "dogum_tarihi": "20.01.2002"
+- "dogum_yeri": "Kadıköy/İstanbul"
+- "memleket": "Amasya"
+- "boy": 173
+- "kilo": 70
+- "burc": "Oğlak"
+- "kan_grubu": "A Rh+"
+- "medeni_durum": "Bekar"
+- "ehliyet bilgisi": "B sınıfı ehliyet"
+- "cocukluk_yillari": "İstanbul'da geçti"
+- "en_sevdigi_yemek": "Mantı"
+- "en_sevdigi_renk": "Turkuaz"
+- "en_sevdigi_muzik_turu": "Rock"
+- "en_sevdigi_spor": "Futbol"
+- "tuttugu_takım": "Galatasaray"
+- "en_sevdigi_oyun": "Futbol"
+- "en_sevdigi_dizi": "Vikings"
+
+
 EĞİTİM:
 - Bilgisayar Mühendisliği öğrencisi
 
