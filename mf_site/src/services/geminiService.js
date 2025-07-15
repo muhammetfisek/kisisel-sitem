@@ -21,12 +21,12 @@ let chat = null;
 // Güncel tarihi alıp, context'e ekliyoruz.
 // Böylece AI, her zaman doğru tarihi bilir.
 const TODAY = new Date();
-const GUNCEL_TARIH = TODAY.toLocaleDateString("tr-TR", { year: "numeric", month: "long", day: "numeric" });
+const GUNCEL_TARIH_TR = TODAY.toLocaleDateString("tr-TR", { year: "numeric", month: "long", day: "numeric" });
+const GUNCEL_TARIH_EN = TODAY.toLocaleDateString("en-US", { year: "numeric", month: "long", day: "numeric" });
 
-// AI'ya, FİŞEK hakkında bilgi vermesi için gerekli tüm kişisel bilgileri ve kuralları context olarak veriyoruz.
-// Bu context, AI'nın her soruya doğru ve kişisel yanıt vermesini sağlar.
-const FISEK_CONTEXT = `
-Sen FİŞEK'in kişisel AI asistanısın. Bugünün tarihi: ${GUNCEL_TARIH}
+// Türkçe context
+const FISEK_CONTEXT_TR = `
+Sen FİŞEK'in kişisel AI asistanısın. Bugünün tarihi: ${GUNCEL_TARIH_TR}
 Aşağıdaki bilgileri kullanarak soruları yanıtla:
 
 KİŞİSEL BİLGİLER:
@@ -126,26 +126,131 @@ KURALLAR:
 6. Emoji kullanabilirsin 😊
 `;
 
+// İngilizce context
+const FISEK_CONTEXT_EN = `
+You are FİŞEK's personal AI assistant. Today's date: ${GUNCEL_TARIH_EN}
+Answer questions using the information below:
+
+PERSONAL INFORMATION:
+- Name Surname: Muhammet FİŞEK
+- Title: Software Developer
+- Email: muhammetfisek121@gmail.com
+- GitHub: https://github.com/muhammetfisek
+- LinkedIn: https://www.linkedin.com/in/muhammet-fisek/
+
+- "address": "Istanbul, Turkey"
+- "gender": "Male"
+- "date_of_birth": "20.01.2002"
+- "place_of_birth": "Kadıköy/Istanbul"
+- "hometown": "Amasya"
+- "height": 173
+- "weight": 70
+- "zodiac": "Capricorn"
+- "blood_type": "A Rh+"
+- "marital_status": "Single"
+- "driver_license": "Class B"
+- "childhood_years": "Spent in Istanbul"
+- "favorite_food": "Mantı (Turkish dumplings)"
+- "favorite_color": "Turquoise"
+- "favorite_music_genre": "Rock"
+- "favorite_sport": "Football"
+- "favorite_team": "Galatasaray"
+- "favorite_game": "Football"
+- "favorite_series": "Vikings"
+
+EDUCATION:
+- Computer Engineering student
+
+SKILLS:
+Programming & Development:
+- Java - Spring Boot (80%)
+- React.js (70%)
+- Android Development (Java) (70%)
+- C# (70%)
+- C (75%)
+- JavaScript (78%)
+- HTML/CSS (95%)
+- MS-SQL (70%)
+- PostgreSQL (50%)
+- Data Structures and Algorithms (75%)
+- Object Oriented Programming (OOP) (75%)
+
+Design:
+- Mobile Android UI/UX (40%)
+- Web UI/UX (85%)
+- Adobe Photoshop (50%)
+
+Languages:
+- Turkish (Native)
+- English (Advanced)
+
+Other:
+- Problem Solving (85%)
+- Teamwork (80%)
+- Project Management (70%)
+- Fast Learning (90%)
+
+PROJECTS:
+1. AI-Based Hairdresser Assistant and Business Management App
+   - Appointment management app for hairdressers and beauty salons
+   - Backend: Spring Boot, AI: Python-Flask
+   - Upload a photo to get haircut and care suggestions
+
+2. Image Processing and Clustering Application
+   - Developed with C# Windows Forms
+   - K-Means (density, RGB, Mahalanobis) and Sobel edge detection algorithms
+   - Detailed pixel and histogram analysis
+
+3. Sports Complex Application
+   - Mobile app with Java and SQLite
+   - Create daily exercise routines
+   - Healthy lifestyle support
+
+4. Internship Project: User Platform
+   - User-oriented social interaction platform
+   - Secure registration/login, user listing, profile management
+
+5. Static Website: News
+   - Developed with HTML and CSS
+   - Website displaying news and content
+
+6. Horse-Racing-Game
+   - Developed with C#
+   - 2-4 player horse racing game
+
+RULES:
+1. Only provide information about FİŞEK, do not talk about other topics
+2. Answer in English
+3. Be friendly and helpful
+4. If you don't know something, say so honestly
+5. Give short and concise answers
+6. You can use emojis 😊
+`;
+
 // Kullanıcıdan gelen mesajı AI'ya gönderen fonksiyon.
 // Bu fonksiyon, chat başlatılmamışsa önce context ile başlatır, ardından kullanıcı mesajını AI'ya iletir.
-export const sendMessage = async (userMessage) => {
+export const sendMessage = async (userMessage, lang = "tr") => {
   try {
     // API anahtarı kontrolü. Eğer yoksa hata fırlatılır.
     if (!API_KEY) {
       throw new Error("Gemini API anahtarı bulunamadı!");
     }
 
+    // Context'i dile göre seç
+    const context = lang === "en" ? FISEK_CONTEXT_EN : FISEK_CONTEXT_TR;
+    const welcome = lang === "en"
+      ? "Hello! I'm FİŞEK's personal assistant. I can provide information about FİŞEK and answer your questions. How can I help you? 😊"
+      : "Merhaba! Ben FİŞEK'in kişisel asistanıyım. Size FİŞEK hakkında bilgi verebilir ve sorularınızı yanıtlayabilirim. Nasıl yardımcı olabilirim? 😊";
+
     // Eğer chat başlatılmadıysa, context ile yeni bir sohbet başlatılır.
     if (!chat) {
       chat = model.startChat({
         history: [
-          { role: "user", parts: [{ text: FISEK_CONTEXT }] },
-          { role: "model", parts: [{ text: "Merhaba! Ben FİŞEK'in kişisel asistanıyım. Size FİŞEK hakkında bilgi verebilir ve sorularınızı yanıtlayabilirim. Nasıl yardımcı olabilirim? 😊" }] }
+          { role: "user", parts: [{ text: context }] },
+          { role: "model", parts: [{ text: welcome }] }
         ],
         generationConfig: {
-          // AI'nın döndüreceği maksimum token (kelime/karakter) sayısı. Yüksek tutulursa daha uzun yanıtlar alınır.
           maxOutputTokens: 4096,
-          // Yanıtların çeşitliliğini belirler. 0.7 genellikle doğal ve çeşitli yanıtlar için idealdir.
           temperature: 0.7,
         },
       });
@@ -162,11 +267,17 @@ export const sendMessage = async (userMessage) => {
   } catch (error) {
     // Hata oluşursa, konsola detaylı hata yazılır ve kullanıcıya uygun mesaj gösterilir.
     console.error("Gemini API Hatası:", error);
-    let errorMessage = "Üzgünüm, şu anda yanıt veremiyorum. Lütfen daha sonra tekrar deneyin.";
+    let errorMessage = lang === "en"
+      ? "Sorry, I can't respond right now. Please try again later."
+      : "Üzgünüm, şu anda yanıt veremiyorum. Lütfen daha sonra tekrar deneyin.";
     if (error.message.includes("API anahtarı")) {
-      errorMessage = "API bağlantısında sorun var. Lütfen daha sonra tekrar deneyin.";
+      errorMessage = lang === "en"
+        ? "There is a problem with the API connection. Please try again later."
+        : "API bağlantısında sorun var. Lütfen daha sonra tekrar deneyin.";
     } else if (error.message.includes("quota")) {
-      errorMessage = "API kotası dolmuş. Lütfen daha sonra tekrar deneyin.";
+      errorMessage = lang === "en"
+        ? "API quota exceeded. Please try again later."
+        : "API kotası dolmuş. Lütfen daha sonra tekrar deneyin.";
     }
     return { success: false, text: errorMessage };
   }

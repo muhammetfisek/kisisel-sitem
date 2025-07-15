@@ -7,6 +7,7 @@ import SendIcon from "@mui/icons-material/Send";
 import CircularProgress from "@mui/material/CircularProgress";
 import { useTheme } from "@mui/material/styles";
 import { sendMessage, isApiKeyAvailable } from "../services/geminiService";
+import { useTranslation } from "react-i18next";
 
 export default function AIChatWidget() {
   const [open, setOpen] = useState(false);
@@ -25,6 +26,7 @@ export default function AIChatWidget() {
   const messagesEndRef = useRef(null);
   const chatBoxRef = useRef(null);
   const iconRef = useRef(null);
+  const { i18n } = useTranslation();
 
   useEffect(() => {
     if (!isLoading && open && inputRef.current) {
@@ -42,6 +44,20 @@ export default function AIChatWidget() {
   useEffect(() => {
     setApiKeyAvailable(isApiKeyAvailable());
   }, []);
+
+  // İlk mesajı dile göre ayarla
+  useEffect(() => {
+    const lang = i18n.language || "tr";
+    setMessages([
+      {
+        from: "bot",
+        text:
+          lang === "en"
+            ? "Hello! I'm FİŞEK's personal assistant. I can provide information about FİŞEK and answer your questions. How can I help you? 😊"
+            : "Merhaba! Ben FİŞEK'in kişisel asistanıyım. Size FİŞEK hakkında bilgi verebilir ve sorularınızı yanıtlayabilirim. Nasıl yardımcı olabilirim? 😊",
+      },
+    ]);
+  }, [i18n.language]);
 
   // Dışarı tıklanınca pencereyi kapat
   useEffect(() => {
@@ -78,7 +94,7 @@ export default function AIChatWidget() {
 
     try {
       // API'ye mesaj gönder
-      const response = await sendMessage(userMessage);
+      const response = await sendMessage(userMessage, i18n.language || "tr");
       
       // Bot yanıtını ekle
       setMessages((prev) => [
@@ -91,7 +107,10 @@ export default function AIChatWidget() {
         ...prev,
         { 
           from: "bot", 
-          text: "Üzgünüm, bir hata oluştu. Lütfen daha sonra tekrar deneyin." 
+          text:
+            (i18n.language === "en"
+              ? "Sorry, an error occurred. Please try again later."
+              : "Üzgünüm, bir hata oluştu. Lütfen daha sonra tekrar deneyin."),
         },
       ]);
     } finally {
