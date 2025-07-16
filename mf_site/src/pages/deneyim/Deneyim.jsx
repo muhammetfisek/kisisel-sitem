@@ -104,14 +104,14 @@ export default function Deneyim() {
       </Typography>
       {/* Deneyim ve eğitim kartlarını grid ile yan yana sırala */}
       <Grid container spacing={4} justifyContent="center" alignItems="stretch" sx={{
-        flexWrap: 'nowrap',
-        overflowX: { xs: 'auto', md: 'visible' },
+        flexWrap: { xs: 'wrap', md: 'nowrap' },
+        overflowX: { xs: 'visible', md: 'visible' },
         maxWidth: '100vw',
         minHeight: 700,
         gap: 4,
       }}>
         {/* Sol kart: Deneyimler */}
-        <Grid item xs={12} sm={6} md={6} lg={5} sx={{ minWidth: 600, maxWidth: 600, flex: 1, display: 'flex', alignItems: 'stretch' }}>
+        <Grid item xs={12} sm={12} md={6} lg={5} sx={{ minWidth: 300, maxWidth: 600, flex: 1, display: 'flex', alignItems: 'stretch', justifyContent: 'center' }}>
           <Paper elevation={12} sx={{
             p: { xs: 2, md: 4 },
             borderRadius: 6,
@@ -152,7 +152,7 @@ export default function Deneyim() {
           </Paper>
         </Grid>
         {/* Sağ kart: Eğitimler */}
-        <Grid item xs={12} sm={6} md={6} lg={5} sx={{ minWidth: 600, maxWidth: 600, flex: 1, display: 'flex', alignItems: 'stretch' }}>
+        <Grid item xs={12} sm={12} md={6} lg={5} sx={{ minWidth: 300, maxWidth: 600, flex: 1, display: 'flex', alignItems: 'stretch', justifyContent: 'center' }}>
           <Paper elevation={12} sx={{
             p: { xs: 2, md: 4 },
             borderRadius: 6,

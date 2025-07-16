@@ -113,31 +113,39 @@ export default function Projelerim() {
       </Typography>
       {/* Proje kartlarını 3'erli satırlarda gösteren grid yapısı */}
       <Box sx={{ maxWidth: 1200, mx: 'auto' }}>
-        {projeGruplari.map((grup, grupIdx) => (
-          <Grid container spacing={4} justifyContent="center" alignItems="flex-start" key={grupIdx} sx={{ mt: grupIdx === 0 ? 0 : '59px' }}>
-            {grup.map((proje, idx) => {
-              const globalIdx = grupIdx * 3 + idx;
-              // Her proje için ProjectCard componenti kullanılır
-              return (
-                <Grid item xs={12} sm={6} md={4} key={proje.baslik + grupIdx + idx} sx={{ display: 'flex', flex: 1, minWidth: 0, maxWidth: '100%', height: '100%' }}>
-                  <ProjectCard
-                    proje={proje}
-                    globalIdx={globalIdx}
-                    cardBg={cardBg}
-                    borderColor={borderColor}
-                    hoverBorder={hoverBorder}
-                    hoverShadow={hoverShadow}
-                    githubIconColor={githubIconColor}
-                    isDark={isDark}
-                    objectFitMap={objectFitMap}
-                    handleOpenModal={handleOpenModal}
-                    handleImgLoad={handleImgLoad}
-                  />
-                </Grid>
-              );
-            })}
-          </Grid>
-        ))}
+        <Grid container spacing={4} justifyContent="center" alignItems="flex-start">
+          {projeler.map((proje, idx) => (
+            <Grid
+              item
+              xs={12}
+              sm={6}
+              md={4}
+              key={proje.baslik + idx}
+              sx={{
+                display: 'flex',
+                flex: 1,
+                minWidth: 280, // Minimum genişlik!
+                maxWidth: 370, // Maksimum genişlik!
+                height: '100%',
+                justifyContent: 'center',
+              }}
+            >
+              <ProjectCard
+                proje={proje}
+                globalIdx={idx}
+                cardBg={cardBg}
+                borderColor={borderColor}
+                hoverBorder={hoverBorder}
+                hoverShadow={hoverShadow}
+                githubIconColor={githubIconColor}
+                isDark={isDark}
+                objectFitMap={objectFitMap}
+                handleOpenModal={handleOpenModal}
+                handleImgLoad={handleImgLoad}
+              />
+            </Grid>
+          ))}
+        </Grid>
       </Box>
       {/* Modal: Büyük görseli göstermek için kullanılır */}
       <Modal

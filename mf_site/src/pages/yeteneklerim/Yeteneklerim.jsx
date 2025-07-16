@@ -125,7 +125,7 @@ export default function Yeteneklerim() {
       {/* Yetenek gruplarını grid olarak sırala */}
       <Grid container spacing={4} justifyContent="center" alignItems="stretch">
         {skills.map((group, idx) => (
-          <Grid item xs={12} sm={6} md={3} key={group.title} sx={{ display: 'flex', flex: 1, minWidth: 0, maxWidth: '100%', height: '100%' }}>
+          <Grid item xs={12} sm={6} md={3} key={group.title} sx={{ display: 'flex', flex: 1, minWidth: 250, maxWidth: 350, height: '100%', justifyContent: 'center' }}>
             <Fade in={show} timeout={1000}>
               <Box sx={{ width: '100%' }}>
                 <SkillGroupCard group={group} groupIdx={idx} />
