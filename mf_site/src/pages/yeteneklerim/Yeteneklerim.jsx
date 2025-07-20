@@ -29,6 +29,8 @@ const skills = [
       { name: "PostgreSQL", level: 50 },
       { name: "Veri Yapıları ve Algoritmalar", level: 75 },
       { name: "Nesne Yönelimli Programlama (OOP)", level: 75 },
+      { name: "Redis", level: 50 },
+      { name: "Yapay Zeka Temelleri", level: 50 },
     ],
   },
   {

@@ -64,7 +64,9 @@
           "MS-SQL",
           "PostgreSQL",
           "Veri Yapıları ve Algoritmalar",
-          "Nesne Yönelimli Programlama (OOP)"
+          "Nesne Yönelimli Programlama (OOP)",
+          "Redis",
+          "Yapay Zeka Temelleri"
         ]
       },
       {

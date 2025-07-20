@@ -64,7 +64,9 @@
           "MS-SQL",
           "PostgreSQL",
           "Data Structures and Algorithms",
-          "Object Oriented Programming (OOP)"
+          "Object Oriented Programming (OOP)",
+          "Redis",
+          "Artificial Intelligence Fundamentals"
         ]
       },
       {
