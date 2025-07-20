@@ -59,7 +59,8 @@ KİŞİSEL BİLGİLER:
 
 
 EĞİTİM:
-- Bilgisayar Mühendisliği öğrencisi
+- Bilgisayar Mühendisi Erzincan Binali Yıldırım Üniversitesi'nden 2025 yılında mezun olmuştur.
+-Liseyi İstanbul Pendik Kurtköy Anadolu lisesinde okumuştur 
 
 YETENEKLER:
 Programlama & Geliştirme:
@@ -161,7 +162,8 @@ PERSONAL INFORMATION:
 - "favorite_series": "Vikings"
 
 EDUCATION:
-- Computer Engineering student
+- Computer Engineer graduated from Erzincan Binali Yıldırım University in 2025
+- He attended high school in Istanbul Pendik Kurtköy Anatolian High School.
 
 SKILLS:
 Programming & Development:
