@@ -93,17 +93,17 @@ export default function SkillGroupCard({ group, groupIdx }) {
         ))}
       </Box>
       {/* İçerik taşarsa sağ altta zıplayan ok göster */}
-      <Box sx={{ width: '100%', display: 'flex', justifyContent: 'right', mt: -2, pr: 2 }}>
-        <KeyboardArrowDownIcon sx={{
-          color: group.color,
-          fontSize: 32,
-          animation: 'bounceDown 1.2s infinite',
-          '@keyframes bounceDown': {
-            '0%, 100%': { transform: 'translateY(0)' },
-            '50%': { transform: 'translateY(10px)' },
-          },
-        }} />
-      </Box>
+        <Box sx={{ width: '100%', display: 'flex', justifyContent: 'right', mt: -2, pr: 2 }}>
+          <KeyboardArrowDownIcon sx={{
+            color: group.color,
+            fontSize: 32,
+            animation: 'bounceDown 1.2s infinite',
+            '@keyframes bounceDown': {
+              '0%, 100%': { transform: 'translateY(0)' },
+              '50%': { transform: 'translateY(10px)' },
+            },
+          }} />
+        </Box>
     </Paper>
   );
 } 
