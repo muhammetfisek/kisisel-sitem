@@ -3,7 +3,7 @@ import Box from "@mui/material/Box";
 import Avatar from "@mui/material/Avatar";
 import ppPhoto from "@/fotolar/pp.jpeg";
 
-// Profil fotoğrafı (avatar) componenti
+// Profil fotoğrafı (avatar) componenti yapısı
 export default function ProfileAvatar() {
   return (
     <Box
