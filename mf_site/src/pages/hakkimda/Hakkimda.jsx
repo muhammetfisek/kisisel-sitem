@@ -12,7 +12,14 @@ export default function Hakkimda() {
   const theme = useTheme();
   const { t } = useTranslation();
   return (
-    <Box sx={{ width: '100%', minHeight: '90vh', bgcolor: 'background.default', py: { xs: 4, md: 12 }, px: { xs: 1, md: 6 } }}>
+    <Box sx={{ 
+      width: '100%', 
+      minHeight: '90vh', 
+      bgcolor: 'background.default', 
+      py: { xs: 2, md: 12 }, // Mobilde padding'i azalttım
+      px: { xs: 1, md: 6 },
+      mt: { xs: 0, md: 0 } // Mobilde üst margin'i kaldırdım
+    }}>
       <Typography
         variant="h3"
         sx={{

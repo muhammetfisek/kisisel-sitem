@@ -59,7 +59,14 @@ export default function Deneyim() {
 
   return (
     // Sayfanın ana kutusu, responsive padding ve arka plan rengi ile
-    <Box sx={{ width: '100%', minHeight: '90vh', bgcolor: 'background.default', px: { xs: 1, md: 6 }, py: 6, mt: { xs: 3, md: 6 } }}>
+    <Box sx={{ 
+      width: '100%', 
+      minHeight: '90vh', 
+      bgcolor: 'background.default', 
+      px: { xs: 1, md: 6 }, 
+      py: { xs: 2, md: 6 }, // Mobilde padding'i azalttım
+      mt: { xs: 0, md: 6 } // Mobilde üst margin'i kaldırdım
+    }}>
       {/* Sayfa başlığı ve altındaki renkli çizgi */}
       <Typography
         variant="h3"

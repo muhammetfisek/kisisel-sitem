@@ -77,7 +77,14 @@ export default function Yeteneklerim() {
 
   return (
     // Sayfanın ana kutusu, responsive padding ve arka plan rengi ile
-    <Box sx={{ width: '100%', minHeight: '90vh', bgcolor: 'background.default', px: { xs: 1, md: 6 }, mt: { xs: 3, md: 10 } }}>
+    <Box sx={{ 
+      width: '100%', 
+      minHeight: '90vh', 
+      bgcolor: 'background.default', 
+      px: { xs: 1, md: 6 }, 
+      mt: { xs: 0, md: 3 }, // Desktop'ta boşluğu azalttım
+      py: { xs: 2, md: 6 } // Desktop'ta padding'i azalttım
+    }}>
       <Box sx={{ height: '10px' }} />
       {/* Başlık ve alt başlık animasyonlu şekilde */}
       <Fade in={show} timeout={900}>

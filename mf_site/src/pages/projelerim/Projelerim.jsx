@@ -70,7 +70,13 @@ export default function Projelerim() {
   const projeGruplari = chunkArray(projeler, 3);
 
   return (
-    <Box sx={{ width: '100%', minHeight: '90vh', bgcolor: 'background.default', px: { xs: 1, md: 6 }, py: 8 }}>
+    <Box sx={{ 
+      width: '100%', 
+      minHeight: '90vh', 
+      bgcolor: 'background.default', 
+      px: { xs: 1, md: 6 }, 
+      py: { xs: 2, md: 8 } // Mobilde padding'i azalttım
+    }}>
       {/* Sayfa başlığı ve alt başlık */}
       <Typography
         variant="h3"

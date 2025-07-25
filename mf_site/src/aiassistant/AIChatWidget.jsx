@@ -6,7 +6,7 @@ import CloseIcon from "@mui/icons-material/Close";
 import SendIcon from "@mui/icons-material/Send";
 import CircularProgress from "@mui/material/CircularProgress";
 import { useTheme } from "@mui/material/styles";
-import { sendMessage, isApiKeyAvailable } from "../services/geminiService";
+import { sendMessage } from "../services/geminiService";
 import { useTranslation } from "react-i18next";
 
 export default function AIChatWidget() {
@@ -20,7 +20,6 @@ export default function AIChatWidget() {
     },
   ]);
   const [isLoading, setIsLoading] = useState(false);
-  const [apiKeyAvailable, setApiKeyAvailable] = useState(true);
   const theme = useTheme();
   const inputRef = useRef(null);
   const messagesEndRef = useRef(null);
@@ -39,11 +38,6 @@ export default function AIChatWidget() {
       messagesEndRef.current.scrollIntoView({ behavior: 'smooth' });
     }
   }, [messages, open]);
-
-  // API key kontrolü
-  useEffect(() => {
-    setApiKeyAvailable(isApiKeyAvailable());
-  }, []);
 
   // İlk mesajı dile göre ayarla
   useEffect(() => {
@@ -132,9 +126,10 @@ export default function AIChatWidget() {
       <Box
         sx={{
           position: "fixed",
-          bottom: 32,
-          right: 32,
+          bottom: { xs: 16, sm: 32 },
+          right: { xs: 16, sm: 32 },
           zIndex: 1300,
+          display: { xs: open ? 'none' : 'block', sm: 'block' },
         }}
       >
         <IconButton
@@ -145,7 +140,7 @@ export default function AIChatWidget() {
             background: `linear-gradient(135deg, ${theme.palette.primary.main} 0%, ${theme.palette.secondary.main} 100%)`,
             color: "#fff",
             boxShadow: 6,
-            animation: apiKeyAvailable ? "ai-glow 2.5s ease-in-out infinite" : "none",
+            animation: "ai-glow 2.5s ease-in-out infinite",
             border: `2px solid ${theme.palette.secondary.main}`,
             transition: "transform 0.2s, box-shadow 0.2s",
             '&:hover': {
@@ -172,13 +167,15 @@ export default function AIChatWidget() {
           ref={chatBoxRef}
           sx={{
             position: "fixed",
-            bottom: 32,
-            right: 32 + 72, // ikon ile çakışmasın diye biraz sola kaydır
-            width: 360,
-            height: 520,
+            top: { xs: 0, sm: 'auto' },
+            bottom: { xs: 0, sm: 32 },
+            right: { xs: 0, sm: 32 },
+            left: { xs: 0, sm: 'auto' },
+            width: { xs: '100vw', sm: 360 },
+            height: { xs: '100vh', sm: 520 },
             bgcolor: "background.paper",
-            borderRadius: 4,
-            boxShadow: 8,
+            borderRadius: { xs: 0, sm: 4 },
+            boxShadow: { xs: 0, sm: 8 },
             display: "flex",
             flexDirection: "column",
             zIndex: 1400,
@@ -186,41 +183,68 @@ export default function AIChatWidget() {
           }}
         >
           {/* Header */}
-          <Box sx={{ display: "flex", alignItems: "center", p: 2, background: `linear-gradient(90deg, ${theme.palette.primary.main}, ${theme.palette.secondary.main})`, color: "#fff", fontWeight:700, fontSize: 50, letterSpacing: 0.5 }}>
-            <Box sx={{ flex: 1, textAlign: 'center', fontWeight: 700, fontSize: 16 }}>
+          <Box sx={{ 
+            display: "flex", 
+            alignItems: "center", 
+            p: 2, 
+            background: `linear-gradient(90deg, ${theme.palette.primary.main}, ${theme.palette.secondary.main})`, 
+            color: "#fff", 
+            fontWeight: 700, 
+            letterSpacing: 0.5,
+            position: 'relative'
+          }}>
+            <Box sx={{ 
+              flex: 1, 
+              textAlign: 'center', 
+              fontWeight: 700, 
+              fontSize: { xs: 14, sm: 16 }
+            }}>
               FİŞEK AI ASİSTANI
             </Box>
-            <IconButton size="small" sx={{ color: "#fff", position: 'absolute', right: 12 }} onClick={() => setOpen(false)} aria-label="Kapat">
+            <IconButton 
+              size="small" 
+              sx={{ 
+                color: "#fff", 
+                position: 'absolute', 
+                right: 8,
+                top: '50%',
+                transform: 'translateY(-50%)'
+              }} 
+              onClick={() => setOpen(false)} 
+              aria-label="Kapat"
+            >
               <CloseIcon fontSize="small" />
             </IconButton>
           </Box>
-          
-          {/* API Key Uyarısı */}
-          {!apiKeyAvailable && (
-            <Box sx={{ p: 1, bgcolor: '#ff9800', color: '#fff', fontSize: 12, textAlign: 'center' }}>
-              ⚠️ API anahtarı bulunamadı. Lütfen .env dosyasına VITE_GEMINI_API_KEY ekleyin.
-            </Box>
-          )}
 
           {/* Chat Alanı */}
-          <Box sx={{ flex: 1, p: 2, bgcolor: "#181a20", color: "#fff", fontSize: 15, overflowY: "auto", display: 'flex', flexDirection: 'column', gap: 2 }}>
+          <Box sx={{ 
+            flex: 1, 
+            p: 2, 
+            bgcolor: "#181a20", 
+            color: "#fff", 
+            fontSize: 15, 
+            overflowY: "auto", 
+            display: 'flex', 
+            flexDirection: 'column', 
+            gap: 2 
+          }}>
             {messages.map((msg, i) => (
               <Box
                 key={i}
                 sx={{
                   alignSelf: msg.from === "user" ? "flex-end" : "flex-start",
-                  maxWidth: '80%',
+                  maxWidth: '85%',
                   mb: 1,
                   borderRadius: 3,
                   px: 2,
                   py: 1.5,
-                  bgcolor:
-                    msg.from === "user"
-                      ? `linear-gradient(90deg, ${theme.palette.primary.main}, ${theme.palette.secondary.main})`
-                      : "#23272f",
+                  background: msg.from === "user"
+                    ? `linear-gradient(90deg, ${theme.palette.primary.main}, ${theme.palette.secondary.main})`
+                    : "#23272f",
                   color: msg.from === "user" ? "#fff" : "#e0e0e0",
                   boxShadow: msg.from === "user" ? 3 : 1,
-                  fontSize: 16,
+                  fontSize: { xs: 14, sm: 16 },
                   fontWeight: 400,
                   wordBreak: 'break-word',
                   borderTopRightRadius: msg.from === "user" ? 0 : 12,
@@ -236,7 +260,7 @@ export default function AIChatWidget() {
               <Box
                 sx={{
                   alignSelf: "flex-start",
-                  maxWidth: '80%',
+                  maxWidth: '85%',
                   mb: 1,
                   borderRadius: 3,
                   px: 2,
@@ -244,7 +268,7 @@ export default function AIChatWidget() {
                   bgcolor: "#23272f",
                   color: "#e0e0e0",
                   boxShadow: 1,
-                  fontSize: 16,
+                  fontSize: { xs: 14, sm: 16 },
                   fontWeight: 400,
                   borderTopLeftRadius: 12,
                   display: 'flex',
@@ -261,33 +285,38 @@ export default function AIChatWidget() {
           </Box>
           
           {/* Mesaj Girişi */}
-          <Box sx={{ display: "flex", alignItems: "center", p: 2, borderTop: "1px solid #222", bgcolor: "background.paper", gap: 1 }}>
+          <Box sx={{ 
+            display: "flex", 
+            alignItems: "center", 
+            p: 2, 
+            borderTop: "1px solid #222", 
+            bgcolor: "background.paper", 
+            gap: 1 
+          }}>
             <input
               type="text"
-              placeholder={apiKeyAvailable ? "Mesajınızı yazın..." : "API anahtarı gerekli"}
+              placeholder="Mesajınızı yazın..."
               value={input}
               onChange={e => setInput(e.target.value)}
               onKeyDown={handleInputKeyDown}
               ref={inputRef}
-              disabled={!apiKeyAvailable}
               style={{
                 flex: 1,
                 border: "none",
                 outline: "none",
-                fontSize: 16,
+                fontSize: { xs: 14, sm: 16 },
                 background: "transparent",
                 color: theme.palette.mode === 'dark' ? '#fff' : '#222',
                 padding: '8px 0',
-                opacity: (!apiKeyAvailable) ? 0.5 : 1,
               }}
             />
             <IconButton 
               color="primary" 
               onClick={handleSend} 
-              disabled={!input.trim() || isLoading || !apiKeyAvailable}
+              disabled={!input.trim() || isLoading}
               sx={{ 
-                background: (input.trim() && !isLoading && apiKeyAvailable) ? `linear-gradient(135deg, ${theme.palette.primary.main}, ${theme.palette.secondary.main})` : 'none', 
-                color: (input.trim() && !isLoading && apiKeyAvailable) ? '#fff' : '#888', 
+                background: (input.trim() && !isLoading) ? `linear-gradient(135deg, ${theme.palette.primary.main}, ${theme.palette.secondary.main})` : 'none', 
+                color: (input.trim() && !isLoading) ? '#fff' : '#888', 
                 transition: 'all 0.2s' 
               }}
             >

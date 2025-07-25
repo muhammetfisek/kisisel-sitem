@@ -10,7 +10,17 @@ export default function Iletisim() {
   const { t } = useTranslation();
   return (
     // Sayfanın ana kutusu, başlık ve form ile
-    <Box sx={{ width: '100%', minHeight: '90vh', bgcolor: 'background.default', py: { xs: 4, md: 12 }, px: { xs: 1, md: 6 }, display: 'flex', flexDirection: 'column', alignItems: 'center', justifyContent: 'flex-start' }}>
+    <Box sx={{ 
+      width: '100%', 
+      minHeight: '90vh', 
+      bgcolor: 'background.default', 
+      py: { xs: 2, md: 12 }, // Mobilde padding'i azalttım
+      px: { xs: 1, md: 6 }, 
+      display: 'flex', 
+      flexDirection: 'column', 
+      alignItems: 'center', 
+      justifyContent: 'flex-start' 
+    }}>
       {/* Sayfa başlığı ve altındaki renkli çizgi */}
       <Typography
         variant="h3"

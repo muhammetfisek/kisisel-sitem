@@ -2,6 +2,7 @@ import React, { useRef, useState, useEffect } from "react";
 import Box from "@mui/material/Box";
 import { ThemeProvider, createTheme } from "@mui/material/styles";
 import CssBaseline from "@mui/material/CssBaseline";
+import useMediaQuery from '@mui/material/useMediaQuery';
 import Navbar from "./navbar/Navbar";
 import Home from "./pages/home/Home";
 import Hakkimda from "./pages/hakkimda/Hakkimda";
@@ -28,6 +29,9 @@ export default function App() {
   const location = useLocation();
   const navigate = useNavigate();
   const scrollTriggeredRef = useRef(false);
+  
+  // Mobil kontrolü
+  const isMobile = useMediaQuery('(max-width:768px)');
 
   const theme = React.useMemo(
     () =>
@@ -84,30 +88,47 @@ export default function App() {
     
     if (targetRef && targetRef.current) {
       scrollTriggeredRef.current = false; // Menüden tıklama ile scroll
-      targetRef.current.scrollIntoView({ behavior: smooth ? "smooth" : "instant" });
+      
+      if (isMobile) {
+        // Mobil için özel scroll davranışı
+        const element = targetRef.current;
+        const navbarHeight = 64;
+        const elementTop = element.offsetTop;
+        const scrollPosition = elementTop - navbarHeight; // Ekstra boşluğu kaldırdım
+        
+        window.scrollTo({ 
+          top: Math.max(0, scrollPosition), 
+          behavior: smooth ? "smooth" : "instant" 
+        });
+      } else {
+        // Desktop için eski davranış (düzgün çalışan)
+        targetRef.current.scrollIntoView({ behavior: smooth ? "smooth" : "instant" });
+      }
     }
   };
 
   useEffect(() => {
     const section = pathToSection[location.pathname] || 'anasayfa';
     setActiveSection(section); // önce aktif bölümü path'e göre ayarla
+    
     // Sadece menüden tıklama veya ilk yüklemede scroll yap
     if (!scrollTriggeredRef.current) {
       setTimeout(() => {
         handleScrollTo(section, false);
         setContentLoaded(true);
         initialScrollDone.current = true;
-      }, 1);
+      }, isMobile ? 100 : 1); // Mobilde biraz daha beklet
     }
     // eslint-disable-next-line
-  }, [location.pathname]);
+  }, [location.pathname, isMobile]);
 
   useEffect(() => {
     const handleScroll = () => {
       if (!initialScrollDone.current) return;
       scrollTriggeredRef.current = true; // Scroll event'i ile path değişimi
       const scrollY = window.scrollY;
-      const offset = 130;
+      const offset = isMobile ? 80 : 130; // Mobilde offset'i azalttım
+      
       if (scrollY < 50) {
         if (activeSection !== "anasayfa") setActiveSection("anasayfa");
         if (location.pathname !== '/') {
@@ -115,6 +136,7 @@ export default function App() {
         }
         return;
       }
+      
       const sections = [
         { id: "hakkimda", ref: hakkimdaRef },
         { id: "yeteneklerim", ref: yeteneklerimRef },
@@ -122,6 +144,7 @@ export default function App() {
         { id: "projelerim", ref: projelerimRef },
         { id: "iletisim", ref: iletisimRef },
       ];
+      
       let currentActive = "anasayfa";
       for (let i = sections.length - 1; i >= 0; i--) {
         const section = sections[i];
@@ -134,18 +157,21 @@ export default function App() {
           }
         }
       }
+      
       if (activeSection !== currentActive) {
         setActiveSection(currentActive);
       }
+      
       const newPath = sectionToPath[currentActive] || '/';
       if (location.pathname !== newPath) {
         navigate(newPath, { replace: true });
       }
     };
+    
     window.addEventListener("scroll", handleScroll);
     return () => window.removeEventListener("scroll", handleScroll);
     // eslint-disable-next-line
-  }, [activeSection, location.pathname]);
+  }, [activeSection, location.pathname, isMobile]);
 
   return (
     <ThemeProvider theme={theme}>
