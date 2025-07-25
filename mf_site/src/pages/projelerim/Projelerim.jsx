@@ -74,8 +74,8 @@ export default function Projelerim() {
       width: '100%', 
       minHeight: '90vh', 
       bgcolor: 'background.default', 
-      px: { xs: 1, md: 6 }, 
-      py: { xs: 2, md: 8 } // Mobilde padding'i azalttım
+      px: { xs: 0.5, sm: 2, md: 6 }, 
+      py: { xs: 1, sm: 2, md: 8 }
     }}>
       {/* Sayfa başlığı ve alt başlık */}
       <Typography
@@ -119,7 +119,7 @@ export default function Projelerim() {
       </Typography>
       {/* Proje kartlarını 3'erli satırlarda gösteren grid yapısı */}
       <Box sx={{ maxWidth: 1200, mx: 'auto' }}>
-        <Grid container spacing={4} justifyContent="center" alignItems="flex-start">
+        <Grid container spacing={{ xs: 2, sm: 3, md: 4 }} justifyContent="center" alignItems="stretch">
           {projeler.map((proje, idx) => (
             <Grid
               item
@@ -129,11 +129,11 @@ export default function Projelerim() {
               key={proje.baslik + idx}
               sx={{
                 display: 'flex',
-                flex: 1,
-                minWidth: 280, // Minimum genişlik!
-                maxWidth: 370, // Maksimum genişlik!
-                height: '100%',
                 justifyContent: 'center',
+                alignItems: 'stretch',
+                width: '100%',
+                maxWidth: { xs: '100%', sm: 400, md: 370 },
+                minHeight: 560,
               }}
             >
               <ProjectCard

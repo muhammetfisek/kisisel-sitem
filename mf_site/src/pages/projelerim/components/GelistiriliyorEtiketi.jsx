@@ -10,21 +10,36 @@ const GelistiriliyorEtiketi = memo(() => (
     sx={{
       background: 'linear-gradient(90deg,#ff9800,#ffb347)',
       color: '#fff',
-      fontSize: 13,
+      fontSize: { xs: 11, sm: 13 },
       fontWeight: 600,
       borderRadius: 999,
-      px: 2,
+      px: { xs: 1.5, sm: 2 },
       py: 0.5,
       boxShadow: '0 2px 8px 0 rgba(0,0,0,0.10)',
       letterSpacing: 0.5,
       display: 'flex',
       alignItems: 'center',
-      gap: 0.7,
+      gap: { xs: 0.5, sm: 0.7 },
+      maxWidth: { xs: '90%', sm: '100%' },
     }}
   >
     {/* Dönen ayar ikonu */}
-    <SettingsIcon sx={{ fontSize: 16, color: '#fff', mr: 0.7, animation: 'spin 1.2s linear infinite', '@keyframes spin': { '0%': { transform: 'rotate(0deg)' }, '100%': { transform: 'rotate(360deg)' } } }} />
-    Şu anda Geliştiriliyor Takipte Kalın
+    <SettingsIcon sx={{ 
+      fontSize: { xs: 14, sm: 16 }, 
+      color: '#fff', 
+      mr: { xs: 0.5, sm: 0.7 }, 
+      animation: 'spin 1.2s linear infinite', 
+      '@keyframes spin': { 
+        '0%': { transform: 'rotate(0deg)' }, 
+        '100%': { transform: 'rotate(360deg)' } 
+      } 
+    }} />
+    <Box sx={{ 
+      fontSize: { xs: '0.7rem', sm: 'inherit' },
+      lineHeight: 1.2
+    }}>
+      Şu anda Geliştiriliyor Takipte Kalın
+    </Box>
   </Box>
 ));
 
