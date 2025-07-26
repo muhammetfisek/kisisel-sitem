@@ -23,7 +23,7 @@ export default function ProfileInfo() {
           letterSpacing: 1,
         }}
       >
-        Muhammet FİŞEK
+        Muhammet FİŞEKs
       </Typography>
       <Typography
         variant="h5"
